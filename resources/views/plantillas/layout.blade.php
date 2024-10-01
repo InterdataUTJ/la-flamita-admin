@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>La flamita</title>
+    <title>@yield("titulo")</title>
 
-    <link rel="shortcut icon" href="{{URL('storage/logo.png')}}" type="image/png">
+    <link rel="shortcut icon" href="{{URL('/images/logo.png')}}" type="image/png">
 
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
+    {{-- Integrar el CSS y JS compilado para usar Tailwind y Flowbite --}}
+    @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
-<body style="background-color: #ebebc8;">
-    <nav class="bg-white border-gray-200 dark:bg-gray-900">
+<body>
+    <nav class="bg-white border-gray-200 dark:bg-gray-900 shadow-md">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-                <img src="{{ URL("storage/logo.svg") }}" class="h-8" alt="Flowbite Logo" />
+                <img src="{{ URL("/images/logo.svg") }}" class="h-8" alt="Flowbite Logo" />
                 <span class="self-center text-2xl font-bold whitespace-nowrap dark:text-white">La flamita</span>
             </a>
             <button data-collapse-toggle="navbar-default" type="button"
@@ -41,34 +42,22 @@
                           >Menú</a>
                     </li>
                     <li>
-                        <a href="#"
-                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                          >About</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Services</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Pricing</a>
-                    </li>
-                    <li>
-                        <a href="/login/login"
+                        <a href="/login"
                           @if ($title == 'login')
                             class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
                             aria-current="page"
                           @else
                             class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                           @endif
-                          >Iniciar Sesión</a>
+                          >Iniciar sesión</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    @yield("contenido")
+
 </body>
 
 </html>

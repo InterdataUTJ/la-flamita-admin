@@ -18,4 +18,4 @@ Route::get('/', function () {
     return view('welcome', ['title' => 'menu']);
 });
 
-Route::get('/login/login', [LoginController::class, 'login']);
+Route::get('/login', [LoginController::class, 'login']);
