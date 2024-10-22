@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Auth\AuthEmpleadoController;
+use App\Http\Controllers\Auth\AuthClienteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +15,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome', ['title' => 'menu']);
+// General
+Route::view('/', "menu")->name('menu');
+
+// Clientes
+Route::get('/login', [AuthClienteController::class, 'showForm'])->name('cliente.login');
+Route::get('/singup', [AuthClienteController::class, 'showNewForm'])->name('cliente.singup');
+
+// Empleados
+Route::get('/empleado/login', [AuthEmpleadoController::class, 'showForm'])->name('empleado.login');
+Route::post('/empleado/login', [AuthEmpleadoController::class, 'login'])->name('empleado.login');
+
+// Empleados protegidos
+Route::middleware(['auth:empleado'])->group(function() {
+    Route::post('/empleado/logout', [AuthEmpleadoController::class, 'logout'])->name('empleado.logout');
 });
 
-Route::get('/login', [LoginController::class, 'login']);
+// Clientes protegidos
+Route::middleware(['auth:cliente'])->group(function() {
+    Route::post('/logout', [AuthClienteController::class, 'logout'])->name('cliente.logout');
+});
