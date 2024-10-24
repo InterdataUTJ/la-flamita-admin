@@ -20,7 +20,9 @@ Route::view('/', "menu")->name('menu');
 
 // Clientes
 Route::get('/login', [AuthClienteController::class, 'showForm'])->name('cliente.login');
+Route::post('/login', [AuthClienteController::class, 'login'])->name('cliente.login');
 Route::get('/singup', [AuthClienteController::class, 'showNewForm'])->name('cliente.singup');
+Route::post('/singup', [AuthClienteController::class, 'create'])->name('cliente.singup');
 
 // Empleados
 Route::get('/empleado/login', [AuthEmpleadoController::class, 'showForm'])->name('empleado.login');

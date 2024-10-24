@@ -2,13 +2,16 @@
 
 @section('titulo', 'Iniciar sesión')
 
+@include('plantillas.error')
+
 @section("contenido")
 <main class="w-11/12 max-w-screen-sm mx-auto pt-5">
     <h1 class="mb-5 text-center mb-4 text-xl font-extrabold text-gray-900 dark:text-white md:text-4xl lg:text-5xl">
         Iniciar sesión
     </h1>
     
-    <form class="mb-10">
+    <form class="mb-10" action="/login" method="POST" enctype="multipart/form-data">
+        @csrf
         <div class="mb-5">
             <label for="correo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo electrónico</label>
             <input type="email" name="correo" id="correo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-second focus:border-second block w-full p-2.5" placeholder="ejemplo@ejemplo.com" maxlength="50" required />

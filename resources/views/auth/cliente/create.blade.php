@@ -8,14 +8,15 @@
         Crear una cuenta
     </h1>
     
-    <form class="mb-10">
+    <form class="mb-10" action="/singup" method="POST" enctype="multipart/form-data">
+        @csrf
         <div class="mb-5">
             <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
             <input type="text" name="nombre" id="nombre" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-second focus:border-second block w-full p-2.5" placeholder="John" maxlength="50" required />
         </div>
         
         <div class="mb-5">
-            <label for="apellido" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
+            <label for="apellido" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido</label>
             <input type="text" name="apellido" id="apellido" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-second focus:border-second block w-full p-2.5" placeholder="Doe" maxlength="50" required />
         </div>
 
