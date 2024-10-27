@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('apellido', 50);
             $table->string('correo')->unique();
             $table->char('clave', 60)->nullable();
-            $table->text('avatar')->nullable();
+            $table->text('avatar')->default('/storage/avatar/default.svg');
             $table->boolean('estado')->default(true);
-            $table->string('rol', 50);
+            $table->enum('rol', ['ADMINISTRADOR', 'GERENTE', 'EMPLEADO'])->default('EMPLEADO');
             $table->timestamps();
         });
     }
