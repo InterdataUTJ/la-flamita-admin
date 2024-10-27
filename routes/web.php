@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthEmpleadoController;
 use App\Http\Controllers\Auth\AuthClienteController;
 use App\Http\Controllers\Auth\GoogleController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClienteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +17,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// General
+// General nos manda a menu
 Route::view('/', "menu")->name('menu');
+
+
+
+
 
 // Clientes
 Route::get('/login', [AuthClienteController::class, 'showForm'])->name('cliente.login');
@@ -29,16 +34,38 @@ Route::post('/singup', [AuthClienteController::class, 'create'])->name('cliente.
 Route::get("/auth/google/redirect", [GoogleController::class, "redirect"]);
 Route::get("/auth/google/callback", [GoogleController::class, "callback"]);
 
-// Empleados
-Route::get('/empleado/login', [AuthEmpleadoController::class, 'showForm'])->name('empleado.login');
-Route::post('/empleado/login', [AuthEmpleadoController::class, 'login'])->name('empleado.login');
 
-// Empleados protegidos
-Route::middleware(['auth:empleado'])->group(function() {
-    Route::post('/empleado/logout', [AuthEmpleadoController::class, 'logout'])->name('empleado.logout');
-});
 
 // Clientes protegidos
-Route::middleware(['auth:cliente'])->group(function() {
-    Route::post('/logout', [AuthClienteController::class, 'logout'])->name('cliente.logout');
+Route::group(["middleware" => "auth:cliente", "as" => "cliente;"],function() {
+    Route::post('/logout', [AuthClienteController::class, 'logout'])->name('logout');
+});
+
+
+
+
+
+
+// Empleados
+Route::get('/empleado/login', [AuthEmpleadoController::class, 'showForm'])->name('empleado.login'); // Retorna la vista para logear el empleado
+Route::post('/empleado/login', [AuthEmpleadoController::class, 'login'])->name('empleado.login');
+
+
+
+// Empleados protegidos
+Route::group(["middleware" => "auth:empleado", "as" => "empleado;"], function() {
+    
+    Route::view("/panel", "dashboard")->name("panel"); // Retorna la vista del panel de control
+    Route::post('/empleado/logout', [AuthEmpleadoController::class, 'logout'])->name('logout');
+
+    Route::get('/cliente/listar', [ClienteController::class, 'index'])->name('cliente.listar'); // Retorna la vista de todos los clientes
+    
+    Route::get('/cliente/crear', [ClienteController::class, 'create'])->name('cliente.crear'); // Retorna la vista del formulario de crear
+    Route::post('/cliente/store', [ClienteController::class, 'store'])->name('cliente.store'); // El metodo post que envia los datos del cliente
+
+    Route::get('/cliente/editar/{id}', [ClienteController::class, 'edit'])->name('cliente.editar'); // Retorna la vista del formulario para editar la informacion
+    Route::put('/cliente/update/{id}', [ClienteController::class, 'update'])->name('cliente.update'); // El metodo put que actualiza los datos del cliente
+
+    Route::get('/cliente/mostrar/{id}', [ClienteController::class, 'show'])->name('cliente.mostrar'); // Retorna la vista del cliente en particlar
+    Route::delete('/cliente/borrar/{id}', [ClienteController::class, 'delete'])->name('cliente.delete'); // Retorna la vista del $id del cliente para eliminarlo 
 });

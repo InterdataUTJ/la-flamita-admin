@@ -41,8 +41,8 @@ class AuthClienteController extends Controller {
 
     public function create(Request $request) {
         $credenciales = $request->validate([
-            "nombre" => "required|min:4",
-            "apellido" => "required|min:4",
+            "nombre" => "required|min:3|max:50",
+            "apellido" => "required|min:3|max:50",
             "correo" => "unique:clientes,correo|max:255|min:5|required|email",
             "clave" => "required|min:8|max:255",
         ]);
@@ -54,7 +54,7 @@ class AuthClienteController extends Controller {
         $cliente->clave = Hash::make($credenciales["clave"]);
         $cliente->estado = true;
         $cliente->verificado = false;
-        $cliente->avatar = "/storage/avatar/default.png";
+        $cliente->avatar = "/storage/avatar/default.svg";
         $cliente->save();
 
         Auth::guard("cliente")->login($cliente, $request->has("remember"));

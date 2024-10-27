@@ -14,28 +14,28 @@
         @csrf
         <div class="mb-5">
             <label for="correo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo electrónico</label>
-            <input type="email" name="correo" id="correo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-second focus:border-second block w-full p-2.5" placeholder="ejemplo@ejemplo.com" maxlength="50" required />
+            <input type="email" name="correo" id="correo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-400 block w-full p-2.5" placeholder="ejemplo@ejemplo.com" maxlength="50" required />
         </div>
 
         <div class="mb-5">
             <label for="clave" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
-            <input type="password" name="clave" id="clave" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-second focus:border-second block w-full p-2.5" placeholder="Contraseña" maxlength="50" required />
+            <input type="password" name="clave" id="clave" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-400 block w-full p-2.5" placeholder="Contraseña" maxlength="50" required />
         </div>
 
         <div class="flex items-start mb-5">
             <div class="flex items-center h-5">
-                <input id="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-second focus:border-second accent-second text-second" />
+                <input id="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-primary-500 focus:border-primary-400 accent-primary-500 text-primary-500" />
             </div>
             <label for="remember" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Recuérdame</label>
         </div>
 
-        <button type="submit" class="mb-5 w-full text-black font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex flex items-center justify-center gap-2 hover:bg-gray-100 active:bg-gray-200 text-white bg-second/90 hover:bg-second/85 active:bg-second">
+        <button type="submit" class="mb-5 w-full text-black font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex flex items-center justify-center gap-2 hover:bg-gray-100 active:bg-gray-200 text-white bg-primary-500 hover:bg-primary-400 active:bg-primary-600">
             <svg  xmlns="http://www.w3.org/2000/svg"  width="16"  height="16"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>
             Iniciar sesión
         </button>
 
         <p class="text-sm text-gray-500 dark:text-gray-400">
-            ¿No tienes una cuenta? <a href="/singup" class="font-bold text-second hover:underline">Crea una</a>
+            ¿No tienes una cuenta? <a href="/singup" class="font-bold text-primary-600 hover:underline">Crea una</a>
         </p>
     </form>
 
@@ -48,7 +48,7 @@
             </svg>
             Iniciar con Google
         </a>
-        <a href="/empleado/login" class="w-full text-fifth font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex flex items-center justify-center gap-2 border border-fifth hover:bg-gray-100 active:bg-gray-200 cursor-pointer select-none">
+        <a href="/empleado/login" class="w-full text-fifth font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex flex items-center justify-center gap-2 border border-quaternary-600 text-quaternary-600 hover:bg-gray-100 active:bg-gray-200 cursor-pointer select-none">
             <svg  xmlns="http://www.w3.org/2000/svg"  width="16"  height="16"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>
             Iniciar sesión como empleado
         </a>

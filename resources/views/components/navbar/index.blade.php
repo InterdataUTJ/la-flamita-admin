@@ -1,5 +1,9 @@
-@if (Auth::guard('empleado')->check() || Auth::guard('cliente')->check())
-  <x-navbar.auth></x-navbar.auth>
+@if (Auth::guard('empleado')->check())
+  <x-navbar.empleado />
+
+@elseif (Auth::guard('cliente')->check())
+  <x-navbar.cliente />
+
 @else
 <nav class="bg-white border-gray-200 dark:bg-gray-900 shadow-md">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
