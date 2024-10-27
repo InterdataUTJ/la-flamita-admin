@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('producto_fotos', function (Blueprint $table) {
             $table->id();
-            $table->integer('producto_id');
+            $table->foreignId('producto_id')->constrained()->onDelete('cascade');
             $table->text('url');
             $table->timestamps();
-            $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
         });
     }
 

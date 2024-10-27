@@ -13,16 +13,14 @@ return new class extends Migration
     {
         Schema::create('ventas', function (Blueprint $table) {
             $table->id();
-            $table->integer('empleado_id');
-            $table->integer('cliente_id')->nullable();
+            $table->foreignId('empleado_id')->constrained()->onDelete('cascade')->nullable();
+            $table->foreignId('cliente_id')->constrained()->onDelete('cascade')->nullable();
             $table->date('fecha_venta');
             $table->date('fecha_pago');
             $table->boolean('estado');
             $table->string('metodo_pago', 50);
             $table->decimal('impuestos', 10, 2);
             $table->timestamps();
-            $table->foreign('empleado_id')->references('id')->on('empleados');
-            $table->foreign('cliente_id')->references('id')->on('clientes');
         });
     }
 
