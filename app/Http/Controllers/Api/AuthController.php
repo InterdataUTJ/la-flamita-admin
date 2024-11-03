@@ -33,6 +33,42 @@ class AuthController extends Controller {
     return ['token' => $token->plainTextToken];
   }
 
+  public function singup(Request $request) {
+    $credenciales = $request->validate([
+      "nombre" => "required|min:3|max:50",
+      "apellido" => "required|min:3|max:50",
+      "correo" => "unique:clientes,correo|max:255|min:5|required|email",
+      "clave" => "required|min:8|max:255",
+    ]);
+
+    $cliente = new Cliente();
+    $cliente->nombre = $credenciales["nombre"];
+    $cliente->apellido = $credenciales["apellido"];
+    $cliente->correo = $credenciales["correo"];
+    $cliente->clave = Hash::make($credenciales["clave"]);
+    $cliente->estado = true;
+    $cliente->verificado = false;
+    $cliente->avatar = "/storage/avatar/default.svg";
+    $cliente->save();
+    $token = $cliente->createToken("ApiTokenUser");
+    
+    return ['token' => $token->plainTextToken];
+  }
+
+  public function profile(Request $request) {
+    $cliente = $request->user();
+
+    $perfil = [];
+    $perfil["avatar"] = $cliente->avatar;
+    $perfil["nombre"] = $cliente->nombre;
+    $perfil["apellido"] = $cliente->apellido;
+    $perfil["correo"] = $cliente->correo;
+    $perfil["verificado"] = $cliente->verificado;
+    $perfil["google"] = $cliente->google_id != null;
+
+    return $perfil;
+  }
+
 
   // Metodo para cerrar sesion eliminando el token de la base de datos
   public function logout(Request $request) {

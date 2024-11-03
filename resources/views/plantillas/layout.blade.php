@@ -9,10 +9,11 @@
     <link rel="shortcut icon" href="/images/logo.png" type="image/png">
 
     {{-- Integrar el CSS y JS compilado para usar Tailwind y Flowbite --}}
-    @vite(['resources/css/app.css','resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="h-full flex flex-col" style="background-color: #f4f4f4;">
     <x-navbar />
+    <x-toast />
 
     @yield("contenido.arriba")
 

@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthClienteController;
 use App\Http\Controllers\Auth\GoogleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
+use App\Models\Empleado;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,5 +68,5 @@ Route::group(["middleware" => "auth:empleado", "as" => "empleado;"], function() 
     Route::put('/cliente/update/{id}', [ClienteController::class, 'update'])->name('cliente.update'); // El metodo put que actualiza los datos del cliente
 
     Route::get('/cliente/mostrar/{id}', [ClienteController::class, 'show'])->name('cliente.mostrar'); // Retorna la vista del cliente en particlar
-    Route::delete('/cliente/borrar/{id}', [ClienteController::class, 'delete'])->name('cliente.delete'); // Retorna la vista del $id del cliente para eliminarlo 
+    Route::delete('/cliente/borrar/{id}', [ClienteController::class, 'delete'])->middleware("can:eliminar_clientes,".Empleado::class)->name('cliente.delete'); // Retorna la vista del $id del cliente para eliminarlo 
 });

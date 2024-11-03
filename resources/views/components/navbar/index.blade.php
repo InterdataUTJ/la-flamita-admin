@@ -25,24 +25,11 @@
           <ul
               class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               <li>
-                  <a href="/"
-                    @if (Route::is("menu"))
-                      class="block py-2 px-3 text-second rounded md:p-0"
-                      aria-current="page"
-                    @else
-                      class="block py-2 px-3 text-gray-900 rounded md:p-0 hover:text-second/70"
-                    @endif
-                    >Menú</a>
+                  <x-navbar.item url="/" label="Menú" />
               </li>
               <li>
-                  <a href="/login"
-                    @if (Route::is("*.login"))
-                      class="block py-2 px-3 text-second rounded md:p-0"
-                      aria-current="page"
-                    @else
-                      class="block py-2 px-3 text-gray-900 rounded md:p-0 hover:text-second/70"
-                    @endif
-                    >Iniciar sesión</a>
+                  
+                <x-navbar.item url="/login" label="Iniciar sesión" />
               </li>
           </ul>
       </div>

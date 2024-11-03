@@ -23,6 +23,7 @@ class ClienteController extends Controller {
             'apellido' => 'required|string|max:50|min:3',
             'correo' => 'required|email|unique:clientes,correo|max:255|min:5',
             'clave' => "required|min:8|max:255",
+            'clave2' => "required|min:8|max:255|same:clave",
             'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
         
@@ -59,6 +60,7 @@ class ClienteController extends Controller {
             'apellido' => 'required|string|max:50|min:3',
             'correo' => "required|email|unique:clientes,correo,$id|max:255|min:5",
             'clave' => "nullable|min:8|max:255",
+            'clave2' => "nullable|min:8|max:255|same:clave",
             'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
         

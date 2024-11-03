@@ -2,8 +2,6 @@
 
 @section('titulo', 'Iniciar sesión')
 
-@include('plantillas.error')
-
 @section("contenido")
 <main class="w-11/12 max-w-screen-sm mx-auto pt-5">
     <h1 class="mb-5 text-center mb-4 text-3xl font-extrabold text-gray-900 dark:text-white">

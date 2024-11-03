@@ -8,14 +8,17 @@
 {{-- Seccion para componentes o etiquetas --}}
 @section('contenido')
 
-<a class="block box-border mb-5 text-white bg-primary-500 hover:bg-primary-400 active:bg-primary-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm p-2 text-center" href="/cliente/crear">Crear</a>
+<a class="block box-border mb-5 text-white font-bold bg-primary-500 hover:bg-primary-400 active:bg-primary-600 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg text-sm p-2 text-center" href="/cliente/crear">
+    <i class="fa-solid fa-pen-to-square"></i>
+    Crear
+</a>
 
 @if($clientes->isEmpty())   
     No Existen Clientes
 @else
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-quinary-100 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="text-center px-6 py-3">
                     #
@@ -38,21 +41,18 @@
                 <th scope="col" class="text-center px-6 py-3">
                     Acción
                 </th>
-                <th scope="col" class="text-center px-6 py-3">
-                    Eliminar
-                </th>
             </tr>
         </thead>
         <tbody>
             @foreach($clientes as $cliente)
-            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+            <tr cliente="{{ $cliente->correo }}" class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                 <th scope="row" class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   {{$cliente->id}}
                 </th>
                 <td class="px-6 py-4">
                   <img src="{{$cliente->avatar}}" alt="imagen" class="w-10 h-10 rounded-full">
                 </td>
-                <th scope="row" class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <th campo="nombre" scope="row" class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {{$cliente->nombre}}
                 </th>
                 <td class="text-center px-6 py-4">
@@ -64,20 +64,22 @@
                 <td class="text-center px-6 py-4">
                     {{ $cliente->verificado ? 'Verificado' : 'No verificado' }}
                 </td>
-                <td class="text-center px-6 py-4 flex gap-4">
+                <td class="text-center px-6 py-4 flex gap-4 justify-center items-center">
                     <a href="/cliente/editar/{{$cliente->id}}">
-                        <i class="fa-solid fa-pen-to-square fa-xl" style="color: #FFD43B;"></i> <!--Botón de Editar-->
+                        <i class="fa-solid fa-pen-to-square fa-xl text-quinary-500 hover:scale-105"></i> <!--Botón de Editar-->
                     </a>
-                    <a href="/cliente/mostrar/{{$cliente->id}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                        <i class="fa-regular fa-eye fa-lg"></i>
+                    <a href="/cliente/mostrar/{{$cliente->id}}">
+                        <i class="fa-regular fa-eye fa-lg text-quaternary-500 hover:scale-105"></i>
                     </a>
-                </td>
-                <td class="text-center px-6 py-4">
-                    <form action="{{URL('/cliente/borrar/'.$cliente->id)}}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <input style="cursor: pointer; color: red" type="submit" value="Eliminar" onclick="return confirm('¿Desas eliminar este Cliente?')" />
-                    </form>
+                    @can("eliminar_clientes", Empleados::class)
+                        <form action="/cliente/borrar/{{ $cliente->id }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="hover:scale-105 text-primary-700 cursor-pointer" type="submit" onclick="return confirm('¿Desas eliminar este Cliente?')">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </form>
+                    @endcan
                 </td>
             </tr>
             @endforeach
