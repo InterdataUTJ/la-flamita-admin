@@ -1,3 +1,4 @@
+# Esta imagen de docker requiere de un servidor web. Preferentemente NGINX
 # Etapa 1: Imagen base de PHP con dependencias de Laravel
 FROM php:8.1-fpm-alpine
 
