@@ -2,183 +2,60 @@
 
 @section("titulo", "La Flamita")
 
-@section("contenido")
-<main>
-    {{-- Banner --}}
-    <div class="flex justify-center items-center relative w-full h-56 overflow-hidden mb-5">
-        <h3 class="relative z-10 text-first text-5xl font-extrabold">La Flamita</h3>
-        <img class="brightness-50 blur-sm absolute inset-0 object-cover" src="{{ URL("/images/banner.jpg") }}" alt="Banner">
-    </div>
-
-    <section class="max-w-screen-lg w-11/12 mx-auto">
-
-        <h2 class="text-center text-4xl font-extrabold mb-6">Menú</h2>
-
-        {{-- Contenedor de productos --}}
-        <div class="flex flex-wrap gap-5 justify-center">
-
-            <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex p-4 items-center">
-                <img class="object-cover w-32 rounded-t-lg" src="{{ URL("/storage/products/coca-cola.webp") }}" alt="product image" />
-                <div class="flex flex-col gap flex-1">
-                    <h5 class="text-lg font-bold text-gray-900 dark:text-white">Coca-Cola</h5>
-                    <p>Coca-Cola de vidrio de 600 ml.</p>
-                    <div class="flex items-center mt-2">
-                        <span class="text-xl font-bold text-gray-900 mr-4 flex-1">$599</span>
-                        <a href="#" class="text-white bg-fifth/95 hover:bg-fifth/90 active:bg-fifth focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center">Añadir al carrito</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
- {{-- Carrusel de los productos mas vendidos --}}
-        <div
-  id="carouselExampleCaptions"
-  class="relative"
-  data-twe-carousel-init
-  data-twe-ride="carousel">
-  <!--Carousel indicators-->
-  <div
-    class="absolute bottom-0 left-0 right-0 z-[2] mx-[15%] mb-4 flex list-none justify-center p-0"
-    data-twe-carousel-indicators>
-    <button
-      type="button"
-      data-twe-target="#carouselExampleCaptions"
-      data-twe-slide-to="0"
-      data-twe-carousel-active
-      class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
-      aria-current="true"
-      aria-label="Slide 1"></button>
-    <button
-      type="button"
-      data-twe-target="#carouselExampleCaptions"
-      data-twe-slide-to="1"
-      class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
-      aria-label="Slide 2"></button>
-    <button
-      type="button"
-      data-twe-target="#carouselExampleCaptions"
-      data-twe-slide-to="2"
-      class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
-      aria-label="Slide 3"></button>
-  </div>
-
-  <!--Carousel items-->
-  <div
-    class="relative w-full overflow-hidden after:clear-both after:block after:content-['']">
-    <!--First item-->
-    <div
-      class="relative float-left -mr-[100%] w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
-      data-twe-carousel-active
-      data-twe-carousel-item
-      style="backface-visibility: hidden">
-      <img
-        src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(15).jpg"
-        class="block w-full"
-        alt="..." />
-      <div
-        class="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-        <h5 class="text-xl">First slide label</h5>
-        <p>
-          Some representative placeholder content for the first slide.
-        </p>
-      </div>
-    </div>
-    <!--Second item-->
-    <div
-      class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
-      data-twe-carousel-item
-      style="backface-visibility: hidden">
-      <img
-        src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(22).jpg"
-        class="block w-full"
-        alt="..." />
-      <div
-        class="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-        <h5 class="text-xl">Second slide label</h5>
-        <p>
-          Some representative placeholder content for the second slide.
-        </p>
-      </div>
-    </div>
-    <!--Third item-->
-    <div
-      class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
-      data-twe-carousel-item
-      style="backface-visibility: hidden">
-      <img
-        src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(23).jpg"
-        class="block w-full"
-        alt="..." />
-      <div
-        class="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-        <h5 class="text-xl">Third slide label</h5>
-        <p>
-          Some representative placeholder content for the third slide.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!--Carousel controls - prev item-->
-  <button
-    class="absolute bottom-0 left-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
-    type="button"
-    data-twe-target="#carouselExampleCaptions"
-    data-twe-slide="prev">
-    <span class="inline-block h-8 w-8">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="h-6 w-6">
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M15.75 19.5L8.25 12l7.5-7.5" />
-      </svg>
-    </span>
-    <span
-      class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
-      >Previous</span
-    >
-  </button>
-  <!--Carousel controls - next item-->
-  <button
-    class="absolute bottom-0 right-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
-    type="button"
-    data-twe-target="#carouselExampleCaptions"
-    data-twe-slide="next">
-    <span class="inline-block h-8 w-8">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="h-6 w-6">
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-      </svg>
-    </span>
-    <span
-      class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
-      >Next</span
-    >
-  </button>
+@section("contenido.arriba")
+{{-- Banner --}}
+<div class="flex gap-10 justify-center items-center w-full h-56 mb-8 bg-primary-500 p-10 relative">
+  <h3 class="relative z-10 text-white text-5xl font-extrabold p-7">La Flamita</h3>
+  <div class="absolute h-[49px] w-full bottom-0 before:w-[55%] before:h-full before:bg-primary-500 before:right-[-1.5%] before:top-[40%] after:w-[55%] after:h-[109%] after:bg-[#f4f4f4] after:left-[-1.5%] after:top-[60%] before:block before:absolute before:rounded-[50%_100%] after:block after:absolute after:rounded-[50%_100%] bg-primary-500"></div>
 </div>
+@endsection
 
+@section("contenido")
+<h2 class="text-center font-extrabold text-3xl mt-4 mb-2">Menú</h2>
+<section class="antialiased">
+  <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
+    <!-- Heading & Filters -->
+    <div class="mb-4 items-end justify-between space-y-4 sm:flex sm:space-y-0 md:mb-8">
+      <div class="flex items-center space-x-4">
+        <button data-modal-toggle="filterModal" data-modal-target="filterModal" type="button" class="flex gap-2 w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-800 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 sm:w-auto">
+          <i class="fa-solid fa-filter"></i>
+          Filtros
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <button id="sortDropdownButton1" data-dropdown-toggle="dropdownSort1" type="button" class="flex gap-2 w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-800 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 sm:w-auto">
+          <i class="fa-solid fa-arrow-up-z-a"></i>
+          Ordenar
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div id="dropdownSort1" class="z-50 hidden w-40 divide-y divide-gray-100 rounded-lg bg-white shadow dark:bg-gray-700" data-popper-placement="bottom">
+          <ul class="p-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400" aria-labelledby="sortDropdownButton">
+            <li>
+              <a href="#" class="group inline-flex w-full items-center rounded-md px-3 py-2 text-sm text-gray-500 hover:bg-gray-100 hover:text-primary-800 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">Nombre</a>
+            </li>
+            <li>
+              <a href="#" class="group inline-flex w-full items-center rounded-md px-3 py-2 text-sm text-gray-500 hover:bg-gray-100 hover:text-primary-800 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">Preio</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
+    <!-- Products -->
+    <div class="mb-4 grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
 
+      <x-menu.item id="1" nombre="Tacos de pastor" descuento="10" precio="22" descripcion="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea rem ex deleniti iusto magnam. Animi molestiae fuga placeat cum, quia dolorum fugiat sequi eum saepe possimus, illo in quasi laboriosam!" cantidad="2" />
+      
+      <x-menu.item id="2" nombre="Tacos de bistec" descuento="10" precio="20" descripcion="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea rem ex deleniti iusto magnam. Animi molestiae fuga placeat cum, quia dolorum fugiat sequi eum saepe possimus, illo in quasi laboriosam!" />
+      
+      <x-menu.item id="3" nombre="Tacos de bistec" precio="20" descripcion="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea rem ex deleniti iusto magnam. Animi molestiae fuga placeat cum, quia dolorum fugiat sequi eum saepe possimus, illo in quasi laboriosam!" />
+      
+      <x-menu.item id="4" nombre="Tacos de bistec" descuento="10" precio="20" descripcion="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea rem ex deleniti iusto magnam. Animi molestiae fuga placeat cum, quia dolorum fugiat sequi eum saepe possimus, illo in quasi laboriosam!" />
+      
+      <x-menu.item id="5" nombre="Tacos de bistec" precio="20" descripcion="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea rem ex deleniti iusto magnam. Animi molestiae fuga placeat cum, quia dolorum fugiat sequi eum saepe possimus, illo in quasi laboriosam!" />
+      
+      
+    </div>
+  </div>
 
-        
-    </section>
-</main>
+</section>
 @endsection

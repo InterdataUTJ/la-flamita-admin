@@ -45,6 +45,7 @@ class AuthClienteController extends Controller {
             "apellido" => "required|min:3|max:50",
             "correo" => "unique:clientes,correo|max:255|min:5|required|email",
             "clave" => "required|min:8|max:255",
+            "clave2" => "required|min:8|max:255|same:clave",
         ]);
 
         $cliente = new Cliente();

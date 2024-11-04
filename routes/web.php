@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthClienteController;
 use App\Http\Controllers\Auth\GoogleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\EmpleadoController;
 use App\Models\Empleado;
 
 /*
@@ -69,4 +70,18 @@ Route::group(["middleware" => "auth:empleado", "as" => "empleado;"], function() 
 
     Route::get('/cliente/mostrar/{id}', [ClienteController::class, 'show'])->name('cliente.mostrar'); // Retorna la vista del cliente en particlar
     Route::delete('/cliente/borrar/{id}', [ClienteController::class, 'delete'])->middleware("can:eliminar_clientes,".Empleado::class)->name('cliente.delete'); // Retorna la vista del $id del cliente para eliminarlo 
+
+    Route::middleware("can:modulo_empleados,".Empleado::class)->group(function() {
+        Route::get('/empleado/listar', [EmpleadoController::class, 'index'])->name('empleado.listar'); // Retorna la vista de todos los clientes
+        
+        Route::get('/empleado/crear', [EmpleadoController::class, 'create'])->name('empleado.crear'); // Retorna la vista del formulario de crear
+        Route::post('/empleado/store', [EmpleadoController::class, 'store'])->name('empleado.store'); // El metodo post que envia los datos del cliente
+
+        Route::get('/empleado/editar/{id}', [EmpleadoController::class, 'edit'])->name('empleado.editar'); // Retorna la vista del formulario para editar la informacion
+        Route::put('/empleado/update/{id}', [EmpleadoController::class, 'update'])->name('empleado.update'); // El metodo put que actualiza los datos del cliente
+
+        Route::get('/empleado/mostrar/{id}', [EmpleadoController::class, 'show'])->name('empleado.mostrar'); // Retorna la vista del cliente en particlar
+        Route::delete('/empleado/borrar/{id}', [EmpleadoController::class, 'delete'])->name('empleado.delete'); // Retorna la vista del $id del cliente para eliminarlo
+    });
+
 });

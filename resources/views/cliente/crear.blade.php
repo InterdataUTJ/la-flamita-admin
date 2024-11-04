@@ -8,7 +8,7 @@
 {{-- Seccion para componentes o etiquetas --}}
 
 @section('contenido')
-
+    <h2 class="text-center font-extrabold text-3xl mb-8 mt-4">Crear cliente</h2>
     <div class="mt-4">
         <form action="/cliente/store" method="POST" enctype="multipart/form-data">
             @csrf

@@ -8,7 +8,7 @@ class EmpleadoPolicy {
 
     // Categorias 
     // Clientes   ✔️
-    // Empleados  
+    // Empleados  ✔️
     // Productos  
     // Ventas     
     // Sensores   
