@@ -22,10 +22,10 @@
       <p class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">${{ $precio }}</p>
 
       @if ($cantidad <= 0)
-        <button type="button" class="rounded-lg bg-red-500 px-5 py-2.5 text-sm font-medium text-white cursor-not-allowed">
+        <button type="button" class="grayscale-[30%] rounded-lg bg-red-500 px-5 py-2.5 text-sm font-medium text-white cursor-not-allowed">
           Agotado
         </button>
-      @else
+      @elseif (auth()->guard("cliente")->check())
         <button type="button" class="inline-flex items-center gap-2 rounded-lg bg-primary-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-500 active:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300">
           <i class="fa-solid fa-cart-plus"></i>
           Añadir al carrito

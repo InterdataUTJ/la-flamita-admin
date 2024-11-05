@@ -4,14 +4,14 @@
 
 @section("contenido.arriba")
 {{-- Banner --}}
-<div class="flex gap-10 justify-center items-center w-full h-56 mb-8 bg-primary-500 p-10 relative">
-  <h3 class="relative z-10 text-white text-5xl font-extrabold p-7">La Flamita</h3>
-  <div class="absolute h-[49px] w-full bottom-0 before:w-[55%] before:h-full before:bg-primary-500 before:right-[-1.5%] before:top-[40%] after:w-[55%] after:h-[109%] after:bg-[#f4f4f4] after:left-[-1.5%] after:top-[60%] before:block before:absolute before:rounded-[50%_100%] after:block after:absolute after:rounded-[50%_100%] bg-primary-500"></div>
+<div class="flex flex-col justify-center items-center w-full">
+  <h3 class="text-white text-5xl font-extrabold bg-primary-500 w-full pt-10 pb-20 text-center">La Flamita</h3>
+  <img src="/images/waves.svg" class="w-full select-none">
 </div>
 @endsection
 
 @section("contenido")
-<h2 class="text-center font-extrabold text-3xl mt-4 mb-2">Menú</h2>
+<h2 class="text-center font-extrabold text-3xl mb-2">Menú</h2>
 <section class="antialiased">
   <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
     <!-- Heading & Filters -->
@@ -39,6 +39,12 @@
         </div>
       </div>
     </div>
+
+    <dialog id="filterModal">
+      <button autofocus onclick="document.getElementById('filterModal').close();">Close</button>
+      <p>Prueba</p>
+    </dialog>
+    
 
     <!-- Products -->
     <div class="mb-4 grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
