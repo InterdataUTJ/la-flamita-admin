@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Categoria extends Model {
     use HasFactory;
 
-    public function productos() {
-        // Muchos a muchos - belongsToMany en ambos modelos
-        return $this->belongsToMany(Producto::class);
+    public function categoria_datos() {
+        // Relacion uno a muchos - hasMany en el modelo que no tiene la clave foránea
+        return $this->hasMany(CategoriaDato::class);
     }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthEmpleadoController;
 use App\Http\Controllers\Auth\AuthClienteController;
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\CategoriaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EmpleadoController;
@@ -70,6 +71,21 @@ Route::group(["middleware" => "auth:empleado", "as" => "empleado;"], function() 
 
     Route::get('/cliente/mostrar/{id}', [ClienteController::class, 'show'])->name('cliente.mostrar'); // Retorna la vista del cliente en particlar
     Route::delete('/cliente/borrar/{id}', [ClienteController::class, 'delete'])->middleware("can:eliminar_clientes,".Empleado::class)->name('cliente.delete'); // Retorna la vista del $id del cliente para eliminarlo 
+
+    
+    Route::get("/categoria/listar", [CategoriaController::class, "index"])->name("categoria.listar");
+
+    Route::get("/categoria/crear", [CategoriaController::class, "create"])->name("categoria.crear");
+    Route::post("/categoria/store", [CategoriaController::class, "store"])->name("categoria.crear");
+
+    Route::get('/categoria/editar/{id}', [CategoriaController::class, 'edit'])->name('categoria.editar');
+    Route::put('/categoria/update/{id}', [CategoriaController::class, 'update'])->name('categoria.update');
+
+    Route::get('/categoria/mostrar/{id}', [CategoriaController::class, 'show'])->name('categoria.mostrar');
+    Route::delete('/categoria/borrar/{id}', [CategoriaController::class, 'delete'])->name('categoria.delete');
+
+
+
 
     Route::middleware("can:modulo_empleados,".Empleado::class)->group(function() {
         Route::get('/empleado/listar', [EmpleadoController::class, 'index'])->name('empleado.listar'); // Retorna la vista de todos los clientes

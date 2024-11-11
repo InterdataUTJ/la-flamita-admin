@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('nombre', 50);
             $table->text('token');
-            $table->text('datos')->nullable();
             $table->timestamps();
         });
     }

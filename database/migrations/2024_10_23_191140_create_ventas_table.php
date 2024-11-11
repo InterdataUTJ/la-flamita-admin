@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('fecha_pago');
             $table->boolean('estado');
             $table->string('metodo_pago', 50);
-            $table->decimal('impuestos', 10, 2);
+            $table->text('paypal_id')->nullable()->unique();
             $table->timestamps();
         });
     }

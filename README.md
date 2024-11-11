@@ -96,7 +96,7 @@ php artisan serve --host=0.0.0.0
 
 1. **Administrador** (_Tiene acceso completo a todos los modulos de la web_)👑
 2. **Gerente** (_Tiene acceso completo excepto clientes, donde solo puede ver_)🦸
-3. **Empleado** (_Tiene acceso solo para ver los modulo de productos y clientes, y acceso total a ventas, excepto eliminar_)👨‍🍳
+3. **Empleado** (_Tiene acceso solo para ver los modulo de productos, categorías y clientes, además de acceso total a ventas, excepto eliminar_)👨‍🍳
 4. **Cliente** (_Solo ver peril y hacer compras_)
 
 ### Modulos del sistema 🧩

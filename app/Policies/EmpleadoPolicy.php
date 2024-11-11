@@ -6,7 +6,7 @@ use App\Models\Empleado;
 
 class EmpleadoPolicy {
 
-    // Categorias 
+    // Categorias ✔️
     // Clientes   ✔️
     // Empleados  ✔️
     // Productos  
@@ -15,6 +15,16 @@ class EmpleadoPolicy {
 
     // Permisos para modulo clientes
     public function eliminar_clientes(Empleado $e) {   // ADMINISTRADOR y GERENTE
+        return in_array($e->rol, ['ADMINISTRADOR', 'GERENTE']); 
+    }
+
+    // Permisos para modulo categorias
+    public function eliminar_categorias(Empleado $e) {   // ADMINISTRADOR y GERENTE
+        return in_array($e->rol, ['ADMINISTRADOR', 'GERENTE']); 
+    }
+    
+    // Permisos para modulo productos
+    public function eliminar_productos(Empleado $e) {   // ADMINISTRADOR y GERENTE
         return in_array($e->rol, ['ADMINISTRADOR', 'GERENTE']); 
     }
 

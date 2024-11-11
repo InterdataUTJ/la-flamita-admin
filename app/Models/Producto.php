@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Producto extends Model {
     use HasFactory;
 
-    public function categorias() {
+    public function categoria_datoss() {
         // Muchos a muchos - belongsToMany en ambos modelos
         return $this->belongsToMany(Categoria::class);
     }
 
     public function ventas() {
         // Muchos a muchos - belongsToMany en ambos modelos
-        return $this->belongsToMany(Categoria::class)->withPivot('precio', 'descuento', 'cantidad');
+        return $this->belongsToMany(Venta::class)->withPivot('precio', 'descuento', 'cantidad');
     }
 
     public function producto_fotos() {

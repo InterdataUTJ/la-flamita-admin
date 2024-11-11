@@ -17,7 +17,6 @@ return new class extends Migration
             $table->primary(['venta_id', 'producto_id']);
             $table->decimal('precio', 10, 2);
             $table->decimal('descuento', 10, 2);
-            $table->decimal('impuesto', 10, 2);
             $table->integer('cantidad');
         });
     }

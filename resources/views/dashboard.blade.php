@@ -41,6 +41,23 @@
                 Ir
             </a>
         </div>
+
+        <div class="bg-white grow rounded shadow p-4 min-w-64">
+            <h3 class="font-bold mb-1">Categorías</h3>
+            <p class="mb-1">Tienes permiso para:</p>
+            <ol class="list-decimal pl-7 text-sm">
+                <li>Listar categorías</li>
+                <li>Crear categorías</li>
+                <li>Editar categorías</li>
+                @can("eliminar_categorias", auth()->guard("empleado")->user()) 
+                    <li>Borrar categorías</li> 
+                @endcan
+            </ol>
+            <a href="/categoria/listar" class="box-border p-1 flex gap-2 items-center justify-center w-full my-2 text-white rounded bg-primary-500 hover:bg-primary-400 active:bg-primary-600">
+                <i class="fa-solid fa-share"></i>
+                Ir
+            </a>
+        </div>
     </div>
 
     <h2 class="font-bold text-2xl mt-5 mb-2 pb-4 border-b-2 border-quinary-700">Sensores</h2>
