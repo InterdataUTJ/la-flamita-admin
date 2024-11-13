@@ -1,4 +1,4 @@
-@extends('/plantillas/layout')
+@extends('plantillas.layout')
 
 @section("titulo", "La Flamita")
 

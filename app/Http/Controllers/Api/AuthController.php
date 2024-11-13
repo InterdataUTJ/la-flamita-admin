@@ -60,10 +60,10 @@ class AuthController extends Controller {
 
     $perfil = [];
     $perfil["avatar"] = $cliente->avatar;
-    $perfil["nombre"] = $cliente->nombre;
-    $perfil["apellido"] = $cliente->apellido;
+    $perfil["nombre"] = "{$cliente->nombre} {$cliente->apellido}";
+    $perfil["estado"] = boolval($cliente->estado);
     $perfil["correo"] = $cliente->correo;
-    $perfil["verificado"] = $cliente->verificado;
+    $perfil["verificado"] = boolval($cliente->verificado);
     $perfil["google"] = $cliente->google_id != null;
 
     return $perfil;

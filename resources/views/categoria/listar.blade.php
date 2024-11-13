@@ -4,10 +4,12 @@
 
 @section('contenido')
 
+@can("interactuar_categorias", auth()->guard('empleado')->user())
 <a class="block box-border mb-5 text-white font-bold bg-primary-500 hover:bg-primary-400 active:bg-primary-600 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg text-sm p-2 text-center" href="/categoria/crear">
     <i class="fa-solid fa-pen-to-square"></i>
     Crear
 </a>
+@endcan
 
 @if($categorias->isEmpty())   
     No existen categorias
@@ -43,12 +45,15 @@
                     {{ count($categoria->categoria_datos) }}
                 </td>
                 <td class="text-center px-6 py-4 flex gap-4 justify-center items-center">
+                    @can("interactuar_categorias", auth()->guard('empleado')->user())
                     <a href="/categoria/editar/{{$categoria->id}}">
                         <i class="fa-solid fa-pen-to-square fa-xl text-quinary-500 hover:scale-105"></i> <!--Botón de Editar-->
                     </a>
+                    @endcan
                     <a href="/categoria/mostrar/{{$categoria->id}}">
                         <i class="fa-regular fa-eye fa-lg text-quaternary-500 hover:scale-105"></i>
                     </a>
+                    @can("eliminar_categorias", auth()->guard('empleado')->user())
                     <form action="/categoria/borrar/{{ $categoria->id }}" method="POST">
                         @csrf
                         @method('DELETE')
@@ -56,6 +61,7 @@
                             <i class="fa-solid fa-trash-can"></i>
                         </button>
                     </form>
+                    @endcan
                 </td>
             </tr>
             @endforeach

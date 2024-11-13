@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ProductoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,8 +24,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post("/logout", [AuthController::class, "logout"]);
+
     Route::get("/profile", [AuthController::class, "profile"]);
 });
 
+Route::get("/categoria/{categoria}", [ProductoController::class, "categorias"]);
 Route::post('/login', [AuthController::class, "login"]);
 Route::post('/singup', [AuthController::class, "singup"]);

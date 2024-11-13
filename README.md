@@ -88,16 +88,9 @@ php artisan serve --host=0.0.0.0
 ```
 
 > [!NOTE]
-> A pesar de que despues de levantar el servidor php la url puede decir http://0.0.0.0:8000, la web es accesible desde localhost / 127.0.0.1.
+> A pesar de que despues de levantar el servidor php la url puede decir http://0.0.0.0:8000, la web es accesible desde localhost o 127.0.0.1.
 
 
-
-### Roles de acceso 👑
-
-1. **Administrador** (_Tiene acceso completo a todos los modulos de la web_)👑
-2. **Gerente** (_Tiene acceso completo excepto clientes, donde solo puede ver_)🦸
-3. **Empleado** (_Tiene acceso solo para ver los modulo de productos, categorías y clientes, además de acceso total a ventas, excepto eliminar_)👨‍🍳
-4. **Cliente** (_Solo ver peril y hacer compras_)
 
 ### Modulos del sistema 🧩
 
@@ -109,23 +102,9 @@ php artisan serve --host=0.0.0.0
 - Carrito 🛒
 - Sensores IoT🔌
 
-### Modulo de Empleado
+### Roles de acceso 👑
 
-- `GET /empleado/login` 
-- `POST /empleado/logout`
--
-
-### Modulo de Cliente
-
-- `GET /cliente/login` 
-- `POST /cliente/logout`
-- :
-### Modulo de Ventas
-
-### Modulo de Producto
-
-### Categoria 
-
-### Carrito
-
-### Sensores de IoT
+1. **Administrador** (_Tiene acceso completo a todos los modulos de la web_)👑
+2. **Gerente** (_Tiene acceso completo excepto empleados (no puede borrar) y clientes (donde solo puede ver)_)🦸
+3. **Empleado** (_Tiene acceso solo para ver los modulo de productos, categorías y clientes, además de acceso total a ventas, excepto eliminar_)👨‍🍳
+4. **Cliente** (_Solo ver peril y hacer compras_)

@@ -28,11 +28,12 @@
 
             </div>
             
-
+            @can("eliminar_categorias", auth()->guard('empleado')->user())
             <button onclick="return confirm('¿Desas eliminar este categoría?')" type="submit" class="flex w-full text-white bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-red-400 font-semibold rounded-lg text-sm px-5 py-2.5 text-center active:bg-red-600 justify-center items-center gap-2">
                 <i class="fa-solid fa-trash-can"></i>
                 Eliminar categoría
             </button>
+            @endcan
         </form>
     </div>
 

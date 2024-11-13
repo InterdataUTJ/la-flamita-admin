@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Producto extends Model {
     use HasFactory;
 
-    public function categoria_datoss() {
+    public function categoria_datos() {
         // Muchos a muchos - belongsToMany en ambos modelos
-        return $this->belongsToMany(Categoria::class);
+        return $this->belongsToMany(CategoriaDato::class);
     }
 
     public function ventas() {

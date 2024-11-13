@@ -36,7 +36,7 @@
                 <img class="w-20 h-20 rounded-full" src="{{ $cliente->avatar }}" alt="{{ $cliente->apellido }}">
             </div>
             
-            @can("eliminar_clientes", Empleados::class)
+            @can("eliminar_clientes", auth()->guard('empleado')->user())
                 <button onclick="return confirm('¿Desas eliminar este Cliente?')" type="submit" class="flex w-full text-white bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-red-400 font-semibold rounded-lg text-sm px-5 py-2.5 text-center active:bg-red-600 justify-center items-center gap-2">
                     <i class="fa-solid fa-trash-can"></i>
                     Eliminar cliente
