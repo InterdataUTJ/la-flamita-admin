@@ -30,7 +30,7 @@
             </div>
             <div class="mb-5">
                 <label for="clave" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Imagenes *</label>
-                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:ring-primary-500 focus:border-primary-500" id="fotos" name="fotos[]" type="file" required multiple accept="image/jpeg, image/png, image/jpg, image/gif, image/svg">
+                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:ring-primary-500 focus:border-primary-500" id="fotos" name="fotos[]" type="file" required multiple accept="image/jpeg, image/png, image/jpg, image/gif, image/svg, image/webp">
             </div>
 
             

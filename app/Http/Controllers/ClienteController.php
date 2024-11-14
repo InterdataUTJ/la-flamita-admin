@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class ClienteController extends Controller {
     public function index() {
-        $clientes = Cliente::where('estado', true)->get();
+        $clientes = Cliente::where('estado', true)->simplePaginate(5);
         return view('cliente.listar')->with('clientes', $clientes);
     }
 
@@ -91,7 +91,6 @@ class ClienteController extends Controller {
     }
 
     public function delete($id) {
-
         //Busca la coincidencia del id
         $cliente = Cliente::find($id);
         

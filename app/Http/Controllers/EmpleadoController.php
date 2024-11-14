@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class EmpleadoController extends Controller {
     public function index() {
-        $empleados = Empleado::where('estado', true)->get();
+        $empleados = Empleado::where('estado', true)->simplePaginate(5);
         return view('empleado.listar')->with('empleados', $empleados);
     }
 

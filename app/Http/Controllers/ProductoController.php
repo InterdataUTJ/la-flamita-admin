@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductoController extends Controller {
     public function index() {
-        $productos = Producto::where('estado', 1)->get();
+        //Con el paginate paginamos a 5 productos por pagina
+        $productos = Producto::where('estado', 1)->simplePaginate(5);
+        
         return view('producto.listar')->with('productos', $productos);
     }
 
@@ -29,7 +31,7 @@ class ProductoController extends Controller {
             'existencias' => 'required|integer|min:0',
             'descuento' => 'required|numeric|min:0',
             'fotos' => 'required|array',
-            'fotos.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'fotos.*' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'categorias' => 'required|array',
             'categorias.*' => 'integer|exists:categoria_datos,id',
         ]);
@@ -75,7 +77,7 @@ class ProductoController extends Controller {
             'existencias' => 'required|integer|min:0',
             'descuento' => 'required|numeric|min:0',
             'fotos' => 'nullable|array',
-            'fotos.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'fotos.*' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'categorias' => 'required|array',
             'categorias.*' => 'integer|exists:categoria_datos,id',
         ]);
@@ -132,6 +134,5 @@ class ProductoController extends Controller {
         $producto->estado = false;
         $producto->save();
         return redirect('/producto/listar');
-    }    
-
+    }
 }

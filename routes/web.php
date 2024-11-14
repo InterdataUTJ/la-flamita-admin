@@ -21,34 +21,9 @@ use App\Models\Empleado;
 |
 */
 
-// General nos manda a menu
-Route::view('/', "menu")->name('menu');
 
 
-
-
-
-// Clientes
-Route::get('/login', [AuthClienteController::class, 'showForm'])->name('cliente.login');
-Route::post('/login', [AuthClienteController::class, 'login'])->name('cliente.login');
-
-Route::get('/singup', [AuthClienteController::class, 'showNewForm'])->name('cliente.singup');
-Route::post('/singup', [AuthClienteController::class, 'create'])->name('cliente.singup');
-
-Route::get("/auth/google/redirect", [GoogleController::class, "redirect"]);
-Route::get("/auth/google/callback", [GoogleController::class, "callback"]);
-
-
-
-// Clientes protegidos
-Route::group(["middleware" => "auth:cliente", "as" => "cliente;"],function() {
-    Route::post('/logout', [AuthClienteController::class, 'logout'])->name('logout');
-});
-
-
-
-
-
+Route::redirect("/", "/panel");
 
 // Empleados
 Route::get('/empleado/login', [AuthEmpleadoController::class, 'showForm'])->name('empleado.login'); // Retorna la vista para logear el empleado

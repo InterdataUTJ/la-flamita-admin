@@ -36,7 +36,7 @@
             @foreach($categorias as $categoria)
             <tr categoria="{{ $categoria->nombre }}" class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                 <th scope="row" class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {{$categoria->id}}
+                    {{$categoria->id}}
                 </th>
                 <th campo="nombre" scope="row" class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                     {{$categoria->nombre}}
@@ -67,6 +67,9 @@
             @endforeach
         </tbody>
     </table>
+</div>
+<div class="grid justify-items-center gap-4 mt-4">
+    {{ $categorias->links() }}
 </div>
 @endif
 @endsection

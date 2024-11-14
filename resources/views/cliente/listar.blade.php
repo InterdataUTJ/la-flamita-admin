@@ -15,7 +15,7 @@
 </a>
 @endcan
 
-@if($clientes->isEmpty())   
+@if($clientes->isEmpty())
     No Existen Clientes
 @else
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -49,10 +49,10 @@
             @foreach($clientes as $cliente)
             <tr cliente="{{ $cliente->correo }}" class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                 <th scope="row" class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {{$cliente->id}}
+                    {{$cliente->id}}
                 </th>
                 <td class="px-6 py-4">
-                  <img src="{{$cliente->avatar}}" alt="imagen" class="w-10 h-10 rounded-full">
+                    <img src="{{$cliente->avatar}}" alt="imagen" class="w-10 h-10 rounded-full">
                 </td>
                 <th campo="nombre" scope="row" class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {{$cliente->nombre}}
@@ -89,6 +89,9 @@
             @endforeach
         </tbody>
     </table>
+</div>
+<div class="grid justify-items-center gap-4 mt-4">
+    {{ $clientes->links() }}
 </div>
 @endif
 @endsection

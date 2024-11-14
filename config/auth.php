@@ -36,11 +36,6 @@ return [
     */
 
     'guards' => [
-        'cliente' => [
-            'driver' => 'session',
-            'provider' => 'clientes',
-        ],
-        
         'empleado' => [
             'driver' => 'session',
             'provider' => 'empleados',
@@ -65,11 +60,6 @@ return [
     */
 
     'providers' => [
-        'clientes' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Cliente::class,
-        ],
-
         'empleados' => [
             'driver' => 'eloquent',
             'model' => App\Models\Empleado::class,
@@ -101,8 +91,8 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        'empleado' => [
+            'provider' => 'empleados',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,
