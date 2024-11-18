@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('carrito_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('carrito_id')->constrained('carritos');
+            $table->foreignId('cliente_id')->constrained('clientes');
             $table->foreignId('producto_id')->constrained('productos');
             $table->integer('cantidad');
             $table->decimal('precio', 10, 2);

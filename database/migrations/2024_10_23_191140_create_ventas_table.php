@@ -17,7 +17,8 @@ return new class extends Migration
             $table->foreignId('cliente_id')->constrained()->onDelete('cascade')->nullable();
             $table->date('fecha_venta');
             $table->date('fecha_pago');
-            $table->boolean('estado');
+            $table->enum('estado', ["PENDIENTE", "PAGADO", "COMPLETADO"]);
+            $table->text("token")->nullable();
             $table->string('metodo_pago', 50);
             $table->text('paypal_id')->nullable()->unique();
             $table->timestamps();

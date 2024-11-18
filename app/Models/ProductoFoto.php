@@ -18,7 +18,7 @@ class ProductoFoto extends Model {
     protected static function booted() {
         static::deleting(function ($productoFoto) {
             // Verifica si existe el archivo en el storage
-            $ruta = str_replace(asset('/storage/'), '', $productoFoto->url);
+            $ruta = str_replace(asset('/storage//'), '', $productoFoto->url);
             if (Storage::disk("public")->exists($ruta)) {
                 Storage::disk("public")->delete($ruta); // Elimina el archivo
             }

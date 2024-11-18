@@ -57,9 +57,9 @@ class Cliente extends Authenticatable {
         return $this->hasMany(Venta::class);
     }
 
-    public function carrito() {
+    public function carrito_items() {
         // Relación uno a uno - hasOne en el modelo que NO tiene la llave foránea
-        return $this->hasOne(Carrito::class);
+        return $this->hasOne(CarritoItem::class);
     }
 
     public function getAuthPassword() {

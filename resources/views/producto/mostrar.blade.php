@@ -31,7 +31,11 @@
             </div>
             <div class="mb-5">
                 <label for="clave" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Imagenes</label>
-                
+                <div class="flex gap-4 flex-wrap">
+                    @foreach ($producto->producto_fotos as $foto)
+                    <img class="h-48 w-auto rounded" src="{{ $foto->url }}" alt="{{ $producto->nombre }}">
+                    @endforeach
+                </div>
             </div>
 
             

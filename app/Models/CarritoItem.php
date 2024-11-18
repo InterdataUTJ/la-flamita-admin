@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class CarritoItem extends Model {
     use HasFactory;
 
-    public function carrito() {
+    public function cliente() {
         // Uno a muchos - belongsTo en el modelo que tiene la clave foránea
-        return $this->belongsTo(Carrito::class);
+        return $this->belongsTo(Cliente::class);
     }
 
     public function producto() {
