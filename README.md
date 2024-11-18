@@ -1,7 +1,7 @@
 <h1 align="center">
   <img src="./public/images/la-flamita-web.svg" alt="la-flamita-web" width="200">
   <br>
-  La Flamita Web
+  La Flamita Admin
   <br>
   <br>
 </h1>
@@ -16,7 +16,10 @@
 > [!NOTE]
 > Este es un `submodule` que forma parte del proyecto [`la-flamita`](https://github.com/InterdataUTJ/la-flamita/).
 
-Desarrollo Web de [`Laravel`](https://laravel.com/docs/10.x) para taquería la flamita. La solución se enfoca en desarrollar toda la infraestructura web (vistas y APIs) para la logica de negocios de `la-flamita`.
+> [!IMPORTANT]
+> Este proyecto solo representa el área administrativa. Puedes consultar el área del cliente desde el repositorio [`la-flamita-cliente`](https://github.com/InterdataUTJ/la-flamita-cliente/).
+
+Desarrollo Web área administrativa de [`Laravel`](https://laravel.com/docs/10.x) para taquería la flamita. La solución se enfoca en desarrollar toda la infraestructura web (vistas y APIs) para la logica de negocios de `la-flamita`.
 
 ## Documentación 📕
 
@@ -32,18 +35,16 @@ Desarrollo Web de [`Laravel`](https://laravel.com/docs/10.x) para taquería la f
 2. Clonar el repositorio (_asegurate de tener acceso al repositorio_).
 
 ```bash
-git clone https://github.com/InterdataUTJ/la-flamita-web.git
+git clone https://github.com/InterdataUTJ/la-flamita-admin.git
 ```
 
 3. Navegar al directorio del repositorio
 
 ```bash
-cd la-flamita-web/
+cd la-flamita-admin/
 ```
 
 4. Configurar las variables de entorno. 
-
-_Escencialmente las unicas variables necesarias son las relacionadas al proceso de OAuth de Google. El proyecto puede arrancar sin ellas pero no seras capaz de usar el login mediante Google._
 
 _Ya deberia de estar bien configurado, pero asegurate de que las variables relacionadas a la base de datos sean correctas._
 
@@ -99,7 +100,6 @@ php artisan serve --host=0.0.0.0
 - Ventas 💰
 - Productos 🌮
 - Categorias 📁
-- Carrito 🛒
 - Sensores IoT🔌
 
 ### Roles de acceso 👑
@@ -107,4 +107,3 @@ php artisan serve --host=0.0.0.0
 1. **Administrador** (_Tiene acceso completo a todos los modulos de la web_)👑
 2. **Gerente** (_Tiene acceso completo excepto empleados (no puede borrar) y clientes (donde solo puede ver)_)🦸
 3. **Empleado** (_Tiene acceso solo para ver los modulo de productos, categorías y clientes, además de acceso total a ventas, excepto eliminar_)👨‍🍳
-4. **Cliente** (_Solo ver peril y hacer compras_)
