@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Empleado;
+use App\Models\Venta;
 
 class EmpleadoPolicy {
 
@@ -10,8 +11,8 @@ class EmpleadoPolicy {
     // Empleados  ✔️
     // Categorias ✔️
     // Productos  ✔️
-    // Ventas     
-    // Sensores   
+    // Ventas     ✔️
+    // Sensores   ✔️
 
 
     // Permisos para modulo clientes
@@ -69,6 +70,32 @@ class EmpleadoPolicy {
     }
 
     public function ver_productos(Empleado $e) {   // TODOS
+        return in_array($e->rol, ['ADMINISTRADOR', 'GERENTE', 'EMPLEADO']);
+    }
+
+
+
+    // Permisos para modulo sensores
+    public function eliminar_sensores(Empleado $e) {   // ADMINISTRADOR y GERENTE
+        return in_array($e->rol, ['ADMINISTRADOR', 'GERENTE']);
+    }
+
+    public function interactuar_sensores(Empleado $e) {   // ADMINISTRADOR y GERENTE
+        return in_array($e->rol, ['ADMINISTRADOR', 'GERENTE']); 
+    }
+
+    public function ver_sensores(Empleado $e) {   // TODOS
+        return in_array($e->rol, ['ADMINISTRADOR', 'GERENTE']);
+    }
+
+
+
+    // Permisos para modulo ventas
+    public function interactuar_ventas(Empleado $e) {   // ADMINISTRADOR y GERENTE
+        return in_array($e->rol, ['ADMINISTRADOR', 'GERENTE']); 
+    }
+
+    public function ver_ventas(Empleado $e) {   // TODOS
         return in_array($e->rol, ['ADMINISTRADOR', 'GERENTE', 'EMPLEADO']);
     }
 }

@@ -1,70 +1,114 @@
 @php
-  $usuario = auth()->guard("empleado")->user();
+    $usuario = auth()->guard('empleado')->user();
 @endphp
 
 <nav class="bg-white border-gray-200 dark:bg-gray-900 shadow">
-  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-  <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-      <img src="/images/logo.svg" class="h-8" alt="La Flamita logo" />
-      <span class="self-center text-2xl font-extrabold whitespace-nowrap dark:text-white">La Flamita</span>
-  </a>
-  <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-      <button type="button" class="flex items-center gap-2 text-sm bg-primary-100 rounded md:me-0 p-2 focus:ring-4 focus:ring-gray-300 hover:scale-105 transition duration-75" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-        <span class="text-primary-800 font-bold hidden sm:inline">{{ ucfirst(strtolower($usuario->rol)) }}</span>
-        <img class="w-7 h-7 rounded-full" src="{{ $usuario->avatar }}" alt="user photo">
-      </button>
-      <!-- Dropdown menu -->
-      <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
-        <div class="px-4 py-3 bg-quinary-100">
-          <span class="block text-sm text-quinary-900 dark:text-white font-bold">{{ ucfirst(strtolower($usuario->rol)); }}</span>
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="/images/logo.svg" class="h-8" alt="La Flamita logo" />
+            <span class="self-center text-2xl font-extrabold whitespace-nowrap dark:text-white">La Flamita</span>
+        </a>
+        <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+            <button type="button"
+                class="flex items-center gap-2 text-sm bg-primary-100 rounded md:me-0 p-2 focus:ring-4 focus:ring-gray-300 hover:scale-105 transition duration-75"
+                id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
+                data-dropdown-placement="bottom">
+                <span
+                    class="text-primary-800 font-bold hidden sm:inline">{{ ucfirst(strtolower($usuario->rol)) }}</span>
+                <img class="w-7 h-7 rounded-full" src="{{ $usuario->avatar }}" alt="user photo">
+            </button>
+            <!-- Dropdown menu -->
+            <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+                id="user-dropdown">
+                <div class="px-4 py-3 bg-quinary-100">
+                    <span
+                        class="block text-sm text-quinary-900 dark:text-white font-bold">{{ ucfirst(strtolower($usuario->rol)) }}</span>
+                </div>
+                <div class="px-4 py-3">
+                    <span class="block text-sm text-gray-900 dark:text-white">{{ $usuario->nombre }}</span>
+                    <span id="empleado-correo"
+                        class="block text-sm  text-gray-500 truncate dark:text-gray-400">{{ $usuario->correo }}</span>
+                </div>
+                <ul class="py-2" aria-labelledby="user-menu-button">
+                    <li>
+                        <a href="/perfil"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-100 hover:text-primary-900 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-primary-100">Mi
+                            perfil</a>
+                    </li>
+                    <li>
+                        <form
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-100 hover:text-primary-900 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-primary-100"
+                            action="/empleado/logout" method="POST">
+                            @csrf
+                            <button type="submit">Cerrar sesión</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            <button data-collapse-toggle="navbar-user" type="button"
+                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                aria-controls="navbar-user" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M1 1h15M1 7h15M1 13h15" />
+                </svg>
+            </button>
         </div>
-        <div class="px-4 py-3">
-          <span class="block text-sm text-gray-900 dark:text-white">{{ $usuario->nombre }}</span>
-          <span id="empleado-correo" class="block text-sm  text-gray-500 truncate dark:text-gray-400">{{$usuario->correo  }}</span>
+        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
+            <ul
+                class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                <li>
+                    <x-navbar.item url="/panel" label="Panel" />
+                </li>
+                <li>
+                    <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
+                        class="flex items-center justify-between gap-2 py-2 px-3 text-gray-900 rounded hover:bg-gray-100 hover:text-primary-500 md:p-0">
+                        Modulos
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <!-- Dropdown menu -->
+                    <div id="dropdownNavbar" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 bg-white border border-4 border-primary-300 shadow">
+                        <ul class="py-2 px-2 text-sm text-gray-700" aria-labelledby="dropdownLargeButton">
+                            @can('ver_empleados', $usuario)
+                            <li>
+                                <a href="{{route('empleado.listar')}}" class="block px-4 py-2 hover:bg-primary-100 rounded hover:font-semibold hover:text-primary-900">Empleados</a>
+                            </li>
+                            @endcan
+                            
+                            <li>
+                                <a href="{{route('cliente.listar')}}" class="block px-4 py-2 hover:bg-primary-100 rounded hover:font-semibold hover:text-primary-900">Clientes</a>
+                            </li>
+                            
+                            @can('ver_categorias', $usuario)
+                            <li>
+                                <a href="{{route('categoria.listar')}}" class="block px-4 py-2 hover:bg-primary-100 rounded hover:font-semibold hover:text-primary-900">Categorias</a>
+                            </li>
+                            @endcan
+                            
+                            @can('ver_productos', $usuario)
+                            <li>
+                                <a href="{{route('producto.listar')}}" class="block px-4 py-2 hover:bg-primary-100 rounded hover:font-semibold hover:text-primary-900">Productos</a>
+                            </li>
+                            @endcan
+                            
+                            @can('ver_sensores', $usuario)
+                            <li>
+                                <a href="{{route('sensor.listar')}}"  class="block px-4 py-2 hover:bg-primary-100 rounded hover:font-semibold hover:text-primary-900">Sensores</a>
+                            </li>
+                            @endcan
+                            
+                            @can('ver_ventas', $usuario)
+                            <li>
+                                <a href="{{route('venta.listar')}}"  class="block px-4 py-2 hover:bg-primary-100 rounded hover:font-semibold hover:text-primary-900">Ventas</a>
+                            </li>
+                            @endcan
+
+                        </ul>
+                    </div>
+                </li>                
+            </ul>
         </div>
-        <ul class="py-2" aria-labelledby="user-menu-button">
-          <li>
-            <a href="/perfil" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-100 hover:text-primary-900 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-primary-100">Mi perfil</a>
-          </li>
-          <li>
-            <form class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-100 hover:text-primary-900 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-primary-100" action="/empleado/logout" method="POST">
-              @csrf
-              <button type="submit">Cerrar sesión</button>
-            </form>
-          </li>
-        </ul>
-      </div>
-      <button data-collapse-toggle="navbar-user" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-user" aria-expanded="false">
-        <span class="sr-only">Open main menu</span>
-        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
-        </svg>
-    </button>
-  </div>
-  <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
-    <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-      <li>
-        <x-navbar.item url="/panel" label="Panel" />
-      </li>
-      <li>
-        <x-navbar.item url="/cliente/listar" label="Clientes" />
-      </li>
-      @can("ver_empleados", $usuario)
-        <li>
-          <x-navbar.item url="/empleado/listar" label="Empleados" />
-        </li>
-      @endcan
-      @can("ver_categorias", $usuario)
-        <li>
-          <x-navbar.item url="/categoria/listar" label="Categorías" />
-        </li>
-      @endcan
-      @can("ver_productos", $usuario)
-        <li>
-          <x-navbar.item url="/producto/listar" label="Productos" />
-        </li>
-      @endcan
-    </ul>
-  </div>
-  </div>
+    </div>
 </nav>

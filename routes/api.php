@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SensorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,3 +14,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::post("/sensor/datos", [SensorController::class, 'recibir']); // Recibe los datos del sensor
+Route::get("/sensores", [SensorController::class, 'datos']); // Recibe los datos del sensor

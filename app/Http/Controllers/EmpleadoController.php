@@ -37,7 +37,7 @@ class EmpleadoController extends Controller {
         $empleado->estado = true;
         $empleado->rol = $request->rol;
         
-        if ($request->hasFile("avatar")) {
+        if ($request->hasFile("avatar") && $request->clave != null) {
             //Descargar de una variable 
             $image = $request->avatar;
             $imagennueva = "empleado_{$empleado->id}.{$image->extension()}";
@@ -71,11 +71,11 @@ class EmpleadoController extends Controller {
         $empleado->correo = $request->correo;
         $empleado->rol = $request->rol;
 
-        if ($request->has("clave")) {
+        if ($request->has("clave") && $request->clave != null) {
             $empleado->clave = Hash::make($request->clave);
         }
         
-        if ($request->hasFile("avatar")) {
+        if ($request->hasFile("avatar") && $request->clave != null) {
             $image = $request->avatar;
             $imagennueva = "empleado_{$empleado->id}.{$image->extension()}";
             $ruta = $image->storeAs('imagenes/empleados/', $imagennueva, 'public');

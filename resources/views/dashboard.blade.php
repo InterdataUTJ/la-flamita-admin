@@ -101,13 +101,75 @@
         </div>
         @endcan
 
+        @can("ver_sensores", $empleado)
+        <div class="bg-white grow rounded shadow p-4 min-w-64 flex flex-col">
+            <h3 class="font-bold mb-1">Sensores</h3>
+            <p class="mb-1">Tienes permiso para:</p>
+            <ol class="list-decimal pl-7 text-sm grow">
+                <li>Listar sensores</li>
+                <li>Mostrar sensores</li>
+                @can("interactuar_sensores", $empleado) 
+                <li>Crear sensores</li>
+                <li>Editar sensores</li>
+                @endcan
+                @can("eliminar_sensores", $empleado)
+                <li>Borrar sensores</li>
+                @endcan
+            </ol>
+            <a href="/sensor/listar" class="box-border p-1 flex gap-2 items-center justify-center w-full my-2 text-white rounded bg-primary-500 hover:bg-primary-400 active:bg-primary-600">
+                <i class="fa-solid fa-share"></i>
+                Ir
+            </a>
+        </div>
+        @endcan
+
+        @can("ver_ventas", $empleado)
+        <div class="bg-white grow rounded shadow p-4 min-w-64 flex flex-col">
+            <h3 class="font-bold mb-1">Ventas</h3>
+            <p class="mb-1">Tienes permiso para:</p>
+            <ol class="list-decimal pl-7 text-sm grow">
+                <li>Listar ventas</li>
+                <li>Mostrar ventas</li>
+                @can("interactuar_ventas", $empleado) 
+                <li>Crear ventas</li>
+                @endcan
+            </ol>
+            <a href="/venta/listar" class="box-border p-1 flex gap-2 items-center justify-center w-full my-2 text-white rounded bg-primary-500 hover:bg-primary-400 active:bg-primary-600">
+                <i class="fa-solid fa-share"></i>
+                Ir
+            </a>
+        </div>
+        @endcan
+
     </div>
 
     <h2 class="font-bold text-2xl mt-5 mb-2 pb-4 border-b-2 border-quinary-700">Sensores</h2>
-    <div class="flex gap-4 flex-wrap w-full">
-        <div class="bg-white grow rounded shadow p-4 min-w-64 flex flex-col">h</div>
-        <div class="bg-white grow rounded shadow p-4 min-w-64 flex flex-col">h</div>
+    <div id="sensores-container" class="flex gap-4 flex-wrap justify-center items-center w-full">
+
+        @foreach($sensores as $nombre => $dato)
+            <x-sensores nombre="{{ $nombre }}" :datos="$dato" />
+        @endforeach
     </div>
+    <script>
+        document.body.onload = () => {
+            let failed = 0;
+            const update = setInterval(async () => {
+                try {
+                    const data = await fetch("/api/sensores");
+                    const html = await data.text();
+                    document.getElementById("sensores-container").innerHTML = html;
+                    console.log(`Sensores actualizados: ${new Date().toLocaleTimeString()}`);
+                } catch(e) { 
+                    console.error(e);
+                    failed++;
+                    if(failed >= 3) {
+                        clearInterval(update);
+                        console.error("Se ha detenido la actualización de sensores");
+                    }
+                }
+            }, 1000 * 5);
+        };
+    </script>
 
 </div>
 @endsection
