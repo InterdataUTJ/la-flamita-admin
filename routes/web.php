@@ -29,6 +29,8 @@ use App\Models\Empleado;
 
 Route::redirect("/", "/panel");
 
+Route::view('/angular', 'angular');
+
 // Empleados
 Route::get('/empleado/login', [AuthEmpleadoController::class, 'showForm'])->name('empleado.login'); // Retorna la vista para logear el empleado
 Route::post('/empleado/login', [AuthEmpleadoController::class, 'login'])->name('empleado.login');
@@ -37,7 +39,7 @@ Route::post('/empleado/login', [AuthEmpleadoController::class, 'login'])->name('
 
 // Empleados protegidos
 Route::group(["middleware" => "auth:empleado"], function() {
-    
+
     Route::get('/panel', [PanelController::class, 'index'])->name('panel');
     Route::post('/empleado/logout', [AuthEmpleadoController::class, 'logout'])->name('logout');
 
@@ -53,23 +55,23 @@ Route::group(["middleware" => "auth:empleado"], function() {
     Route::middleware("can:ver_clientes,".Empleado::class)->group(function() {
 
         Route::get('/cliente/listar', [ClienteController::class, 'index'])->name('cliente.listar');
-    
+
         Route::middleware("can:interactuar_clientes,".Empleado::class)->group(function() {
             Route::get('/cliente/crear', [ClienteController::class, 'create'])->name('cliente.crear');
             Route::post('/cliente/store', [ClienteController::class, 'store'])->name('cliente.store');
-        
+
             Route::get('/cliente/editar/{id}', [ClienteController::class, 'edit'])->name('cliente.editar');
             Route::put('/cliente/update/{id}', [ClienteController::class, 'update'])->name('cliente.update');
         });
-    
+
         Route::get('/cliente/mostrar/{id}', [ClienteController::class, 'show'])->name('cliente.mostrar'); // Retorna la vista del cliente en particlar
-        Route::delete('/cliente/borrar/{id}', [ClienteController::class, 'delete'])->middleware("can:eliminar_clientes,".Empleado::class)->name('cliente.delete'); // Retorna la vista del $id del cliente para eliminarlo 
-    
+        Route::delete('/cliente/borrar/{id}', [ClienteController::class, 'delete'])->middleware("can:eliminar_clientes,".Empleado::class)->name('cliente.delete'); // Retorna la vista del $id del cliente para eliminarlo
+
     });
-    
 
 
-    
+
+
 
     // ===== Modulo de CATEGORIAS =====
 
@@ -87,14 +89,14 @@ Route::group(["middleware" => "auth:empleado"], function() {
 
         Route::get('/categoria/mostrar/{id}', [CategoriaController::class, 'show'])->name('categoria.mostrar');
         Route::delete('/categoria/borrar/{id}', [CategoriaController::class, 'delete'])->middleware("can:eliminar_categorias,".Empleado::class)->name('categoria.delete');
-    
+
     });
 
 
 
 
     // ===== Modulo de PRODUCTOS =====
-    
+
     Route::middleware("can:ver_productos,".Empleado::class)->group(function() {
         Route::get("/producto/listar", [ProductoController::class, "index"])->name("producto.listar");
 
@@ -114,10 +116,10 @@ Route::group(["middleware" => "auth:empleado"], function() {
 
 
     // ===== Modulo de EMPLEADOS =====
-    
+
     Route::middleware("can:ver_empleados,".Empleado::class)->group(function() {
         Route::get('/empleado/listar', [EmpleadoController::class, 'index'])->name('empleado.listar'); // Retorna la vista de todos los clientes
-        
+
         Route::middleware("can:interactuar_empleados,".Empleado::class)->group(function() {
             Route::get('/empleado/crear', [EmpleadoController::class, 'create'])->name('empleado.crear'); // Retorna la vista del formulario de crear
             Route::post('/empleado/store', [EmpleadoController::class, 'store'])->name('empleado.store'); // El metodo post que envia los datos del cliente
@@ -138,18 +140,18 @@ Route::group(["middleware" => "auth:empleado"], function() {
     Route::middleware("can:ver_sensores,".Empleado::class)->group(function() {
 
         Route::get('/sensor/listar', [SensorController::class, 'index'])->name('sensor.listar');
-        
+
         Route::middleware("can:interactuar_sensores,".Empleado::class)->group(function() {
             Route::get('/sensor/crear', [SensorController::class, 'create'])->name('sensor.crear');
             Route::post('/sensor/store', [SensorController::class, 'store'])->name('sensor.store');
-        
+
             Route::get('/sensor/editar/{id}', [SensorController::class, 'edit'])->name('sensor.editar');
             Route::put('/sensor/update/{id}', [SensorController::class, 'update'])->name('sensor.update');
         });
-    
+
         Route::get('/sensor/mostrar/{id}', [SensorController::class, 'show'])->name('sensor.mostrar'); // Retorna la vista del cliente en particlar
-        Route::delete('/sensor/borrar/{id}', [SensorController::class, 'delete'])->middleware("can:eliminar_sensores,".Empleado::class)->name('sensor.delete'); // Retorna la vista del $id del cliente para eliminarlo 
-    
+        Route::delete('/sensor/borrar/{id}', [SensorController::class, 'delete'])->middleware("can:eliminar_sensores,".Empleado::class)->name('sensor.delete'); // Retorna la vista del $id del cliente para eliminarlo
+
     });
 
 
@@ -160,21 +162,21 @@ Route::group(["middleware" => "auth:empleado"], function() {
     Route::middleware("can:ver_ventas,".Empleado::class)->group(function() {
 
         Route::get('/venta/listar', [VentaController::class, 'index'])->name('venta.listar');
-        
+
         Route::middleware("can:interactuar_ventas,".Empleado::class)->group(function() {
             Route::get('/venta/entregar', [VentaController::class, 'entregar'])->name('venta.entregar');
             Route::post('/venta/entregar', [VentaController::class, 'entregarValidar'])->name('venta.entregar');
 
             Route::get('/venta/crear', [VentaController::class, 'create'])->name('venta.crear');
             Route::post('/venta/store', [VentaController::class, 'store'])->name('venta.store');
-        
+
             Route::get('/venta/editar/{id}', [VentaController::class, 'edit'])->name('venta.editar');
             Route::put('/venta/update/{id}', [VentaController::class, 'update'])->name('venta.update');
         });
-    
+
         Route::get('/venta/mostrar/{id}', [VentaController::class, 'show'])->name('venta.mostrar'); // Retorna la vista del cliente en particlar
-        Route::delete('/venta/borrar/{id}', [VentaController::class, 'delete'])->middleware("can:eliminar_ventas,".Empleado::class)->name('venta.delete'); // Retorna la vista del $id del cliente para eliminarlo 
-    
+        Route::delete('/venta/borrar/{id}', [VentaController::class, 'delete'])->middleware("can:eliminar_ventas,".Empleado::class)->name('venta.delete'); // Retorna la vista del $id del cliente para eliminarlo
+
     });
 
 });

@@ -17,3 +17,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# Angular related
+/public/assets/angular
+/resources/views/angular.blade.php
