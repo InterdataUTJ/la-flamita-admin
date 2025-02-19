@@ -66,8 +66,11 @@ _Este proceso dependera de la instalación de BD a elegir, es completamente inde
 7. Ejecutar configuración de laravel mediante `artisan`.
 
 ```bash
+# Generar una clave de encriptación
+php artisan key:generate
+
 # Crear los enlaces simbolicos para hacer publico parte del storage
-php artisan link:storage
+php artisan storage:link
 
 # Ejecutar migraciones, esto creara la estructura de la base de datos.
 php artisan migrate
