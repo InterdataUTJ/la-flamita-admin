@@ -1,5 +1,5 @@
 import { body, param } from "express-validator";
-import { file } from '#middlewares/validations/file.js';
+import { file } from '#middlewares/validations/utils/file.js';
 
 export default function validate(method) {
   switch(method) {
