@@ -1,3 +1,8 @@
+#app
+storage/public/*
+public/storage/*
+
+
 # Logs
 logs
 *.log
