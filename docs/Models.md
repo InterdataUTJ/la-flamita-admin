@@ -25,8 +25,6 @@
     "avatar": "string",
     "estado": "boolean",
     "rol": "ENUM('ADMINISTRADOR', 'GERENTE', 'EMPLEADO')",
-    "updated_at": "Date", // Interno de Laravel 
-    "created_at": "Date"  // Interno de Laravel
 }
 ```
 
@@ -56,16 +54,11 @@
     "token": "string",
     "metodo_pago": "string",
     "paypal_id": "string",
-    "updated_at": "Date", // Interno de Laravel 
-    "created_at": "Date",  // Interno de Laravel
     "productos": [{ // Embedded - ProductoVenta
-        "_id": "ObjectId",
         "producto_id": "ObjectId",
         "cantidad": "number",
-        "precio": "decimal",
+        "precio": "number",
         "descuento": "number",
-        "updated_at": "Date", // Interno de Laravel 
-        "created_at": "Date",  // Interno de Laravel
     }]
 }
 ```
@@ -91,18 +84,11 @@
     "_id": "ObjectId", // Automatico por MongoDB
     "nombre": "string",
     "descripcion": "string",
-    "precio": "decimal",
+    "precio": "number",
     "existencias": "number",
     "estado": "boolean",
-    "descuento": "decimal", // Porcentaje
-    "updated_at": "Date", // Interno de Laravel 
-    "created_at": "Date",  // Interno de Laravel
-    "fotos": [{ // Embedded - ProductoFoto
-        "_id": "ObjectId", // Automatico por MongoDB
-        "url": "string",
-        "updated_at": "Date", // Interno de Laravel 
-        "created_at": "Date",  // Interno de Laravel
-    }],
+    "descuento": "number", // Porcentaje
+    "fotos": ["string"], // URLs
     "categorias": ["ObjectId"] // Referencia a CategoriaDato
 }
 ```
@@ -131,17 +117,11 @@
     "avatar": "string",
     "estado": "boolean",
     "google_id": "string",
-    "remember_token": "string", // Interno de laravel
-    "updated_at": "Date", // Interno de Laravel 
-    "created_at": "Date",  // Interno de Laravel
     "carrito": [{ // Embedded - CarritoItem
-        "_id": "ObjectId",
         "producto_id": "ObjectId",
         "cantidad": "number",
-        "precio": "decimal",
+        "precio": "number",
         "descuento": "number",
-        "updated_at": "Date", // Interno de Laravel 
-        "created_at": "Date",  // Interno de Laravel
     }]
 }
 ```
@@ -167,13 +147,9 @@
     "_id": "ObjectId", // Automatico por MongoDB
     "nombre": "string",
     "descripcion": "string",
-    "updated_at": "Date", // Interno de Laravel 
-    "created_at": "Date",  // Interno de Laravel
     "datos": [{ // Embedded - CategoriaDato
         "_id": "ObjectId",
-        "nombre": "string",
-        "updated_at": "Date", // Interno de Laravel 
-        "created_at": "Date",  // Interno de Laravel
+        "nombre": "string"
     }]
 }
 ```
@@ -184,6 +160,7 @@
 {
     "_id": [1, "unique"], // Asc - Unique
     "nombre": [1, "unique"], // Asc - Unique
+    "datos._id": [1, "unique"], // Asc - Unique
     "datos.nombre": [1, "unique"], // Asc - Unique
 }
 ```
@@ -199,13 +176,9 @@
     "_id": "ObjectId", // Automatico por MongoDB
     "nombre": "string",
     "token": "string",
-    "updated_at": "Date", // Interno de Laravel 
-    "created_at": "Date",  // Interno de Laravel
     "datos": [{ // Embedded - ModuloDato
-        "_id": "ObjectId",
-        "datos": "string", // Datos serializados
-        "updated_at": "Date", // Interno de Laravel 
-        "created_at": "Date",  // Interno de Laravel
+        "dato": "string", // Datos serializados
+        "timestamp": "Date",
     }]
 }
 ```
