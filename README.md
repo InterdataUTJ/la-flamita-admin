@@ -59,9 +59,27 @@ npm install
 
 _Este proceso dependera de la instalación de BD a elegir, es completamente independiente del proyecto. El unico requisito adicional es crear la base de datos con el mismo nombre de las variables de entorno (No es necesario crear tablas manualmente)._
 
-7. Arrancar el servidor
+7. Preparar frontend
 
-_Estos comandos deben de ejecutarse en terminales diferentes pues bloquean el acceso a esta._
+Primero es necesario preparar las dependencias del frontend
+
+```bas
+cd react/
+npm install
+```
+
+Si quieres trabajar en el modo desarrollo solo necesitas iniciar el servidor Vite
+```bash
+npm run dev
+```
+
+O tambien puedes hacer un build de la app de React para poder usarse desde la misma URL de express
+
+```bash
+npm run build
+```
+
+8. Arrancar el servidor express
 
 ```bash
 npm run dev

@@ -1,7 +1,7 @@
 #app
 storage/public/*
-public/storage
-
+public/*
+!public/la-flamita-web.svg
 
 # Logs
 logs

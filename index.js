@@ -2,6 +2,7 @@
 import express from 'express';
 import cors from 'cors';
 import multer from 'multer';
+import path from 'node:path';
 import errorHandler from '#middlewares/error.middleware.js';
 import print from '#util/print/index.js';
 import '#config/db.config.js';
@@ -38,6 +39,9 @@ app.use('/api/empleado', empleadoRouter);
 app.use('/api/producto', productoRouter);
 app.use('/api/sensor', sensorRouter);
 app.use('/api/venta', ventaRouter);
+
+// Frontend
+app.use('*', (_, res) => res.sendFile(path.join(import.meta.dirname, 'public/index.html')));
 
 
 // Error handler
