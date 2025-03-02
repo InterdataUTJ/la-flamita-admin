@@ -8,6 +8,7 @@
 4. [`Cliente`](#cliente)
 5. [`Categoria`](#categoria)
 6. [`Modulo`](#modulo)
+7. [`ApiToken`](#apitoken)
 
 
 
@@ -190,5 +191,29 @@
     "_id": [1, "unique"], // Asc - Unique
     "nombre": [1, "unique"], // Asc - Unique
     "token": [1, "unique"], // Asc - Unique
+}
+```
+
+
+
+
+## ApiToken
+
+##### Datos a almacenar
+
+```json
+{
+    "_id": "ObjectId", // Automatico por MongoDB
+    "user_id": "string", // ObjectId _id - Cliente/Empleado
+    "jwt": "string"
+}
+```
+
+##### Indices
+
+```json
+{
+    "_id": [1, "unique"], // Asc - Unique
+    "jwt": [1, "unique"], // Asc - Unique
 }
 ```
