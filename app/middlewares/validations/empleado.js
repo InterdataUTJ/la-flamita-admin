@@ -1,0 +1,28 @@
+import { body, param } from "express-validator";
+import { file } from '#middlewares/validations/file.js';
+
+export default function validate(method) {
+  switch(method) {
+    case "crear": {
+      return [
+        body("nombre", "Falta el nombre").exists(),
+        body("apellido", "Falta el apellido").exists(),
+        body("correo", "Falta el correo").exists().isEmail(),
+        body("clave", "Falta la clave").exists(),
+        body("rol", "Falta el rol").exists().isIn(["SUPERADMIN", "ADMIN", "BASE"]),
+        file("Falta el avatar")
+      ]
+    }
+
+    case "editar": {
+      return [
+        param("empleadoId", "Falta el id de empleado").exists(),
+        body("nombre", "Falta el nombre").optional(),
+        body("apellido", "Falta el apellido").optional(),
+        body("correo", "Falta el correo").optional().isEmail(),
+        body("clave", "Falta la clave").optional(),
+        body("rol", "Falta el rol").optional().isIn(["SUPERADMIN", "ADMIN", "BASE"]),
+      ]
+    }
+  }
+}
