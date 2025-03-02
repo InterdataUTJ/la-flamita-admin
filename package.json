@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node --env-file=.env index.js",
     "dev": "node --watch --env-file=.env index.js",
-    "storage:link": "ln -s ../storage/public public/storage"
+    "storage:link": "mkdir -p storage/public && ln -s ../storage/public public/storage"
   },
   "keywords": [
     "laflamita"

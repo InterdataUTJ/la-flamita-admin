@@ -1,6 +1,6 @@
 #app
 storage/public/*
-public/storage/*
+public/storage
 
 
 # Logs
