@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 
 const empleadoSchema = new mongoose.Schema({
-  nombre: String,
-  apellido: String,
-  correo: String,
+  nombre: { type: String, required: true, maxLength: 50 },
+  apellido: { type: String, required: true, maxLength: 50 },
+  correo: { type: String, required: true },
   clave: String,
   avatar: String,
-  estado: Boolean,
-  rol: { type: String, enum: ['ADMINISTRADOR', 'GERENTE', 'EMPLEADO'] },
+  estado: { type: Boolean, required: true, default: true },
+  rol: { type: String, enum: ['ADMINISTRADOR', 'GERENTE', 'EMPLEADO'], required: true, default: 'EMPLEADO' },
 });
 
 // Unique without counting undefined values
