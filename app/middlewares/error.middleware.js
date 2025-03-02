@@ -45,3 +45,8 @@ export const JwtMissingError = errorMaker('JwtMissingError', 'No se encontro un 
 export const JwtInvalidError = errorMaker('JwtInvalidError', 'El JWT no es valido o esta expirado', 403);
 /** Las credenciales no son correctas */
 export const InvalidAuthError = errorMaker('InvalidAuthError', 'Las credenciales no son correctas', 400);
+
+
+
+// ===== perfil Errors =====
+export const PerfilUpdateError = errorMaker('PerfilUpdateError', 'Error al actualizar el perfil', 500);
