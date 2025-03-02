@@ -11,7 +11,7 @@ function App() {
     <StrictMode>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/info" element={<HomePage />} />
         </Routes>
       </BrowserRouter>
     </StrictMode>
