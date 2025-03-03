@@ -16,7 +16,7 @@ export default async function editar(req, res, next) {
     if (rol) empleado.rol = rol;
 
     if (req.files && req.files[0]) {
-      const nuevoNombre = `/public/imagenes/empleados/avatar_${empleado._id}.${mime.extension(req.files[0].mimetype)}`;
+      const nuevoNombre = `/imagenes/empleados/avatar_${empleado._id}.${mime.extension(req.files[0].mimetype)}`;
       empleado.avatar = await storage.save(nuevoNombre, req.files[0].buffer);;
     }
     
