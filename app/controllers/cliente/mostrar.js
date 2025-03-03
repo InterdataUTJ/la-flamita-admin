@@ -3,7 +3,7 @@ import { ClienteShowError } from "#middlewares/error.middleware.js";
 
 export default async function mostrar(req, res, next) {
     try {
-        const idclient = req.params.id;
+        const idclient = req.params.clienteId;
         const client = await Cliente.mostrar(idclient);
 
         if (!client) {

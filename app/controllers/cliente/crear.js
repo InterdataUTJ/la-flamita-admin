@@ -1,11 +1,12 @@
 import Cliente from "#models/Cliente.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { ClienteCreateError } from "#middlewares/error.middleware.js";
 import mime from "mime-types";
+import * as storage from '#util/storage/index.js';
 
 export default async function crear(req, res, next) {
     try {
-        const { nombre, apellido, correo, clave, } = req.body;
+        const { nombre, apellido, correo, clave } = req.body;
 
         //Creamos un nuevo cliente 
         const cliente = new Cliente();
