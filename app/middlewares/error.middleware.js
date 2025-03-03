@@ -122,6 +122,8 @@ export const SensorUpdateError = errorMaker('SensorUpdateError', 'Error al edita
 export const SensorDeleteError = errorMaker('SensorDeleteError', 'Error al eliminar el Sensor', 500);
 /** Error al mostrar el Sensor */
 export const SensorShowError = errorMaker('SensorShowError', 'Error al mostrar el Sensor', 500);
+/** Error al enviar datos del Sensor */
+export const SensorSendError = errorMaker('SensorSendError', 'Error al guardar datos del Sensor', 400);
 
 
 
