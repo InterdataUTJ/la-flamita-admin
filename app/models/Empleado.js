@@ -18,4 +18,9 @@ empleadoSchema.statics.listar = function() {
   return this.find({ estado: true }).select('-clave');
 }
 
+// Methods
+empleadoSchema.statics.mostrar = function(empleadoId) {
+  return this.findOne({ estado: true, _id: empleadoId }).select('-clave');
+}
+
 export default mongoose.model("Empleado", empleadoSchema);
