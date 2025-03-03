@@ -25,4 +25,9 @@ clienteSchema.statics.listar = function() {
   return this.find({ estado: true }).select('-clave -carrito');
 }
 
+// Methods
+clienteSchema.statics.mostrar = function(clienteId) {
+  return this.findOne({ estado: true, _id: clienteId }).select('-clave');
+}
+
 export default mongoose.model("Cliente", clienteSchema);
