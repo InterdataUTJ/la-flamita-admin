@@ -1,7 +1,7 @@
 #app
 public/*
 !public/la-flamita-web.svg
-!public/storage/imagenes/avatar_default.svg
+!public/avatar_default.svg
 
 # Logs
 logs
