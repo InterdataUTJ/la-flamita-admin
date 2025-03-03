@@ -16,7 +16,13 @@ const productoSchema = new mongoose.Schema({
 
 // Methods
 productoSchema.statics.listar = function() {
-  return this.find();
+  return this.find({estado: true});
 }
+
+
+productoSchema.statics.mostrar = function(clienteId) {
+  return this.findOne({ estado: true , _id: clienteId });
+}
+
 
 export default mongoose.model("Producto", productoSchema);
