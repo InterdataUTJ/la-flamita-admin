@@ -14,10 +14,10 @@ export default async function (req, res, next) {
     empleado.correo = correo;
     empleado.clave = await bcrypt.hash(clave, 10);
     empleado.rol = rol;
-    empleado.avatar = storage.asset("/storage/imagenes/avatar_default.svg");
+    empleado.avatar = storage.asset("/imagenes/avatar_default.svg");
 
     if (req.files && req.files[0]) {
-      const nuevoNombre = `/public/imagenes/empleados/avatar_${empleado._id}.${mime.extension(req.files[0].mimetype)}`;
+      const nuevoNombre = `/imagenes/empleados/avatar_${empleado._id}.${mime.extension(req.files[0].mimetype)}`;
       empleado.avatar = await storage.save(nuevoNombre, req.files[0].buffer);;
     }
     

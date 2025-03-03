@@ -15,10 +15,10 @@ export default async function crear(req, res, next) {
         cliente.apellido = apellido;
         cliente.correo = correo;
         cliente.clave = await bcrypt.hash(clave, 10);
-        cliente.avatar = "/storage/imagenes/avatar_default.svg";
+        cliente.avatar = storage.asset("/imagenes/avatar_default.svg");
 
         if (req.files && req.files[0]) {
-            const nuevoNombre = `/public/imagenes/clientes/avatar_${cliente._id}.${mime.extension(req.files[0].mimetype)}`;
+            const nuevoNombre = `/imagenes/clientes/avatar_${cliente._id}.${mime.extension(req.files[0].mimetype)}`;
             cliente.avatar = await storage.save(nuevoNombre, req.files[0].buffer);;
         }
 

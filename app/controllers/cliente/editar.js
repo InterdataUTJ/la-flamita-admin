@@ -18,7 +18,7 @@ export default async function editar(req, res, next) {
         if (clave) cliente.clave = await bcrypt.hash(clave, 10);
 
         if (req.files && req.files[0]) {
-            const nuevoNombre = `/public/imagenes/clientes/avatar_${cliente._id}.${mime.extension(req.files[0].mimetype)}`;
+            const nuevoNombre = `/imagenes/clientes/avatar_${cliente._id}.${mime.extension(req.files[0].mimetype)}`;
             cliente.avatar = await storage.save(nuevoNombre, req.files[0].buffer);;
         }
 
