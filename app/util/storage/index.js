@@ -22,16 +22,17 @@ export async function save(destination, buffer) {
 export function asset(filepath, storage = true) {
   const storagePath = storage ? '/storage' : '';
   if (!filepath) return null;
-  if (filepath.startsWith('/')) return `${appUrl}${storage}${filepath}`;
-  else return `${appUrl}${storage}/${filepath}`; 
+  if (filepath.startsWith('/')) return `${appUrl}${storagePath}${filepath}`;
+  else return `${appUrl}${storagePath}/${filepath}`; 
 }
 
 async function removeOne(filepath) {
   if (!filepath) return;
   const asset = filepath.replace(appUrl, '');
-  if (!asset.startsWith('/storage')) return;
+  if (!asset.startsWith('/storage')) return print.error('El archivo no se encuentra en el directorio de almacenamiento');
   const absolutePath = path.join(process.cwd(), 'public', asset);
-  if (fs.existsSync(absolutePath)) await fs.promises.unlink(absolutePath);
+  if (!fs.existsSync(absolutePath)) return print.error('El archivo no existe');
+  await fs.promises.unlink(absolutePath).catch(error => print.error(error.message));
 }
 
 export async function remove(urlArray) {
