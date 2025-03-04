@@ -30,6 +30,7 @@ export default async function editar(req, res, next) {
             // que ya estan del req.file y luego agregar las nuevas imagenes 
             // de esta manera no se acumulan imagenes en el servidor Y se eliminan
             // las imagenes que ya no se usan
+            await storage.remove(producto.fotos);
 
             producto.fotos = [];
             for (const [index, file] of req.files.entries()) {

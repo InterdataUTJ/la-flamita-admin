@@ -14,7 +14,7 @@ export default async function (req, res, next) {
     empleado.correo = correo;
     empleado.clave = await bcrypt.hash(clave, 10);
     empleado.rol = rol;
-    empleado.avatar = storage.asset("/imagenes/avatar_default.svg");
+    empleado.avatar = storage.asset("/avatar_default.svg", false);
 
     if (req.files && req.files[0]) {
       const nuevoNombre = `/imagenes/empleados/avatar_${empleado._id}.${mime.extension(req.files[0].mimetype)}`;
