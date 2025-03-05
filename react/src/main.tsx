@@ -1,11 +1,12 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from "react-router";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import { AuthContextProvider } from './hooks/AuthContext';
 import './global.css'
 
 // Pages
-import HomePage from './pages/Home';
+import LoginPage from './pages/Auth/Login';
+import PanelPage from './pages/Panel';
 
 function App() {
   return (
@@ -13,7 +14,13 @@ function App() {
       <AuthContextProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<HomePage />} />
+
+            <Route path="/" element={<Navigate to="/panel" />} />
+            <Route path="/panel" element={<PanelPage />} />
+
+            <Route path="/login" element={<LoginPage />} />
+
+
           </Routes>
         </BrowserRouter>
       </AuthContextProvider>

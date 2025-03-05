@@ -3,6 +3,7 @@ export interface AuthContextProviderProps {
 }
 
 export interface AuthContextData {
+  isLoggedIn: boolean;
   token: string | undefined;
   setToken: (token: string) => void;
 }
