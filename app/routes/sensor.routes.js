@@ -13,16 +13,13 @@ import mostrar from '#controllers/sensor/mostrar.js';
 import eliminar from '#controllers/sensor/eliminar.js';
 import enviar from '#controllers/sensor/enviar.js';
 
-// Global Middleware
-sensorRouter.use(rol('ADMINISTRADOR', 'GERENTE'));
-
 // Routes
-sensorRouter.get('/listar', [auth], listar);
-sensorRouter.post('/crear', [auth, validate("crear"), checkValidationResult], crear);
+sensorRouter.get('/listar', [auth, rol('ADMINISTRADOR', 'GERENTE')], listar);
+sensorRouter.post('/crear', [auth, rol('ADMINISTRADOR', 'GERENTE'), validate("crear"), checkValidationResult], crear);
 
-sensorRouter.get('/mostrar/:sensorId', [auth], mostrar);
-sensorRouter.delete('/eliminar/:sensorId', [auth], eliminar);
-sensorRouter.put('/editar/:sensorId', [auth, validate("editar"), checkValidationResult], editar);
+sensorRouter.get('/mostrar/:sensorId', [auth, rol('ADMINISTRADOR', 'GERENTE')], mostrar);
+sensorRouter.delete('/eliminar/:sensorId', [auth, rol('ADMINISTRADOR', 'GERENTE')], eliminar);
+sensorRouter.put('/editar/:sensorId', [auth, rol('ADMINISTRADOR', 'GERENTE'), validate("editar"), checkValidationResult], editar);
 
 sensorRouter.post('/enviar/:sensorId', [validate("enviar"), checkValidationResult], enviar);
 
