@@ -21,7 +21,7 @@ export default function Template({ children, auth, title }: TemplateProps) {
       <main className="grow w-11/12 max-w-screen-lg lg:max-w-screen-xl mx-auto p-5 box-border">
         {children}
       </main>
-      { auth && <Footer /> }
+      <Footer />
     </>
   );
 }

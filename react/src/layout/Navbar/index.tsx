@@ -1,5 +1,4 @@
 import { Navbar as FlowNavbar } from "flowbite-react";
-import { Link } from "react-router";
 import AuthNavbar from "./Auth";
 
 interface NavbarProps {
@@ -19,7 +18,7 @@ export default function Navbar({ auth = false }: NavbarProps) {
   if (auth) return <AuthNavbar />;
   return (
     <FlowNavbar fluid rounded theme={navTheme}>
-      <FlowNavbar.Brand as={Link} to="/">
+      <FlowNavbar.Brand>
         <img src="/favicon.png" className="h-8 mr-2" alt="La Flamita logo" />
         <span className="self-center text-2xl font-extrabold whitespace-nowrap">La Flamita</span>
       </FlowNavbar.Brand>
