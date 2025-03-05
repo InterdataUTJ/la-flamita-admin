@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import validate from '#middlewares/validations/perfil.js';
 import checkValidationResult from '#middlewares/validations/index.js';
-import authMiddleware from '#middlewares/auth.middleware.js';
+import auth from '#middlewares/auth.middleware.js';
 const perfilRouter = Router();
 
 // Import controller
@@ -12,9 +12,9 @@ import editar from '#controllers/perfil/editar.js';
 
 // Routes
 perfilRouter.post('/login', [validate("login"), checkValidationResult], login);
-perfilRouter.post('/logout', [authMiddleware], logout);
+perfilRouter.post('/logout', [auth], logout);
 
-perfilRouter.get('/perfil', [authMiddleware], perfil);
-perfilRouter.put('/perfil/editar', [validate("editar"), authMiddleware], editar);
+perfilRouter.get('/perfil', [auth], perfil);
+perfilRouter.put('/perfil/editar', [auth, validate("editar"), checkValidationResult], editar);
 
 export default perfilRouter;

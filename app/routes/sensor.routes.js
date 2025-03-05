@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import auth from '#middlewares/auth.middleware.js';
+import rol from '#middlewares/rol.middleware.js';
 import validate from '#middlewares/validations/sensor.js';
 import checkValidationResult from '#middlewares/validations/index.js';
 const sensorRouter = Router();
@@ -11,6 +12,9 @@ import editar from '#controllers/sensor/editar.js';
 import mostrar from '#controllers/sensor/mostrar.js';
 import eliminar from '#controllers/sensor/eliminar.js';
 import enviar from '#controllers/sensor/enviar.js';
+
+// Global Middleware
+sensorRouter.use(rol('ADMINISTRADOR', 'GERENTE'));
 
 // Routes
 sensorRouter.get('/listar', [auth], listar);

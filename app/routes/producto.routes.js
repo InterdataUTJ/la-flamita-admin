@@ -1,6 +1,7 @@
 import { Router } from 'express';
 const productoRouter = Router();
 import auth from '../middlewares/auth.middleware.js';
+import rol from '#middlewares/rol.middleware.js';
 import validate from '#middlewares/validations/producto.js';
 import checkValidationResult from '#middlewares/validations/index.js';
 
@@ -11,11 +12,15 @@ import listar from '../controllers/producto/listar.js';
 import mostrar from '../controllers/producto/mostrar.js';
 import eliminar from '../controllers/producto/eliminar.js';
 
-productoRouter.post('/crear', [auth, validate("crear"), checkValidationResult], crear);
-productoRouter.put('/editar/:productoId', [auth, validate("editar"), checkValidationResult], editar);
-productoRouter.get('/listar', auth, listar);
-productoRouter.get('/mostrar/:productoId', [auth], mostrar);
-productoRouter.delete('/eliminar/:productoId', [auth], eliminar);
+// Middleware
+productoRouter.use(auth);
+
+// Routes
+productoRouter.post('/crear', [rol('ADMINISTRADOR', 'GERENTE'), validate("crear"), checkValidationResult], crear);
+productoRouter.put('/editar/:productoId', [rol('ADMINISTRADOR', 'GERENTE'), validate("editar"), checkValidationResult], editar);
+productoRouter.get('/listar', listar);
+productoRouter.get('/mostrar/:productoId', mostrar);
+productoRouter.delete('/eliminar/:productoId', [rol('ADMINISTRADOR', 'GERENTE')], eliminar);
 
 export default productoRouter;
 
