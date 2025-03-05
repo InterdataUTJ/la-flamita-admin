@@ -21,7 +21,7 @@ export default function validate(method) {
         body("nombre", "Falta el nombre").optional(),
         body("apellido", "Falta el apellido").optional(),
         body("correo", "Falta el correo").optional().isEmail(),
-        body("clave", "Falta la clave").optional(),,
+        body("clave", "Falta la clave").optional(),
         checkValidationResult
       ]
     }
