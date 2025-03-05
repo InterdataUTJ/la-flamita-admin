@@ -1,4 +1,5 @@
 import { body, param } from "express-validator";
+import checkValidationResult from "./utils/checkValidationResult.js";
 
 export default function validate(method) {
   switch(method) {
@@ -7,6 +8,7 @@ export default function validate(method) {
         body("valores", "Los valores deben de ser un Array").exists().isArray(),
         body("nombre", "El nombre es invalido").exists().isLength({ min: 3, max: 50 }),
         body("descripcion", "La descipcion es invalida").exists(),
+        checkValidationResult
       ]
     }
 
@@ -16,6 +18,7 @@ export default function validate(method) {
         body("valores", "Los valores deben de ser un Array").optional().isArray(),
         body("nombre", "El nombre es invalido").optional().isLength({ min: 3, max: 50 }),
         body("descripcion", "La descipcion es invalida").optional(),
+        checkValidationResult
       ]
     }
   }

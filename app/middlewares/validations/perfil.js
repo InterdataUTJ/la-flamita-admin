@@ -1,4 +1,5 @@
 import { body } from "express-validator";
+import checkValidationResult from './utils/checkValidationResult.js';
 
 export default function validate(method) {
   switch(method) {
@@ -6,6 +7,7 @@ export default function validate(method) {
       return [
         body("correo", "Falta el correo o es invalido").exists().isEmail(),
         body("clave", "Falta la clave o es invalida").exists().isLength({ min: 8, max: 255 }),
+        checkValidationResult
       ]
     }
 
@@ -16,6 +18,7 @@ export default function validate(method) {
         body("correo", "El correo es invalido").optional().isEmail(),
         body("clave", "La clave es invalida").optional().isLength({ min: 8, max: 255 }),
         // file("Falta el avatar").optional(),
+        checkValidationResult
       ]
     }
   }
