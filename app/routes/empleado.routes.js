@@ -2,7 +2,6 @@ import { Router } from 'express';
 import auth from '#middlewares/auth.middleware.js';
 import rol from '#middlewares/rol.middleware.js';
 import validate from '#middlewares/validations/empleado.js';
-import checkValidationResult from '#middlewares/validations/index.js';
 const empleadoRouter = Router();
 
 // Import controller
@@ -17,10 +16,10 @@ empleadoRouter.use(auth);
 
 // Routes
 empleadoRouter.get('/listar', [rol("ADMINISTRADOR", "GERENTE")], listar);
-empleadoRouter.post('/crear', [rol("ADMINISTRADOR", "GERENTE"), validate("crear"), checkValidationResult], crear);
+empleadoRouter.post('/crear', [rol("ADMINISTRADOR", "GERENTE"), validate("crear")], crear);
 
 empleadoRouter.get('/mostrar/:empleadoId', [rol("ADMINISTRADOR", "GERENTE")], mostrar);
 empleadoRouter.delete('/eliminar/:empleadoId', [rol("ADMINISTRADOR")], eliminar);
-empleadoRouter.put('/editar/:empleadoId', [rol("ADMINISTRADOR", "GERENTE"), validate("editar"), checkValidationResult], editar);
+empleadoRouter.put('/editar/:empleadoId', [rol("ADMINISTRADOR", "GERENTE"), validate("editar")], editar);
 
 export default empleadoRouter;

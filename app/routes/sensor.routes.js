@@ -2,7 +2,6 @@ import { Router } from 'express';
 import auth from '#middlewares/auth.middleware.js';
 import rol from '#middlewares/rol.middleware.js';
 import validate from '#middlewares/validations/sensor.js';
-import checkValidationResult from '#middlewares/validations/index.js';
 const sensorRouter = Router();
 
 // Import controller
@@ -15,12 +14,12 @@ import enviar from '#controllers/sensor/enviar.js';
 
 // Routes
 sensorRouter.get('/listar', [auth, rol('ADMINISTRADOR', 'GERENTE')], listar);
-sensorRouter.post('/crear', [auth, rol('ADMINISTRADOR', 'GERENTE'), validate("crear"), checkValidationResult], crear);
+sensorRouter.post('/crear', [auth, rol('ADMINISTRADOR', 'GERENTE'), validate("crear")], crear);
 
 sensorRouter.get('/mostrar/:sensorId', [auth, rol('ADMINISTRADOR', 'GERENTE')], mostrar);
 sensorRouter.delete('/eliminar/:sensorId', [auth, rol('ADMINISTRADOR', 'GERENTE')], eliminar);
-sensorRouter.put('/editar/:sensorId', [auth, rol('ADMINISTRADOR', 'GERENTE'), validate("editar"), checkValidationResult], editar);
+sensorRouter.put('/editar/:sensorId', [auth, rol('ADMINISTRADOR', 'GERENTE'), validate("editar")], editar);
 
-sensorRouter.post('/enviar/:sensorId', [validate("enviar"), checkValidationResult], enviar);
+sensorRouter.post('/enviar/:sensorId', [validate("enviar")], enviar);
 
 export default sensorRouter;

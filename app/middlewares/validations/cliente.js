@@ -1,5 +1,6 @@
 import { body, param } from "express-validator";
 import { file } from '#middlewares/validations/utils/file.js';
+import checkValidationResult from './utils/checkValidationResult.js';
 
 export default function validate(method) {
   switch(method) {
@@ -9,7 +10,8 @@ export default function validate(method) {
         body("apellido", "Falta el apellido").exists(),
         body("correo", "Falta el correo").exists().isEmail(),
         body("clave", "Falta la clave").exists(),
-        file("Falta el avatar")
+        file("Falta el avatar"),
+        checkValidationResult
       ]
     }
 
@@ -19,7 +21,8 @@ export default function validate(method) {
         body("nombre", "Falta el nombre").optional(),
         body("apellido", "Falta el apellido").optional(),
         body("correo", "Falta el correo").optional().isEmail(),
-        body("clave", "Falta la clave").optional(),
+        body("clave", "Falta la clave").optional(),,
+        checkValidationResult
       ]
     }
   }
