@@ -2,7 +2,6 @@ import { Router } from 'express';
 import auth from '#middlewares/auth.middleware.js';
 import rol from '#middlewares/rol.middleware.js';
 import validate from '#middlewares/validations/categoria.js';
-import checkValidationResult from '#middlewares/validations/index.js';
 const categoriaRouter = Router();
 
 // Import controller
@@ -17,10 +16,10 @@ categoriaRouter.use(auth);
 
 // Routes
 categoriaRouter.get('/listar', listar);
-categoriaRouter.post('/crear', [rol("ADMINISTRADOR", "GERENTE"), validate("crear"), checkValidationResult], crear);
+categoriaRouter.post('/crear', [rol("ADMINISTRADOR", "GERENTE"), validate("crear")], crear);
 
 categoriaRouter.get('/mostrar/:categoriaId', mostrar);
 categoriaRouter.delete('/eliminar/:categoriaId', [rol("ADMINISTRADOR", "GERENTE")], eliminar);
-categoriaRouter.put('/editar/:categoriaId', [rol("ADMINISTRADOR", "GERENTE"), validate("editar"), checkValidationResult], editar);
+categoriaRouter.put('/editar/:categoriaId', [rol("ADMINISTRADOR", "GERENTE"), validate("editar")], editar);
 
 export default categoriaRouter;
