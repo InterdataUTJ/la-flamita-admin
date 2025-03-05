@@ -1,5 +1,5 @@
 import Venta from '#models/Venta.js';
-import { VentaDeleteError, VentaUpdateError } from '#middlewares/error.middleware.js';
+import { VentaDeleteError } from '#middlewares/error.middleware.js';
 
 export default async function eliminar(req, res, next) {
     try {
@@ -7,7 +7,7 @@ export default async function eliminar(req, res, next) {
 
         const venta = await Venta.findById(idventa);
         if (!venta) {
-            throw (new VentaUpdateErrorr("Venta no encontrada"));
+            return next(new VentaDeleteError("Venta no encontrada"));
         }
 
         //Aqui eliminamos la venta 
