@@ -13,6 +13,7 @@ export default async function editar(req, res, next) {
 
         //Busco el producto por el id
         const producto = await Producto.findById(req.params.productoId);
+        if (!producto) return next(new ProductoUpdateError("Producto no encontrado"));
 
         //Asigamos los nuevos valores al producto
         if (nombre) producto.nombre = nombre;

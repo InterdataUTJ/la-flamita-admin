@@ -12,6 +12,8 @@ export default async function editar(req, res, next) {
 
         //Mediante el metodo findById buscamos el cliente por su id para actualizar
         const cliente = await Cliente.findById(req.params.clienteId);
+        if (!cliente) return next(new ClienteUpdateError("Cliente no encontrado"));
+
         if (nombre) cliente.nombre = nombre;
         if (apellido) cliente.apellido = apellido;
         if (correo) cliente.correo = correo;

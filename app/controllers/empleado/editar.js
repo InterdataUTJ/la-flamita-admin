@@ -9,6 +9,8 @@ export default async function editar(req, res, next) {
     const { nombre, apellido, correo, clave, rol } = req.body;
 
     const empleado = await Empleado.findById(req.params.empleadoId);
+    if (!empleado) return next(new EmpleadoUpdateError("Empleado no encontrado"));
+
     if (nombre) empleado.nombre = nombre;
     if (apellido) empleado.apellido = apellido;
     if (correo) empleado.correo = correo;
