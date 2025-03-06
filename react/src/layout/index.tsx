@@ -4,11 +4,10 @@ import { useEffect } from "react";
 
 interface TemplateProps {
   children: React.ReactNode;
-  auth?: boolean;
   title?: string;
 }
 
-export default function Template({ children, auth, title }: TemplateProps) {
+export default function Template({ children, title }: TemplateProps) {
   
   useEffect(() => {
     if (title) document.title = `La Flamita | ${title}`;
@@ -17,7 +16,7 @@ export default function Template({ children, auth, title }: TemplateProps) {
 
   return (
     <>
-      <Navbar auth={auth} />
+      <Navbar />
       <main className="grow w-11/12 max-w-screen-lg lg:max-w-screen-xl mx-auto p-5 box-border">
         {children}
       </main>
