@@ -28,6 +28,11 @@ const navTheme = {
   } 
 }
 
+function format(text?: String) {
+  if (!text) return "";
+  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+}
+
 export default function AuthNavbar() {
   const location = useLocation();
   const auth = useAuthContext();
@@ -46,15 +51,15 @@ export default function AuthNavbar() {
           inline
           label={
             <div className="flex items-center gap-2 text-sm bg-primary-100 rounded md:me-0 p-2 focus:ring-4 focus:ring-gray-300 hover:scale-105 transition duration-75">
-              <span className="text-primary-800 font-bold hidden sm:inline">Empleado</span>
+              <span className="text-primary-800 font-bold hidden sm:inline">{format(auth.user?.rol)}</span>
               <Avatar size="xs" alt="User settings" img="/favicon.png" rounded />
             </div>
           }
         >
           <Dropdown.Header>
-            <span className="block px-4 py-3 bg-quinary-100 text-sm text-quinary-900 font-bold">Rol</span>
-            <span className="px-4 block text-sm text-gray-900 py-2">Ismael Cortés Gutiérrez</span>
-            <span className="px-4 border-b block text-sm pb-2 text-gray-500 truncate">ismacortgtz@gmail.com</span>
+            <span className="block px-4 py-3 bg-quinary-100 text-sm text-quinary-900 font-bold">{format(auth.user?.rol)}</span>
+            <span className="px-4 block text-sm text-gray-900 py-2">{format(auth.user?.nombre)} {format(auth.user?.apellido)}</span>
+            <span className="px-4 border-b block text-sm pb-2 text-gray-500 truncate">{auth.user?.correo}</span>
           </Dropdown.Header>
           <Dropdown.Item as={Link} to="/perfil">Mi perfil</Dropdown.Item>
           <Dropdown.Item onClick={auth.logout}>Cerrar sesión</Dropdown.Item>
