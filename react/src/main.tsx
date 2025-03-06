@@ -9,14 +9,14 @@ import LoginPage from './pages/Auth/Login';
 import PanelPage from './pages/Panel';
 
 function App() {
-  const { isLoggedIn } = useAuthContext();
+  const { token } = useAuthContext();
 
   return (
     <StrictMode>
         <BrowserRouter>
           <Routes>
 
-            <Route path="/" element={<Navigate to={isLoggedIn ? "/panel" : "/login"} />} />
+            <Route path="/" element={<Navigate to={!!token ? "/panel" : "/login"} />} />
             <Route path="/panel" element={<PanelPage />} />
             <Route path="/login" element={<LoginPage />} />
 
