@@ -1,17 +1,19 @@
 import { body, param } from "express-validator";
 import { files } from '#middlewares/validations/utils/file.js';
+import { number, text } from '#middlewares/validations/utils/custom.js';
 import checkValidationResult from './utils/checkValidationResult.js';
 
 export default function validate(method) {
   switch (method) {
     case "crear": {
       return [
-        body("nombre", "Falta el nombre").exists(),
-        body("descripcion", "Falta la descripcion").exists(),
-        body("precio", "Falta el precio").exists().exists(),
-        body("existencias", "Falta existencias").exists(),
-        body("descuento", "Falta el descuento").exists(),
-        body("categorias", "Falta la categoria").exists(),
+        text("nombre"),
+        text("descripcion", { max: 500, articulo: "la" }),
+        number("precio", { minNumber: 0, decimal: true }),
+        number("existencias", { minNumber: 0, decimal: false, articulo: "las" }),
+        number("descuento", { minNumber: 0, decimal: true }),
+        body("categorias", "Las categorias deben de ser un Array").exists().isArray({ min: 1 }),
+        body("categorias.*", "Faltan las categorias").exists().isString().trim().notEmpty(),
         files("fotos", "Faltan las fotos"),
         checkValidationResult
       ]
@@ -20,12 +22,14 @@ export default function validate(method) {
     case "editar": {
         return [
             param("productoId", "Falta el id del producto").exists(),
-            body("nombre", "Falta el nombre").optional(),
-            body("descripcion", "Falta la descripcion").optional(),
-            body("precio", "Falta el precio").optional(),
-            body("existencias", "Falta existencias").optional(),
-            body("descuento", "Falta el descuento").optional(),
-            body("categorias", "Falta la categoria").optional(),
+            text("nombre", { optional: true }),
+            text("descripcion", { optional: true, max: 500, articulo: "la" }),
+            number("precio", { optional: true, minNumber: 0, decimal: true }),
+            number("existencias", { optional: true, minNumber: 0, decimal: false, articulo: "las" }),
+            number("descuento", { optional: true, minNumber: 0, decimal: true }),
+
+            body("categorias", "Las categorias deben de ser un Array").optional().isArray({ min: 1 }),
+            body("categorias.*", "Faltan las categorias").optional().isString().trim().notEmpty(),
             checkValidationResult
         ]
     }
