@@ -21,6 +21,7 @@ export default async function crear(req, res, next) {
         producto.existencias = existencias;
         producto.descuento = descuento;
         producto.estado = estado;
+        producto.categorias = categorias;
         producto.fotos = [];
 
         // req.file es un array que almacena las url de las imagenes
@@ -33,7 +34,6 @@ export default async function crear(req, res, next) {
             }
         }
 
-        producto.categorias = categorias;
 
         await producto.save();
         //Enviamos una respuesta con status 204
