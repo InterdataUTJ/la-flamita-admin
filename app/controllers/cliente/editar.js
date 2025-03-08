@@ -19,10 +19,12 @@ export default async function editar(req, res, next) {
         if (correo) cliente.correo = correo;
         if (clave) cliente.clave = await bcrypt.hash(clave, 10);
 
-        if (req.files && req.files[0]) {
+        // Guardar avatar
+        const file = req.files.find(file => file.fieldname === 'avatar');
+        if (file) {
             await storage.remove(cliente.avatar);
-            const nuevoNombre = `/imagenes/clientes/avatar_${cliente._id}.${mime.extension(req.files[0].mimetype)}`;
-            cliente.avatar = await storage.save(nuevoNombre, req.files[0].buffer);;
+            const nuevoNombre = `/imagenes/clientes/avatar_${cliente._id}.${mime.extension(file.mimetype)}`;
+            cliente.avatar = await storage.save(nuevoNombre, file.buffer);
         }
 
         //Guardamos el cliente

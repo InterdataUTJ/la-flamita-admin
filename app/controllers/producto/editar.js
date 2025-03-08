@@ -21,27 +21,26 @@ export default async function editar(req, res, next) {
         if (precio) producto.precio = precio;
         if (existencias) producto.existencias = existencias;
         if (descuento) producto.descuento = descuento;
-        if (estado) producto.estado = estado;
+        if (estado === true || estado === false) producto.estado = estado;
         if (categorias) producto.categorias = categorias;
 
         // req.file es un array que almacena las url de las imagenes
-        if (req.files && req.files.length > 0 && req.files.length <= 3) {
+        const files = req.files.filter(file => file.fieldname === 'fotos');
+        if (files) {
 
             //Aqui la idea es crear un metodo propio para eliminar las imagenes 
             // que ya estan del req.file y luego agregar las nuevas imagenes 
             // de esta manera no se acumulan imagenes en el servidor Y se eliminan
             // las imagenes que ya no se usan
             await storage.remove(producto.fotos);
-
             producto.fotos = [];
-            for (const [index, file] of req.files.entries()) {
+
+            for (const [index, file] of files.entries()){
                 const nuevoNombre = `/imagenes/productos/${producto._id}.${index}.${mime.extension(file.mimetype)}`;
                 const url = await storage.save(nuevoNombre, file.buffer);
                 producto.fotos.push(url);
             }
         }
-
-        producto.categorias = categorias;
 
         await producto.save();
         //Enviamos una respuesta con status 204

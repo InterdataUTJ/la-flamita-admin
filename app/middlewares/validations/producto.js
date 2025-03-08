@@ -12,9 +12,10 @@ export default function validate(method) {
         number("precio", { minNumber: 0, decimal: true }),
         number("existencias", { minNumber: 0, decimal: false, articulo: "las" }),
         number("descuento", { minNumber: 0, decimal: true }),
+        body("estado", "Debes enviar un estado booleano").exists().isBoolean().toBoolean(),
         body("categorias", "Las categorias deben de ser un Array").exists().isArray({ min: 1 }),
         body("categorias.*", "Faltan las categorias").exists().isString().trim().notEmpty(),
-        files("fotos", "Faltan las fotos"),
+        files("fotos", { type: "image", min: 1, max: 3 }),
         checkValidationResult
       ]
     }
@@ -27,9 +28,11 @@ export default function validate(method) {
             number("precio", { optional: true, minNumber: 0, decimal: true }),
             number("existencias", { optional: true, minNumber: 0, decimal: false, articulo: "las" }),
             number("descuento", { optional: true, minNumber: 0, decimal: true }),
+            body("estado", "Puedes enviar un estado booleano").optional().isBoolean().toBoolean(),
 
             body("categorias", "Las categorias deben de ser un Array").optional().isArray({ min: 1 }),
             body("categorias.*", "Faltan las categorias").optional().isString().trim().notEmpty(),
+            files("fotos", { type: "image", min: 1, max: 3, optional: true }),
             checkValidationResult
         ]
     }

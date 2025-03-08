@@ -16,9 +16,11 @@ export default async function (req, res, next) {
     empleado.rol = rol;
     empleado.avatar = storage.asset("/avatar_default.svg", false);
 
-    if (req.files && req.files[0]) {
-      const nuevoNombre = `/imagenes/empleados/avatar_${empleado._id}.${mime.extension(req.files[0].mimetype)}`;
-      empleado.avatar = await storage.save(nuevoNombre, req.files[0].buffer);;
+    // Guardar avatar
+    const file = req.files.find(file => file.fieldname === 'avatar');
+    if (file) {
+      const nuevoNombre = `/imagenes/empleados/avatar_${empleado._id}.${mime.extension(file.mimetype)}`;
+      empleado.avatar = await storage.save(nuevoNombre, file.buffer);
     }
     
     await empleado.save();

@@ -44,16 +44,35 @@ export function email(campo, options) {
 }
 
 
+const decimalChain = (init, { max, min, articulo, campo }) => {
+  const opt = max ? { max, min } : { min };
+  return init.isFloat(opt).toFloat().withMessage(`${articulo[0]} ${campo} debe ser un numero decimal entre ${min} y ${max ? max : "cualquier numero"}`);
+}
+
+const intChain = (init, { max, min, articulo, campo }) => {
+  const opt = max ? { max, min } : { min };
+  return init.isInt(opt).toInt().withMessage(`${articulo[0]} ${campo} debe ser un numero entero entre ${min} y ${max ? max : "cualquier numero"}`);
+}
+
+const optional = (init, { optional, articulo, campo }) => optional ? init.optional() : init.exists().withMessage(`Falta ${articulo[1]} ${campo}`);
+
 export function number(campo, options = defaultOptions) {
   const newOptions = { ...defaultOptions, ...options };
   const articulo = [newOptions.articulo.charAt(0).toUpperCase() + newOptions.articulo.slice(1).toLowerCase(), newOptions.articulo.slice(1).toLowerCase()];
-  let chain = check(campo).isNumeric().withMessage(`${articulo[0]} ${campo} debe ser un numero`);
+  const chain = check(campo).isNumeric().withMessage(`${articulo[0]} ${campo} debe ser un numero`);
+  const newChain = optional(chain, { optional: newOptions.optional, articulo, campo });
 
-  if (newOptions.optional) chain = chain.optional();
-  else chain = chain.exists().withMessage(`Falta ${articulo[1]} ${campo}`);
-
-  if (newOptions.decimal) return chain.isFloat({ max: newOptions.maxNumber, min: newOptions.minNumber })
-    .withMessage(`${articulo[0]} ${campo} debe ser un numero decimal entre ${newOptions.minNumber} y ${newOptions.maxNumber ? newOptions.maxNumber : "cualquier numero"}`);
-  else return chain.isInt({ max: newOptions.maxNumber, min: newOptions.minNumber })
-    .withMessage(`${articulo[0]} ${campo} debe ser un numero entero entre ${newOptions.minNumber} y ${newOptions.maxNumber ? newOptions.maxNumber : "cualquier numero"}`);
+  if (newOptions.decimal) return decimalChain(newChain, { 
+    max: newOptions.maxNumber, 
+    min: newOptions.minNumber, 
+    articulo, 
+    campo 
+  });
+  
+  return intChain(newChain, { 
+    max: newOptions.maxNumber, 
+    min: newOptions.minNumber, 
+    articulo, 
+    campo 
+  });
 }
