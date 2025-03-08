@@ -14,7 +14,7 @@ export default function validate(method) {
         number("descuento", { minNumber: 0, decimal: true }),
         body("categorias", "Las categorias deben de ser un Array").exists().isArray({ min: 1 }),
         body("categorias.*", "Faltan las categorias").exists().isString().trim().notEmpty(),
-        files("fotos", "Faltan las fotos"),
+        files("fotos", { type: "image", min: 1, max: 3 }),
         checkValidationResult
       ]
     }
@@ -30,6 +30,7 @@ export default function validate(method) {
 
             body("categorias", "Las categorias deben de ser un Array").optional().isArray({ min: 1 }),
             body("categorias.*", "Faltan las categorias").optional().isString().trim().notEmpty(),
+            files("fotos", { type: "image", min: 1, max: 3, optional: true }),
             checkValidationResult
         ]
     }

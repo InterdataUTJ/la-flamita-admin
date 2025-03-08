@@ -1,4 +1,5 @@
 import { email, text } from '#middlewares/validations/utils/custom.js';
+import { file } from '#middlewares/validations/utils/file.js';
 import checkValidationResult from './utils/checkValidationResult.js';
 
 export default function validate(method) {
@@ -17,7 +18,7 @@ export default function validate(method) {
         text("apellido", { optional: true }),
         email("correo", { optional: true }),
         text("clave", { min: 8, max: 50, articulo: "la", optional: true }),
-        // file("Falta el avatar").optional(),
+        file("avatar", { type: "image", optional: true }),
         checkValidationResult
       ]
     }
