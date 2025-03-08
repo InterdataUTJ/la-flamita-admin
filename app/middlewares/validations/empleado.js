@@ -12,7 +12,7 @@ export default function validate(method) {
         email("correo"),
         text("clave", { min: 8, max: 50, articulo: "la" }),
         body("rol", "Falta el rol").exists().isIn(['ADMINISTRADOR', 'GERENTE', 'EMPLEADO']),
-        file("Falta el avatar"),
+        file("avatar", { type: "image", optional: true }),
         checkValidationResult
       ]
     }
@@ -25,6 +25,7 @@ export default function validate(method) {
         email("correo", { optional: true }),
         text("clave", { min: 8, max: 50, articulo: "la", optional: true }),
         body("rol", "Falta el rol").optional().isIn(['ADMINISTRADOR', 'GERENTE', 'EMPLEADO']),
+        file("avatar", { type: "image", optional: true }),
         checkValidationResult
       ]
     }

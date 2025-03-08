@@ -17,9 +17,11 @@ export default async function crear(req, res, next) {
         cliente.clave = await bcrypt.hash(clave, 10);
         cliente.avatar = storage.asset("/avatar_default.svg", false);
 
-        if (req.files && req.files[0]) {
-            const nuevoNombre = `/imagenes/clientes/avatar_${cliente._id}.${mime.extension(req.files[0].mimetype)}`;
-            cliente.avatar = await storage.save(nuevoNombre, req.files[0].buffer);;
+        // Guardar avatar
+        const file = req.files.find(file => file.fieldname === 'avatar');
+        if (file) {
+            const nuevoNombre = `/imagenes/clientes/avatar_${cliente._id}.${mime.extension(file.mimetype)}`;
+            cliente.avatar = await storage.save(nuevoNombre, file.buffer);
         }
 
         //Guardamos el cliente

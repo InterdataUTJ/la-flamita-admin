@@ -11,7 +11,7 @@ export default function validate(method) {
         text("apellido"),
         email("correo"),
         text("clave", { min: 8, max: 50, articulo: "la" }),
-        file("Falta el avatar"),
+        file("avatar", { type: "image", optional: true }),
         checkValidationResult
       ]
     }
@@ -23,6 +23,7 @@ export default function validate(method) {
         text("apellido", { optional: true }),
         email("correo", { optional: true }),
         text("clave", { min: 8, max: 50, articulo: "la", optional: true }),
+        file("avatar", { type: "image", optional: true }),
         checkValidationResult
       ]
     }
