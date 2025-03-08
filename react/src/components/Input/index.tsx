@@ -25,13 +25,17 @@ export default function Input({ type = "text", ...props }: InputProps) {
         className="block mb-2 text-sm font-semibold text-gray-900 dark:text-white"
       >
         {props.label}
+        { props.required && <span className="ml-1 text-red-600">*</span> }
       </label>
       <InputType
+        value={props.value}
+        onChange={props.onChange}
         onBlur={handleOnBlur}
+        disabled={props.disabled}
         ref={props.ref}
         type={type}
         name={props.name}
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 outline-none"
+        className={`${props.disabled ? "bg-gray-100 text-gray-600" : "bg-gray-50 text-gray-900"} border-gray-400 border text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 outline-none`}
         placeholder={props.placeholder}
         required={props.required}
         maxLength={props.maxLength}

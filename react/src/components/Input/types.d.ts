@@ -4,6 +4,9 @@ export interface InputProps {
   placeholder?: string;
   type?: string;
   ref?: React.RefObject<HTMLInputElement | null>;
+  disabled?: boolean;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   
   required?: boolean;
   maxLength?: number;

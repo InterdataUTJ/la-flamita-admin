@@ -39,7 +39,7 @@ export default function AuthNavbar() {
 
   return (
     <Navbar fluid rounded theme={navTheme}>
-      <Navbar.Brand as={Link} to="/">
+      <Navbar.Brand as={Link} to="/panel">
         <img src="/favicon.png" className="h-8 mr-2" alt="La Flamita logo" />
         <span className="self-center text-2xl font-extrabold whitespace-nowrap">La Flamita</span>
       </Navbar.Brand>
