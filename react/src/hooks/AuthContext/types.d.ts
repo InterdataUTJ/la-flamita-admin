@@ -18,6 +18,7 @@ export interface AuthContextData {
   goLogin: React.ReactNode;
   login: (correo: string, clave: string) => Promise<void>;
   logout: () => void;
+  update: (props: PerfilEdit) => Promise<void>;
 }
 
 

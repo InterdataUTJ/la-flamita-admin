@@ -28,7 +28,7 @@ const navTheme = {
   } 
 }
 
-function format(text?: String) {
+function format(text?: string) {
   if (!text) return "";
   return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
 }
@@ -39,7 +39,7 @@ export default function AuthNavbar() {
 
   return (
     <Navbar fluid rounded theme={navTheme}>
-      <Navbar.Brand as={Link} to="/">
+      <Navbar.Brand as={Link} to="/panel">
         <img src="/favicon.png" className="h-8 mr-2" alt="La Flamita logo" />
         <span className="self-center text-2xl font-extrabold whitespace-nowrap">La Flamita</span>
       </Navbar.Brand>
@@ -52,7 +52,7 @@ export default function AuthNavbar() {
           label={
             <div className="flex items-center gap-2 text-sm bg-primary-100 rounded md:me-0 p-2 focus:ring-4 focus:ring-gray-300 hover:scale-105 transition duration-75">
               <span className="text-primary-800 font-bold hidden sm:inline">{format(auth.user?.rol)}</span>
-              <Avatar size="xs" alt="User settings" img="/favicon.png" rounded />
+              <Avatar size="xs" alt="Avatar" img={auth.user?.avatar} rounded />
             </div>
           }
         >
