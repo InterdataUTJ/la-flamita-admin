@@ -22,12 +22,13 @@ export default function Input({ type = "text", ...props }: InputProps) {
     <div className="mb-5">
       <label
         htmlFor={`${props.name}-${type}-${props.placeholder}`}
-        className="block mb-2 text-sm font-semibold text-gray-900 dark:text-white"
+        className="block mb-2 text-sm font-semibold text-gray-900"
       >
         {props.label}
         { props.required && <span className="ml-1 text-red-600">*</span> }
       </label>
       <InputType
+        defaultValue={props.defaultValue}
         value={props.value}
         onChange={props.onChange}
         onBlur={handleOnBlur}

@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { IconPencil } from '@tabler/icons-react';
 import { useAuthContext } from "@/hooks/AuthContext";
 import Template from "@/layout";
 import Input from "@/components/Input";
@@ -12,7 +13,7 @@ export default function PerfilPage() {
     <Template title="Panel">
       <h2 className="text-center font-extrabold text-3xl mb-8">Mi perfil</h2>
       <div className="flex flex-col md:flex-row gap-4 justify-center items-center p-5 bg-quinary-300 rounded-lg shadow">
-        <img className="w-20 h-20 rounded-full object-contain select-none bg-quinary-100" src={auth.user?.avatar} alt="avatar" />
+        <img className="w-20 h-20 rounded-full object-cover select-none bg-quinary-100" src={auth.user?.avatar} alt="avatar" />
         <div className="flex flex-col gap-2">
           <p className="font-extrabold text-quinary-900">{ auth.user?.nombre } { auth.user?.apellido }</p>
           <p className="font-bold text-gray-600">{ auth.user?.rol }</p>
@@ -20,7 +21,7 @@ export default function PerfilPage() {
         </div>
       </div>
 
-    <div className="my-8">
+    <div className="mt-8">
       <Input 
         label="Nombre" 
         name="nombre" 
@@ -49,6 +50,7 @@ export default function PerfilPage() {
       />
 
       <Button as={Link} to="/perfil/editar">
+        <IconPencil />
         Editar perfil
       </Button>
     </div>

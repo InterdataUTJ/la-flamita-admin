@@ -1,3 +1,5 @@
+export const SERVER_URL = "http://localhost:8000";
+
 export interface ErrorResponse {
   name: string;
   message: string;
@@ -15,7 +17,7 @@ const ApiServiceError = {
 
 export default class Http {
 
-  protected static baseUrl: string = "http://localhost:8000/api";
+  protected static baseUrl: string = `${SERVER_URL}/api`;
 
   static async get<T>(url: string, options: HttpOptions = {}): Promise<T | undefined> {
     return this.noBodyRequest<T>("get", url, options);
@@ -25,11 +27,11 @@ export default class Http {
     return this.noBodyRequest<T>("delete", url, options);
   }
 
-  static async post<T>(url: string, body: Object, options: HttpOptions = {}): Promise<T | undefined> {
+  static async post<T>(url: string, body: object, options: HttpOptions = {}): Promise<T | undefined> {
     return this.bodyRequest<T>("post", url, body, options);
   }
 
-  static async put<T>(url: string, body: Object, options: HttpOptions = {}): Promise<T | undefined> {
+  static async put<T>(url: string, body: object, options: HttpOptions = {}): Promise<T | undefined> {
     return this.bodyRequest<T>("put", url, body, options);
   }
 
@@ -51,7 +53,7 @@ export default class Http {
     });
   }
 
-  private static async bodyRequest<T>(method: string, url: string, body: Object, options: HttpOptions = {}): Promise<T | undefined> {
+  private static async bodyRequest<T>(method: string, url: string, body: object, options: HttpOptions = {}): Promise<T | undefined> {
     return new Promise<T | undefined>(async (resolve, reject) => {
       const headers = new Headers();
       const formBody = new FormData();

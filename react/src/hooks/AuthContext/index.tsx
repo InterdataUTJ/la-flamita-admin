@@ -1,10 +1,13 @@
 import { createContext, useContext, useState } from "react";
 import { AuthContextProviderProps, AuthContextData, AuthContextState } from "./types";
+import { PerfilEdit } from "@/services/Perfil/types";
 import PerfilService from "@/services/Perfil";
 import { Navigate } from "react-router";
 import storage from './localStorage';
 
 const AuthContext = createContext({} as AuthContextData);
+
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuthContext = () => useContext(AuthContext);
 
 
@@ -27,8 +30,19 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
       await PerfilService.logout(state.token);
       setState({} as AuthContextState);
       storage.remove();
-    } catch(e: Error | any) { 
+    } catch(e: Error | unknown) { 
       console.error(e) 
+    }
+  }
+
+  const handleUpdate = async (props: PerfilEdit) => {
+    if (!state.token) return;
+    try {
+      await PerfilService.editar(state.token, props);
+      const user = await PerfilService.perfil(state.token);
+      setState(prev => storage.save({ ...prev, user }));
+    } catch(e: Error | unknown) {
+      console.error(e);
     }
   }
 
@@ -38,6 +52,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
       user: state.user,
       login: handleLogin,
       logout: handleLogout,
+      update: handleUpdate,
       goLogin: <Navigate to="/login" replace />
     }}>
       {children}

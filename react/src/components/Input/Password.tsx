@@ -10,6 +10,7 @@ export default function PasswordInput(props: InputProps) {
   return (
     <div className="flex">
       <input
+        defaultValue={props.defaultValue}
         value={props.value}
         onChange={props.onChange}
         onBlur={props.onBlur}
