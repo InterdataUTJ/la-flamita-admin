@@ -1,4 +1,4 @@
-import { useAuthContext } from "@/hooks/AuthContext";
+import useAuthContext from "@/hooks/AuthContext/hook";
 import Template from "@/layout";
 import Modulo, { Permiso } from "@/components/Panel/Modulo";
 

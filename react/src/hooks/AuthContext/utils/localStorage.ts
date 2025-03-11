@@ -1,4 +1,4 @@
-import { AuthContextState } from './types';
+import { AuthContextState } from '../types';
 const LOCAL_STORAGE_KEY = 'la-flamita-admin_perfil_data';
 
 function load() {

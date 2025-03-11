@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { IconPencil } from '@tabler/icons-react';
-import { useAuthContext } from "@/hooks/AuthContext";
+import useAuthContext from "@/hooks/AuthContext/hook";
 import Template from "@/layout";
 import Input from "@/components/Input";
 import Button from "@/components/Button";

@@ -1,6 +1,6 @@
 import { Navbar as FlowNavbar } from "flowbite-react";
 import AuthNavbar from "./Auth";
-import { useAuthContext } from "@/hooks/AuthContext";
+import useAuthContext from "@/hooks/AuthContext/hook";
 
 const navTheme = {
   root: {
@@ -13,7 +13,7 @@ const navTheme = {
 
 export default function Navbar() {
   const auth = useAuthContext();
-  if (!!auth.token) return <AuthNavbar />;
+  if (auth.token) return <AuthNavbar auth={auth} />;
   
   return (
     <FlowNavbar fluid rounded theme={navTheme}>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { IconDeviceFloppy } from '@tabler/icons-react';
-import { useAuthContext } from "@/hooks/AuthContext";
+import useAuthContext from "@/hooks/AuthContext/hook";
 import Template from "@/layout";
 import Input from "@/components/Input";
 import File from "@/components/Input/File";

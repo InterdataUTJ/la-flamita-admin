@@ -1,6 +1,6 @@
+import { useEffect } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import { useEffect } from "react";
 
 interface TemplateProps {
   children: React.ReactNode;
