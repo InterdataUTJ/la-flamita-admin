@@ -177,6 +177,7 @@
     "_id": "ObjectId", // Automatico por MongoDB
     "nombre": "string",
     "token": "string",
+    "estado": "boolean",
     "datos": [{ // Embedded - ModuloDato
         "dato": "string", // Datos serializados
         "timestamp": "Date",
