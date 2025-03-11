@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { useAuthContext } from "@/hooks/AuthContext";
+import useAuthContext from "@/hooks/AuthContext/hook";
 
 export default function Footer() {
   const auth = useAuthContext();

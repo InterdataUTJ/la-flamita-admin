@@ -1,6 +1,6 @@
-import { useAuthContext } from "@/hooks/AuthContext";
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import { Link, useLocation } from "react-router";
+import { AuthContextData } from "@/hooks/AuthContext/types";
 
 const dropdownTheme = {
   content: "py-0", 
@@ -33,9 +33,8 @@ function format(text?: string) {
   return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
 }
 
-export default function AuthNavbar() {
+export default function AuthNavbar({ auth }: { auth: AuthContextData }) {
   const location = useLocation();
-  const auth = useAuthContext();
 
   return (
     <Navbar fluid rounded theme={navTheme}>

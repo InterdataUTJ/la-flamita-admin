@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useNavigate } from "react-router";
-import { useAuthContext } from "@/hooks/AuthContext";
+import useAuthContext from "@/hooks/AuthContext/hook";
 import Template from "@/layout";
 import Input from "@/components/Input";
 import { User } from "@/components/Icon";
@@ -19,8 +19,9 @@ export default function LoginPage() {
     try {
       await auth.login(correoRef.current.value, claveRef.current.value);
       navigate("/panel", { replace: true });
-    } catch (e: Error | any) {
-      alert(e?.message || 'Ocurrió un error inesperado');
+    } catch (e) {
+      if (e instanceof Error) alert(e.message);
+      else alert('Ocurrió un error inesperado');
     }
   };
 

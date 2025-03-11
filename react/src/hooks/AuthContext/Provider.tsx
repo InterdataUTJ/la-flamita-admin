@@ -1,20 +1,18 @@
-import { createContext, useContext, useState } from "react";
-import { AuthContextProviderProps, AuthContextData, AuthContextState } from "./types";
+import { useState } from "react";
+import { Navigate } from "react-router";
 import { PerfilEdit } from "@/services/Perfil/types";
 import PerfilService from "@/services/Perfil";
-import { Navigate } from "react-router";
-import storage from './localStorage';
 
-const AuthContext = createContext({} as AuthContextData);
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const useAuthContext = () => useContext(AuthContext);
+import { AuthContextProviderProps, AuthContextState } from "./types";
+import storage from './utils/localStorage';
+import AuthContext from "./index";
 
 
-export function AuthContextProvider({ children }: AuthContextProviderProps) {
+export default function AuthContextProvider({ children }: AuthContextProviderProps) {
 
   // Save the token and user in the local storage
   const [state, setState] = useState<AuthContextState>(storage.load() as AuthContextState);
+
 
   // Login function
   const handleLogin = async (correo: string, clave: string) => {
@@ -22,6 +20,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     const user = await PerfilService.perfil(token);
     setState(prev => storage.save({ ...prev, token, user }));
   }
+
 
   // Logout function
   const handleLogout = async () => {
@@ -46,6 +45,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     }
   }
 
+  
   return (
     <AuthContext.Provider value={{
       token: state.token,
