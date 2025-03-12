@@ -15,6 +15,10 @@ import EmpleadoListar from './pages/Empleado/Listar';
 import EmpleadoCrear from './pages/Empleado/Crear';
 import EmpleadoEditar from './pages/Empleado/Editar';
 import EmpleadoMostrar from './pages/Empleado/Mostrar';
+import CategoriaListar from './pages/Categoria/Listar';
+import CategoriaCrear from './pages/Categoria/Crear';
+import CategoriaEditar from './pages/Categoria/Editar';
+import CategoriaMostrar from './pages/Categoria/Mostrar';
 
 export default function App() {
   const { token } = useAuthContext();
@@ -36,6 +40,12 @@ export default function App() {
             <Route path="/empleado/crear" element={<EmpleadoCrear />} />
             <Route path="/empleado/editar/:id" element={<EmpleadoEditar />} />
             <Route path="/empleado/mostrar/:id" element={<EmpleadoMostrar />} />
+
+            {/* Modulo CATEGORIA */}
+            <Route path="/categoria/listar" element={<CategoriaListar />} />
+            <Route path="/categoria/crear" element={<CategoriaCrear />} />
+            <Route path="/categoria/editar/:id" element={<CategoriaEditar />} />
+            <Route path="/categoria/mostrar/:id" element={<CategoriaMostrar />} />
 
 
           </Routes>
