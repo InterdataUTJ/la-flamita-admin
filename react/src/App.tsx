@@ -1,6 +1,5 @@
 import { StrictMode } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router";
-import AuthContextProvider from './hooks/AuthContext/Provider';
 import useAuthContext from './hooks/AuthContext/hook';
 import './global.css'
 
@@ -15,17 +14,21 @@ import EmpleadoListar from './pages/Empleado/Listar';
 import EmpleadoCrear from './pages/Empleado/Crear';
 import EmpleadoEditar from './pages/Empleado/Editar';
 import EmpleadoMostrar from './pages/Empleado/Mostrar';
+
+// Categoria Pages
 import CategoriaListar from './pages/Categoria/Listar';
 import CategoriaCrear from './pages/Categoria/Crear';
 import CategoriaEditar from './pages/Categoria/Editar';
 import CategoriaMostrar from './pages/Categoria/Mostrar';
+
+// Errors
+import Error404Page from './pages/Errors/404';
 
 export default function App() {
   const { token } = useAuthContext();
 
   return (
     <StrictMode>
-      <AuthContextProvider>
         <BrowserRouter>
           <Routes>
 
@@ -48,9 +51,11 @@ export default function App() {
             <Route path="/categoria/mostrar/:id" element={<CategoriaMostrar />} />
 
 
+            <Route path='*' element={<Error404Page />} />
+
+
           </Routes>
         </BrowserRouter>
-      </AuthContextProvider>
     </StrictMode>
   );
 }
