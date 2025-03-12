@@ -14,8 +14,8 @@ export default class EmpleadoService {
     return Http.put<undefined>(`/empleado/editar/${id}`, empleado, { jwt, asForm: true });
   }
 
-  static mostrar(jwt: string, id: string): Promise<EmpleadoResponse[]> {
-    return Http.get<EmpleadoResponse[]>(`/empleado/mostrar/${id}`, { jwt }) as Promise<EmpleadoResponse[]>;
+  static mostrar(jwt: string, id: string): Promise<EmpleadoResponse> {
+    return Http.get<EmpleadoResponse>(`/empleado/mostrar/${id}`, { jwt }) as Promise<EmpleadoResponse>;
   }
 
   static eliminar(jwt: string, id: string) {
