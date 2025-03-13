@@ -10,7 +10,10 @@ export interface InputProps {
   defaultValue?: string;
   
   required?: boolean;
+  step?: number;
+  max?: number;
   maxLength?: number;
+  min?: number;
   minLength?: number;
   pattern?: string;
 
