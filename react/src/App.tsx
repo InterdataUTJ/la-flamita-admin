@@ -4,6 +4,11 @@ import useAuthContext from './hooks/AuthContext/hook';
 import './global.css'
 
 // Pages
+
+// Errors
+import Error404Page from './pages/Errors/404';
+
+// Auth
 import LoginPage from './pages/Auth/Login';
 import PanelPage from './pages/Panel';
 import PerfilPage from './pages/Auth/Perfil';
@@ -21,8 +26,12 @@ import CategoriaCrear from './pages/Categoria/Crear';
 import CategoriaEditar from './pages/Categoria/Editar';
 import CategoriaMostrar from './pages/Categoria/Mostrar';
 
-// Errors
-import Error404Page from './pages/Errors/404';
+// Producto Pages
+import ProductoListar from './pages/Producto/Listar';
+import ProductoCrear from './pages/Producto/Crear';
+import ProductoEditar from './pages/Producto/Editar';
+import ProductoMostrar from './pages/Producto/Mostrar';
+
 
 export default function App() {
   const { token } = useAuthContext();
@@ -49,6 +58,12 @@ export default function App() {
             <Route path="/categoria/crear" element={<CategoriaCrear />} />
             <Route path="/categoria/editar/:id" element={<CategoriaEditar />} />
             <Route path="/categoria/mostrar/:id" element={<CategoriaMostrar />} />
+
+            {/* Modulo PRODUCTO */}
+            <Route path="/producto/listar" element={<ProductoListar />} />
+            <Route path="/producto/crear" element={<ProductoCrear />} />
+            <Route path="/producto/editar/:id" element={<ProductoEditar />} />
+            <Route path="/producto/mostrar/:id" element={<ProductoMostrar />} />
 
 
             <Route path='*' element={<Error404Page />} />

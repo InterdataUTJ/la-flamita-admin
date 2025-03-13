@@ -59,7 +59,10 @@ export default class Http {
       const formBody = new FormData();
       if (options.jwt) headers.append("Authorization", `Bearer ${options.jwt}`);
       if (!options.asForm) headers.append("Content-Type", "application/json");
-      else Object.entries(body).forEach(([key, value]) => formBody.append(key, value));
+      else Object.entries(body).forEach(([key, value]) => {
+        if (Array.isArray(value)) return value.forEach(v => formBody.append(key, v));
+        else formBody.append(key, value);
+      });
 
       // Send request
       fetch(`${this.baseUrl}${url}`, { 
