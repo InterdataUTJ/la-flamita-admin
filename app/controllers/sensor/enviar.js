@@ -14,7 +14,10 @@ export default async function enviar(req, res, next) {
 
     // Guardar los datos en el sensor
     const { dato } = req.body;
-    sensor.datos.push({ dato });
+    if (sensor.tipo === "SENSOR") sensor.datos.push({ dato });
+    else if (sensor.tipo === "ACTUADOR") sensor.datos = [{ dato }];
+    sensor.markModified("datos");
+    sensor.markModified("datos.dato");
     await sensor.save();
     
     res.status(204).end();

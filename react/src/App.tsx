@@ -37,6 +37,12 @@ import ProductoCrear from './pages/Producto/Crear';
 import ProductoEditar from './pages/Producto/Editar';
 import ProductoMostrar from './pages/Producto/Mostrar';
 
+// Sensor Pages
+import SensorListar from './pages/Sensor/Listar';
+import SensorCrear from './pages/Sensor/Crear';
+import SensorEditar from './pages/Sensor/Editar';
+import SensorMostrar from './pages/Sensor/Mostrar';
+
 
 export default function App() {
   const { token } = useAuthContext();
@@ -70,6 +76,12 @@ export default function App() {
             <Route path="/producto/crear" element={<ProductoCrear />} />
             <Route path="/producto/editar/:id" element={<ProductoEditar />} />
             <Route path="/producto/mostrar/:id" element={<ProductoMostrar />} />
+
+            {/* Modulo SENSOR */}
+            <Route path="/sensor/listar" element={<SensorListar />} />
+            <Route path="/sensor/crear" element={<SensorCrear />} />
+            <Route path="/sensor/editar/:id" element={<SensorEditar />} />
+            <Route path="/sensor/mostrar/:id" element={<SensorMostrar />} />
 
 
             <Route path="/cliente/listar" element={<ClienteListar />} />

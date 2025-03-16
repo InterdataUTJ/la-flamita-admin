@@ -7,6 +7,7 @@ export default function validate(method) {
     case "crear": {
       return [
         text("nombre"),
+        body("tipo", "Falta el tipo de sensor").exists().isString().trim().notEmpty().isIn(["SENSOR", "ACTUADOR"]),
         checkValidationResult
       ]
     }
@@ -22,7 +23,7 @@ export default function validate(method) {
     case "enviar": {
       return [
         param("sensorId", "Falta el id de sensor").exists().isString().trim().notEmpty(),
-        body("dato", "Debes enviar datos").exists().isString().trim().notEmpty(),
+        body("dato", "Debes enviar datos").exists(),
         checkValidationResult
       ]
     }
