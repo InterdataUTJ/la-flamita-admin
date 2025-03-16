@@ -16,7 +16,7 @@ export default function PanelPage() {
 
           <Modulo 
             module="Empleados" 
-            link="/empleado/crear"
+            link="/empleado/listar"
             rol={auth.user?.rol}
             permisos={{
               base: [Permiso.Administrador, Permiso.Gerente],
@@ -30,7 +30,7 @@ export default function PanelPage() {
 
           <Modulo 
             module="Clientes" 
-            link="/cliente/crear"
+            link="/cliente/listar"
             rol={auth.user?.rol}
             permisos={{
               crear: [Permiso.Administrador],
@@ -41,7 +41,7 @@ export default function PanelPage() {
 
           <Modulo 
             module="Categorías" 
-            link="/categoria/crear"
+            link="/categoria/listar"
             rol={auth.user?.rol}
             permisos={{
               crear: [Permiso.Administrador, Permiso.Gerente],
@@ -52,7 +52,7 @@ export default function PanelPage() {
 
           <Modulo 
             module="Productos" 
-            link="/producto/crear"
+            link="/producto/listar"
             rol={auth.user?.rol}
             permisos={{
               crear: [Permiso.Administrador, Permiso.Gerente],
@@ -63,7 +63,7 @@ export default function PanelPage() {
 
           <Modulo 
             module="Sensores" 
-            link="/sensor/crear"
+            link="/sensor/listar"
             rol={auth.user?.rol}
             permisos={{
               base: [Permiso.Administrador, Permiso.Gerente],
@@ -72,7 +72,7 @@ export default function PanelPage() {
 
           <Modulo 
             module="Ventas" 
-            link="/venta/crear"
+            link="/venta/listar"
             rol={auth.user?.rol}
             permisos={{
               borrar: [Permiso.Administrador, Permiso.Gerente],

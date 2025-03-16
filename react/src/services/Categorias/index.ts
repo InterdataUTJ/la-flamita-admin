@@ -7,11 +7,11 @@ export default class CategoriaService {
   }
 
   static crear(jwt: string, categoria: CategoriaRequest) {
-    return Http.post<undefined>("/categoria/crear", categoria, { jwt, asForm: true });
+    return Http.post<undefined>("/categoria/crear", categoria, { jwt });
   }
 
   static editar(jwt: string, id: string, categoria: CategoriaRequest) {
-    return Http.put<undefined>(`/categoria/editar/${id}`, categoria, { jwt, asForm: true });
+    return Http.put<undefined>(`/categoria/editar/${id}`, categoria, { jwt });
   }
 
   static mostrar(jwt: string, id: string): Promise<CategoriaResponse> {
