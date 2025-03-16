@@ -27,8 +27,6 @@ export default async function editar(req, res, next) {
         // req.file es un array que almacena las url de las imagenes
         const files = req.files.filter(file => file.fieldname === 'fotos');
         if (files && files.length > 0) {
-            console.log(files, req.files);
-
             //Aqui la idea es crear un metodo propio para eliminar las imagenes 
             // que ya estan del req.file y luego agregar las nuevas imagenes 
             // de esta manera no se acumulan imagenes en el servidor Y se eliminan

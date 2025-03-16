@@ -17,12 +17,7 @@ moduloSchema.index({ "datos.timestamp": 1 });
 
 // Methods
 moduloSchema.statics.listar = function(query = { estado: true }) {
-  return this.find(query).lean().then(sensor => {
-    return sensor.map(info => ({
-      ...info,
-      datos: info.datos?.length || 0
-    }));
-  });
+  return this.find(query).lean();
 }
 
 moduloSchema.statics.mostrar = function(id, query = { estado: true }) {
