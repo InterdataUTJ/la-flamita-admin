@@ -41,7 +41,7 @@ export default function SensorListar() {
   return (
     <Template title="Listar sensores">
       { auth.user?.rol && ["ADMINISTRADOR", "GERENTE"].includes(auth.user?.rol) && (
-        <Button as={Link} to="/producto/crear">
+        <Button as={Link} to="/sensor/crear">
           <IconPencilPlus />
           Crear
         </Button>
@@ -56,6 +56,9 @@ export default function SensorListar() {
               </th>
               <th scope="col" className="text-center px-6 py-3">
                 Nombre
+              </th>
+              <th scope="col" className="text-center px-6 py-3">
+                Tipo
               </th>
               <th scope="col" className="text-center px-6 py-3">
                 Estado
@@ -83,6 +86,7 @@ export default function SensorListar() {
                 >
                   {sensor.nombre}
                 </th>
+                <td className="text-center px-6 py-4">{sensor.tipo}</td>
                 <td className="text-center px-6 py-4">{sensor.estado ? "Activo" : "Inactivo"}</td>
                 <td className="text-center px-6 py-4">{sensor.datos.length}</td>
                 <td className="text-center px-6 py-4 flex gap-4 justify-center items-center">

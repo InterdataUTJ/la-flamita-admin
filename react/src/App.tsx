@@ -34,6 +34,9 @@ import ProductoMostrar from './pages/Producto/Mostrar';
 
 // Sensor Pages
 import SensorListar from './pages/Sensor/Listar';
+import SensorCrear from './pages/Sensor/Crear';
+import SensorEditar from './pages/Sensor/Editar';
+import SensorMostrar from './pages/Sensor/Mostrar';
 
 
 export default function App() {
@@ -70,9 +73,9 @@ export default function App() {
 
             {/* Modulo SENSOR */}
             <Route path="/sensor/listar" element={<SensorListar />} />
-            <Route path="/sensor/crear" element={<ProductoCrear />} />
-            <Route path="/sensor/editar/:id" element={<ProductoEditar />} />
-            <Route path="/sensor/mostrar/:id" element={<ProductoMostrar />} />
+            <Route path="/sensor/crear" element={<SensorCrear />} />
+            <Route path="/sensor/editar/:id" element={<SensorEditar />} />
+            <Route path="/sensor/mostrar/:id" element={<SensorMostrar />} />
 
 
             <Route path='*' element={<Error404Page />} />

@@ -18,6 +18,10 @@ export default class SensorService {
     return Http.get<SensorResponse>(`/sensor/mostrar/${id}`, { jwt }) as Promise<SensorResponse>;
   }
 
+  static enviar(jwt: string, id: string, dato: string): Promise<undefined> {
+    return Http.post<undefined>(`/sensor/enviar/${id}`, { dato }, { jwt });
+  }
+
   static eliminar(jwt: string, id: string) {
     return Http.delete<undefined>(`/sensor/eliminar/${id}`, { jwt });
   }
