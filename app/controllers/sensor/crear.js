@@ -4,9 +4,10 @@ import crypto from "node:crypto";
 
 export default async function crear(req, res, next) {
   try {
-    const { nombre } = req.body;
+    const { nombre, tipo } = req.body;
     const sensor = new Modulo();
     sensor.nombre = nombre;
+    sensor.tipo = tipo;
     sensor.estado = true;
     sensor.token = `${Date.now()}_${crypto.randomBytes(5).toString('hex')}`;
     await sensor.save();

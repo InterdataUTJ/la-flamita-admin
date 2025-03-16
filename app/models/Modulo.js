@@ -2,10 +2,11 @@ import mongoose from "mongoose";
 
 const moduloSchema = new mongoose.Schema({
   nombre: { type: String, required: true, maxLength: 50 },
+  tipo: { type: String, enum: ["SENSOR", "ACTUADOR"], required: true },
   token: { type: String, required: true },
   estado: { type: Boolean, required: true, default: true },
   datos: [{
-    dato: { type: String, required: true },
+    dato: { type: mongoose.Schema.Types.Mixed, required: true },
     timestamp: { type: Date, required: true, default: Date.now }
   }]
 });
