@@ -7,7 +7,7 @@ export interface SensorDato {
 export interface SensorResponse {
   _id: string;
   estado: boolean;
-  datos: number | SensorDato[];
+  datos: SensorDato[];
   nombre: string;
   token: string;
 }
