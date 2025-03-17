@@ -1,28 +1,41 @@
-FROM node:22-alpine
-
-# Establecer el directorio de trabajo
+# Primera etapa: Construir la aplicación React
+FROM node:22-alpine AS builder
 WORKDIR /usr/src/app
 
-# Copiar package.json de la aplicación principal y de React
+# Copiar package.json de ambas aplicaciones
 COPY package*.json ./
 COPY react/package*.json ./react/
 
-# Instalar dependencias de la aplicación principal
+# Instalar dependencias (incluidas las de desarrollo para construir React)
 RUN npm install --only=production
-
-# Instalar dependencias de React
 RUN cd react && npm install
 
 # Copiar todo el código fuente
 COPY . .
 
-# Generar el build de React
+# Generar el build de React (que copia los assets a los directorios de Express)
 RUN cd react && npm run build
 
-# Eliminar la carpeta de React después del build
+# Eliminar directorios y archivos que ya no son necesarios
 RUN rm -rf react
+RUN rm -rf node_modules/.cache
 
-# Exponer el puerto 8000
+
+
+# Segunda etapa: Crear la imagen final optimizada
+FROM node:22-alpine
+WORKDIR /usr/src/app
+
+# Copiar solo package.json para instalar dependencias de producción
+COPY package*.json ./
+RUN npm install --only=production
+
+# Copiar el código y los assets compilados desde la etapa de construcción
+COPY --from=builder /usr/src/app/app ./app
+COPY --from=builder /usr/src/app/public ./public
+COPY --from=builder /usr/src/app/index.js ./index.js
+
+# Exponer el puerto
 EXPOSE 8000
 
 # Comando para iniciar la aplicación
