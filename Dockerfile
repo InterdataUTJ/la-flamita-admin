@@ -1,6 +1,6 @@
 # Primera etapa: Construir la aplicación React
 FROM node:22-alpine AS builder
-WORKDIR /usr/src/app
+WORKDIR /usr/src/la-flamita-admin
 
 # Copiar package.json de ambas aplicaciones
 COPY package*.json ./
@@ -24,16 +24,16 @@ RUN rm -rf node_modules/.cache
 
 # Segunda etapa: Crear la imagen final optimizada
 FROM node:22-alpine
-WORKDIR /usr/src/app
+WORKDIR /usr/src/la-flamita-admin
 
 # Copiar solo package.json para instalar dependencias de producción
 COPY package*.json ./
 RUN npm install --only=production
 
 # Copiar el código y los assets compilados desde la etapa de construcción
-COPY --from=builder /usr/src/app/app ./app
-COPY --from=builder /usr/src/app/public ./public
-COPY --from=builder /usr/src/app/index.js ./index.js
+COPY --from=builder /usr/src/la-flamita-admin/app ./app
+COPY --from=builder /usr/src/la-flamita-admin/public ./public
+COPY --from=builder /usr/src/la-flamita-admin/index.js ./index.js
 
 # Exponer el puerto
 EXPOSE 8000
