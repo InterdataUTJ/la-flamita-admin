@@ -37,6 +37,8 @@ import ProductoCrear from './pages/Producto/Crear';
 import ProductoEditar from './pages/Producto/Editar';
 import ProductoMostrar from './pages/Producto/Mostrar';
 
+//importar las rutas de ventas
+import VentaCrear from './pages/Ventas/Crear';
 
 export default function App() {
   const { token } = useAuthContext();
@@ -76,6 +78,9 @@ export default function App() {
             <Route path="/cliente/crear" element={<ClienteCrear />} />
             <Route path="/cliente/editar/:id" element={<ClienteEditar />} />
             <Route path="/cliente/mostrar/:id" element={<ClienteMostrar />} />
+
+            {/* Rutas de ventas */}
+            <Route path="/venta/crear" element={<VentaCrear />} />
               
             <Route path='*' element={<Error404Page />} />
 

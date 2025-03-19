@@ -20,6 +20,6 @@ export interface VentaResponse {
 }
 
 export interface VentaRequest {
-  productos?: { [key: string]: number }[];
+  productos?: { [key: string]: number };
   metodo_pago?: string;
 }

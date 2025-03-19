@@ -72,7 +72,7 @@ export default function PanelPage() {
 
           <Modulo 
             module="Ventas" 
-            link="/venta/listar"
+            link="/venta/Crear"
             rol={auth.user?.rol}
             permisos={{
               borrar: [Permiso.Administrador, Permiso.Gerente],

@@ -7,11 +7,11 @@ export default class VentaService {
   }
 
   static crear(jwt: string, venta: VentaRequest) {
-    return Http.post<undefined>("/venta/crear", venta, { jwt, asForm: true });
+    return Http.post<undefined>("/venta/crear", venta, { jwt });
   }
 
   static editar(jwt: string, id: string, venta: VentaRequest) {
-    return Http.put<undefined>(`/venta/editar/${id}`, venta, { jwt, asForm: true });
+    return Http.put<undefined>(`/venta/editar/${id}`, venta, { jwt });
   }
 
   static mostrar(jwt: string, id: string): Promise<VentaResponse> {
