@@ -75,6 +75,15 @@ export default function SensorMostrar() {
       <div className="mt-4">
         <form>
           <Input
+            label="ID"
+            name="id"
+            placeholder="ID"
+            required
+            disabled
+            defaultValue={sensor._id}
+          />
+
+          <Input
             label="Nombre"
             name="nombre"
             placeholder="Nombre"
@@ -92,6 +101,14 @@ export default function SensorMostrar() {
             defaultValue={sensor.tipo}
           />
           
+          <Input
+            label="Token (API Key)"
+            name="token"
+            placeholder="Token (API Key)"
+            required
+            disabled
+            defaultValue={sensor.token}
+          />
 
 
           {sensor.tipo === "ACTUADOR" && (
