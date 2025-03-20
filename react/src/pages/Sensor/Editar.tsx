@@ -25,11 +25,11 @@ export default function SensorEditar() {
     if (loading) return;
     setLoading(true);
 
-
     try {
       const formData = Object.fromEntries(new FormData(e.currentTarget));
       const objData = {} as SensorRequest;
-      if (formData.nombre && formData.nombre !== sensor.nombre) objData.nombre = formData.nombre as string;
+      if (formData.nombre && formData.nombre !== sensor.nombre)
+        objData.nombre = formData.nombre as string;
 
       await SensorService.editar(auth.token, id, objData);
       navigate("/sensor/listar", { replace: true });
@@ -39,14 +39,10 @@ export default function SensorEditar() {
     setLoading(false);
   };
 
-
   useEffect(() => {
     if (!auth.token || !id) return;
-    SensorService.mostrar(auth.token, id).then((sensor) =>
-      setSensor(sensor)
-    );
+    SensorService.mostrar(auth.token, id).then((sensor) => setSensor(sensor));
   }, [auth.token, id]);
-
 
   return (
     <Template title="Editar sensores">
@@ -55,6 +51,15 @@ export default function SensorEditar() {
       </h2>
       <div className="mt-4">
         <form onSubmit={handleSubmit}>
+          <Input
+            label="ID"
+            name="id"
+            placeholder="ID"
+            required
+            disabled
+            defaultValue={sensor._id}
+          />
+
           <Input
             label="Nombre"
             name="nombre"
@@ -72,6 +77,15 @@ export default function SensorEditar() {
             required
             disabled
             defaultValue={sensor.tipo}
+          />
+
+          <Input
+            label="Token (API Key)"
+            name="token"
+            placeholder="Token (API Key)"
+            required
+            disabled
+            defaultValue={sensor.token}
           />
 
           <Button type="submit" loading={loading}>
