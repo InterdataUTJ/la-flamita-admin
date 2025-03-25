@@ -40,7 +40,7 @@ export async function consultar(req, res, next) {
 
     // Enviar el último dato
     const dato = sensor.datos[sensor.datos.length - 1];
-    if (!dato) return next(new SensorSendError("No hay datos"));
+    if (!dato) return res.json({ dato: "0", timestamp: new Date() });
     return res.json(dato);
 
   } catch (error) {
