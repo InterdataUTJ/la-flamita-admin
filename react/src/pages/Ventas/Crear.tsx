@@ -10,16 +10,6 @@ import ProductoService from "@/services/Productos";
 import { ProductoResponse } from "@/services/Productos/types";
 
 
-/*
-Necesito manejar los productos de la venta.
-
-1. Cree una variable de estado para manejar los productos de la venta.
-2. Necesito crear una funcion para agregar productos a la venta y agregarlos a la variable de estado.
-3. Necesito crear una funcion para eliminar productos de la venta y eliminarlos de la variable de estado.
-4. Necesito crear una funcion para enviar los datos del formulario al servidor.
-
-*/
-
 export default function Ventacrear() {
 
     const navigate = useNavigate();
@@ -67,6 +57,8 @@ export default function Ventacrear() {
             //Obtenemos los datos del formulario como objeto
             const formData = Object.fromEntries(new FormData(e.currentTarget));
 
+            
+
             //Validamos que exista productos en el array de productos
             if (productos.length === 0) {
                 alert("Debes añadir productos a la venta");
@@ -77,19 +69,21 @@ export default function Ventacrear() {
 
             const productosEnviar: { [key: string]: number } = {};
 
-            productos.forEach(producto => {
+            for(const producto of productos){
                 const id =  Object.keys(producto)[0] as string;
-                if (!id || id.trim() === "") return;
+                if (!id || id.trim() === ""){
+                    alert("Debes seleccionar un producto");
+                    setLoading(false);
+                    return;
+                } 
                 const cantidad = producto[id];
                 productosEnviar[id] = cantidad;
-            });
+            }
 
             const objData: VentaRequest = {
                 productos : productosEnviar, // Envía el estado directamente
                 metodo_pago: formData.metodo_pago as string,
             };
-
-            console.log("Datos enviados al servidor", objData);
 
             //Aqui enviamos los datos al servidor, pasandole el token y el objeto de datos
             await VentasService.crear(auth.token, objData);
@@ -131,7 +125,7 @@ export default function Ventacrear() {
 
     return (
         <Template title="Crear Venta">
-            <h1>Crear venta</h1>
+            <h2 className="text-center font-extrabold text-3xl mb-8 mt-4">Crear Venta</h2>
 
             <form onSubmit={handleSubmit}>
                 <div id="producto-cantidad-contenedor" className="mb-5 flex flex-col gap-2">
@@ -182,9 +176,9 @@ export default function Ventacrear() {
                 </div>
                 <div className="mb-4">
                     <label htmlFor="metodo_pago">Método de Pago:</label>
-                    <select name="metodo_pago" id="metodo_pago" className="border p-2">
-                        <option value="efectivo">Efectivo</option>
-                        <option value="tarjeta">Tarjeta</option>
+                    <select name="metodo_pago" id="metodo_pago" className="border p-2" >
+                        <option value="EFECTIVO">Efectivo</option>
+                        <option value="TARJETA">Tarjeta</option>
                     </select>
                 </div>
 

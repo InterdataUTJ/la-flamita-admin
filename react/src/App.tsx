@@ -37,9 +37,17 @@ import ProductoCrear from './pages/Producto/Crear';
 import ProductoEditar from './pages/Producto/Editar';
 import ProductoMostrar from './pages/Producto/Mostrar';
 
+// Sensor Pages
+import SensorListar from './pages/Sensor/Listar';
+import SensorCrear from './pages/Sensor/Crear';
+import SensorEditar from './pages/Sensor/Editar';
+import SensorMostrar from './pages/Sensor/Mostrar';
+
 //importar las rutas de ventas
 import VentaCrear from './pages/Ventas/Crear';
-
+import VentaListar from './pages/Ventas/Listar';
+import VentaEditar from './pages/Ventas/Editar';
+import VentaMostrar from './pages/Ventas/Mostrar';
 export default function App() {
   const { token } = useAuthContext();
 
@@ -73,6 +81,12 @@ export default function App() {
             <Route path="/producto/editar/:id" element={<ProductoEditar />} />
             <Route path="/producto/mostrar/:id" element={<ProductoMostrar />} />
 
+            {/* Modulo SENSOR */}
+            <Route path="/sensor/listar" element={<SensorListar />} />
+            <Route path="/sensor/crear" element={<SensorCrear />} />
+            <Route path="/sensor/editar/:id" element={<SensorEditar />} />
+            <Route path="/sensor/mostrar/:id" element={<SensorMostrar />} />
+
 
             <Route path="/cliente/listar" element={<ClienteListar />} />
             <Route path="/cliente/crear" element={<ClienteCrear />} />
@@ -81,6 +95,9 @@ export default function App() {
 
             {/* Rutas de ventas */}
             <Route path="/venta/crear" element={<VentaCrear />} />
+            <Route path="/venta/listar" element={<VentaListar />} />
+            <Route path="/venta/editar/:id" element={<VentaEditar />} />
+            <Route path ="/venta/mostrar/:id" element={<VentaMostrar />} />
               
             <Route path='*' element={<Error404Page />} />
 

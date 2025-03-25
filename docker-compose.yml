@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  app:
+    image: la-flamita-admin
+    container_name: la-flamita-admin
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8000}:${PORT:-8000}"
+    env_file: 
+      - .env
+    environment:
+      - PORT=8000
+    volumes:
+      - la-flamita-admin-storage:/usr/src/app/public/storage
+    networks:
+      - la-flamita-network
+
+networks:
+  la-flamita-network:
+    driver: bridge
+
+volumes:
+  la-flamita-admin-storage:
+    driver: local

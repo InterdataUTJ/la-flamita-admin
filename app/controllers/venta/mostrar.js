@@ -5,7 +5,8 @@ import { VentaShowError } from "#middlewares/error.middleware.js";
 export default async function mostrar(req, res, next) {
     try {
         const idventa = req.params.ventaId;
-        const venta = await Venta.findById(idventa);
+        const venta = await Venta.findById(idventa).populate('productos.producto_id');
+
         if (!venta) {
             throw (new VentaShowError("Venta no encontrada"));
         }

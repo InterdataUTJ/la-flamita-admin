@@ -176,6 +176,7 @@
 {
     "_id": "ObjectId", // Automatico por MongoDB
     "nombre": "string",
+    "tipo": "ENUM('SENSOR', 'ACTUADOR')",
     "token": "string",
     "estado": "boolean",
     "datos": [{ // Embedded - ModuloDato

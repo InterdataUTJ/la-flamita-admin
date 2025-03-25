@@ -1,6 +1,8 @@
+import {ProductoReponse} from '../Productos/types';
+
 export interface VentaProducto {
   _id: string;
-  producto_id: string;
+  producto_id: string | ProductoReponse;
   cantidad: number;
   precio: number;
   descuento: number;

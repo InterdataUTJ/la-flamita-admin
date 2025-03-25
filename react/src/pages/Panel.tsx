@@ -72,7 +72,7 @@ export default function PanelPage() {
 
           <Modulo 
             module="Ventas" 
-            link="/venta/Crear"
+            link="/venta/listar"
             rol={auth.user?.rol}
             permisos={{
               borrar: [Permiso.Administrador, Permiso.Gerente],
@@ -80,11 +80,6 @@ export default function PanelPage() {
           />
 
 
-        </div>
-
-        <h2 className="font-bold text-2xl mt-5 mb-2 pb-4 border-b-2 border-quinary-700">Sensores</h2>
-        <div className="flex gap-4 flex-wrap justify-center items-center w-full">
-          SENSOR
         </div>
 
       </div>

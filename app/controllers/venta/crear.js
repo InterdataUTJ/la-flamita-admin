@@ -16,7 +16,7 @@ export default async function crear(req, res,next) {
         venta.fecha_venta = new Date();
         venta.fecha_pago = new Date();
         venta.estado = 'COMPLETADO';
-        venta.metodo_pago = 'EFECTIVO';
+        venta.metodo_pago = req.body.metodo_pago;
         await venta.save({ session });
 
         for (const [producto_id, cantidad] of Object.entries(req.body.productos)) {
@@ -24,10 +24,10 @@ export default async function crear(req, res,next) {
             if (!producto) {
                 throw VentaCreateError(`Producto con id ${producto_id} no encontrado`);
             }
-            if (producto.cantidad < cantidad) {
+            if (producto.existencias < cantidad) {
                 throw VentaCreateError(`Producto con id ${producto_id} no tiene suficiente stock`);
             }
-            await Producto.findByIdAndUpdate(producto_id, { cantidad: producto.cantidad - cantidad }, { session });
+            await Producto.findByIdAndUpdate(producto_id, { existencias: producto.existencias - cantidad }, { session });
             await Venta.findByIdAndUpdate(venta._id, {
                 $push: {
                     productos: {

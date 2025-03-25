@@ -22,6 +22,5 @@ export default async function editar(req, res, next) {
     }catch(error){
         return next(new VentaUpdateError(error.message));
     }
-
-
+    
 }
