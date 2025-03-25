@@ -28,7 +28,7 @@ export default function CategoriaMostrar() {
   return (
     <Template title="Crear empleados">
       <h2 className="text-center font-extrabold text-3xl mb-8 mt-4">
-        Editar categoría
+        Mostrar categoría
       </h2>
       <div className="mt-4">
         <form>
