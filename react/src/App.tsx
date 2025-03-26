@@ -48,6 +48,7 @@ import VentaCrear from './pages/Ventas/Crear';
 import VentaListar from './pages/Ventas/Listar';
 import VentaEditar from './pages/Ventas/Editar';
 import VentaMostrar from './pages/Ventas/Mostrar';
+import Error403Page from './pages/Errors/403';
 export default function App() {
   const { token } = useAuthContext();
 
@@ -99,6 +100,7 @@ export default function App() {
             <Route path="/venta/editar/:id" element={<VentaEditar />} />
             <Route path ="/venta/mostrar/:id" element={<VentaMostrar />} />
               
+            <Route path='/error/403' element={<Error403Page />} />
             <Route path='*' element={<Error404Page />} />
 
 

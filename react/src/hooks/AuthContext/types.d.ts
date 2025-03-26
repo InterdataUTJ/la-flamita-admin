@@ -16,6 +16,7 @@ export interface AuthContextData {
   token: string | undefined;
   user: User | undefined;
   goLogin: React.ReactNode;
+  goNotAllowed: React.ReactNode;
   login: (correo: string, clave: string) => Promise<void>;
   logout: () => void;
   update: (props: PerfilEdit) => Promise<void>;

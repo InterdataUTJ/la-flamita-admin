@@ -5,7 +5,7 @@ export interface CategoriaDato {
 
 export interface CategoriaResponse {
   _id: string;
-  datos: number | CategoriaDato[];
+  datos: CategoriaDato[];
   nombre: string;
   descripcion: string;
 }
