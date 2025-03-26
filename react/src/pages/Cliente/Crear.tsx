@@ -21,10 +21,7 @@ export default function ClienteCrear(){
     //Validamos que el usuario tenga el toke.
     if (!auth.token) return auth.goLogin;
     //Validamos si el usuario es administrador que lo deje crear un usuario
-    if (!auth.user?.rol || auth.user?.rol !== "ADMINISTRADOR") {
-        window.alert("Acceso no permitido")
-        return 
-    };
+    if (!auth.user?.rol || auth.user?.rol !== "ADMINISTRADOR") return auth.goNotAllowed;
 
     //Creo una variable para manejar el envio de datos
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -43,7 +40,10 @@ export default function ClienteCrear(){
             await ClienteService.crear(auth.token, formData);
             //Mandamos al usuario a clientes listar
             navigate("/cliente/listar", { replace: true });
-        } catch (e: Error | unknown) { console.error(e) }
+        } catch (e: Error | unknown) { 
+            if (e instanceof Error) alert(e.message);
+            else alert("Ocurrio un error al crear el cliente");
+        }
 
     }
 
@@ -54,18 +54,18 @@ export default function ClienteCrear(){
                 <form onSubmit={handleSubmit}>
 
                     <Input
-                        label="nombre"
+                        label="Nombre"
                         name="nombre"
-                        placeholder="nombre"
+                        placeholder="Nombre"
                         required
                         minLength={3}
-                        maxLength={4}
+                        maxLength={50}
                     />
 
                     <Input
-                        label="apellido"
+                        label="Apellido"
                         name="apellido"
-                        placeholder="apellido"
+                        placeholder="Apellido"
                         required
                         minLength={3}
                         maxLength={50}
@@ -86,6 +86,7 @@ export default function ClienteCrear(){
                         placeholder="Contraseña"
                         minLength={8}
                         maxLength={50}
+                        required
                     />
 
                     <Input
@@ -95,17 +96,19 @@ export default function ClienteCrear(){
                         placeholder="Contraseña"
                         minLength={8}
                         maxLength={50}
+                        required
                     />
 
                     <File
-                    name = "avatar"
-                    label = "avatar"
-                    description = "Selecciona tu avatar"
+                        name="avatar"
+                        label="Avatar"
+                        description="Selecciona tu avatar"
+                        required
                     />
 
                     <Button type='submit'loading ={loading}>
                         <IconPencilPlus />
-
+                        Crear cliente
                     </Button>
                 </form>
             </div>

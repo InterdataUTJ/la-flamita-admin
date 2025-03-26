@@ -2,12 +2,12 @@ import ClienteService from '@/services/Clientes';
 import { useState, useEffect } from 'react';
 import useAuthContext from "@/hooks/AuthContext/hook";
 import Template from "@/layout";
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import Input from '@/components/Input';
 import { ClienteResponse } from '@/services/Clientes/types';
 
 export default function ClienteEditar() {
-    
+    const navigate = useNavigate();
     const { id } = useParams();
     const auth = useAuthContext();
     const [cliente, setCliente] = useState<ClienteResponse>({} as ClienteResponse);
@@ -15,19 +15,22 @@ export default function ClienteEditar() {
     //Aqui se hace la peticion para editar el cliente
     useEffect(() => {
         if (!auth.token || !id) return;
-        ClienteService.mostrar(auth.token, id).then((cliente) => {
-            setCliente(cliente);
-        });
+        ClienteService.mostrar(auth.token, id)
+            .then((cliente) => {
+                setCliente(cliente);
+            })
+            .catch((error) => {
+                if (error instanceof Error) alert(error.message);
+                else alert("Ha ocurrido un error al obtener el cliente");
+                navigate("/cliente/listar", { replace: true });
+            });
     }, [auth.token, id]);
 
 
     //Validamos que el usuario tenga el toke.
     if (!auth.token) return auth.goLogin;
     //Validamos si el usuario es administrador que lo deje crear un usuario
-    if (!auth.user?.rol || auth.user?.rol !== "ADMINISTRADOR") {
-        window.alert("Acceso no permitido")
-        return
-    };
+    if (!auth.user?.rol || auth.user?.rol !== "ADMINISTRADOR") return auth.goNotAllowed;
 
 
     return (
@@ -37,20 +40,20 @@ export default function ClienteEditar() {
                 <form>
 
                     <Input
-                        label="nombre"
+                        label="Nombre"
                         name="nombre"
-                        placeholder="nombre"
+                        placeholder="Nombre"
                         required
                         minLength={3}
-                        maxLength={4}
+                        maxLength={50}
                         defaultValue={cliente.nombre}
                         disabled
                     />
 
                     <Input
-                        label="apellido"
+                        label="Apellido"
                         name="apellido"
-                        placeholder="apellido"
+                        placeholder="Apellido"
                         required
                         minLength={3}
                         maxLength={50}
@@ -68,8 +71,8 @@ export default function ClienteEditar() {
                         disabled
                     />
                     <div className='mb-5'>
-                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Avatar</label>
-                    <img className="w-20 h-20 rounded-full object-cover" src={cliente.avatar} alt="Avatar" />
+                        <label htmlFor='' className="block mb-2 text-sm font-semibold text-gray-900">Avatar</label>
+                        <img className="w-20 h-20 rounded-full object-cover" src={cliente.avatar} alt={cliente._id} />
                     </div>
                 </form>
             </div>

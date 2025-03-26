@@ -20,19 +20,22 @@ export default function ClienteEditar() {
     //Aqui se hace la peticion para editar el cliente
     useEffect(() => {
         if (!auth.token || !id) return;
-        ClienteService.mostrar(auth.token, id).then((cliente) => {
-            setCliente(cliente);
-        });
+        ClienteService.mostrar(auth.token, id)
+            .then((cliente) => {
+                setCliente(cliente);
+            })
+            .catch((e) => {
+                if (e instanceof Error) alert(e.message);
+                else alert("Ocurrio un error al cargar el cliente");
+                navigate("/cliente/listar", { replace: true });
+            });
     }, [auth.token, id]);
 
 
     //Validamos que el usuario tenga el toke.
     if (!auth.token) return auth.goLogin;
     //Validamos si el usuario es administrador que lo deje crear un usuario
-    if (!auth.user?.rol || auth.user?.rol !== "ADMINISTRADOR") {
-        window.alert("Acceso no permitido")
-        return 
-    };
+    if (!auth.user?.rol || auth.user?.rol !== "ADMINISTRADOR") return auth.goNotAllowed;
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
@@ -59,12 +62,10 @@ export default function ClienteEditar() {
             await ClienteService.editar(auth.token, cliente._id, toSend);
             navigate("/cliente/listar", { replace: true });
 
-
-
-
-
-
-        } catch (e: Error | unknown) { console.error(e) }
+        } catch (e: Error | unknown) { 
+            if (e instanceof Error) alert(e.message);
+            else alert("Ocurrio un error al editar el cliente");
+        }
 
     }
 
@@ -76,9 +77,9 @@ export default function ClienteEditar() {
                 <form onSubmit={handleSubmit}>
 
                     <Input
-                        label="nombre"
+                        label="Nombre"
                         name="nombre"
-                        placeholder="nombre"
+                        placeholder="Nombre"
                         required
                         minLength={3}
                         maxLength={50}
@@ -86,9 +87,9 @@ export default function ClienteEditar() {
                     />
 
                     <Input
-                        label="apellido"
+                        label="Apellido"
                         name="apellido"
-                        placeholder="apellido"
+                        placeholder="Apellido"
                         required
                         minLength={3}
                         maxLength={50}
@@ -124,13 +125,13 @@ export default function ClienteEditar() {
 
                     <File
                         name="avatar"
-                        label="avatar"
+                        label="Avatar"
                         description="Selecciona tu avatar"
                     />
 
                     <Button type='submit' loading={loading}>
                         <IconPencilPlus />
-
+                        Editar cliente
                     </Button>
                 </form>
             </div>
