@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { IconPencilPlus, IconTrash } from "@tabler/icons-react";
+import { IconPencilPlus, IconTrash, IconPlus } from "@tabler/icons-react";
 import Template from "@/layout";
 import useAuthContext from "@/hooks/AuthContext/hook";
 import Input from "@/components/Input";
@@ -15,7 +15,7 @@ export default function CategoriaCrear() {
   const [valores, setValores] = useState<string[]>([""]);
 
   if (!auth.token) return auth.goLogin;
-  if (!auth.user?.rol || !["ADMINISTRADOR", "GERENTE"].includes(auth.user?.rol)) return <p>Acceso no permitido</p>;
+  if (!auth.user?.rol || !["ADMINISTRADOR", "GERENTE"].includes(auth.user?.rol)) return auth.goNotAllowed;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,7 +34,11 @@ export default function CategoriaCrear() {
 
       await CategoriaService.crear(auth.token, objData);
       navigate("/categoria/listar", { replace: true });
-    } catch (e: Error | unknown) { console.error(e); }
+    } catch (e: Error | unknown) { 
+      if (e instanceof Error) alert(e.message);
+      else alert("Ha ocurrido un error al crear la categoría");
+    }
+
     setLoading(false);
   };
 
@@ -53,7 +57,7 @@ export default function CategoriaCrear() {
 
 
   return (
-    <Template title="Crear empleados">
+    <Template title="Crear categoría">
       <h2 className="text-center font-extrabold text-3xl mb-8 mt-4">
         Crear categoría
       </h2>
@@ -103,7 +107,7 @@ export default function CategoriaCrear() {
             ))}
 
             <Button type="button" onClick={handleAddValor} color="tertiary">
-              <IconPencilPlus />
+              <IconPlus />
               Añadir valor
             </Button>
 

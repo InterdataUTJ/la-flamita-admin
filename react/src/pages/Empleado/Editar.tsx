@@ -20,13 +20,19 @@ export default function EmpleadoEditar() {
     
   useEffect(() => {
     if (!auth.token || !id) return;
-    EmpleadoService.mostrar(auth.token, id).then((empleado) =>
-      setEmpleado(empleado)
-    );
+    EmpleadoService.mostrar(auth.token, id)
+      .then((empleado) =>
+        setEmpleado(empleado)
+      )
+      .catch((e) => {
+        if (e instanceof Error) alert(e.message);
+        else alert("Ocurrió un error al cargar el empleado");
+        navigate("/empleado/listar", { replace: true });
+      });
   }, [auth.token, id]);
 
   if (!auth.token) return auth.goLogin;
-  if (!auth.user?.rol || !["ADMINISTRADOR", "GERENTE"].includes(auth.user?.rol)) return <p>Acceso no permitido</p>;
+  if (!auth.user?.rol || !["ADMINISTRADOR", "GERENTE"].includes(auth.user?.rol)) return auth.goNotAllowed;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -51,13 +57,16 @@ export default function EmpleadoEditar() {
 
       await EmpleadoService.editar(auth.token, empleado._id, toSend);
       navigate("/empleado/listar", { replace: true });
-    } catch (e: Error | unknown) { console.error(e); }
+    } catch (e: Error | unknown) { 
+      if (e instanceof Error) alert(e.message);
+      else alert("Ocurrió un error al editar el empleado");
+    }
     setLoading(false);
   };
 
 
   return (
-    <Template title="Crear empleados">
+    <Template title="Editar empleados">
       <h2 className="text-center font-extrabold text-3xl mb-8 mt-4">
         Editar empleado
       </h2>

@@ -7,21 +7,28 @@ import {
 import Template from "@/layout";
 import useAuthContext from "@/hooks/AuthContext/hook";
 import Button from "@/components/Button";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import ProductoService from "@/services/Productos";
 import { ProductoResponse } from "@/services/Productos/types";
 
 
 export default function ProductoListar() {
+  const navigate = useNavigate();
   const auth = useAuthContext();
   const [productos, setProductos] = useState<ProductoResponse[]>([]);
   
   useEffect(() => {
     if (!auth.token) return;
-    ProductoService.listar(auth.token).then((productos) =>
-      setProductos(productos)
-    );
+    ProductoService.listar(auth.token)
+      .then((productos) =>
+        setProductos(productos)
+      )
+      .catch(e => {
+        if (e instanceof Error) alert(e.message);
+        else alert("Ocurrion un error al listar los productos");
+        navigate("/panel", { replace: true });
+      });
   }, [auth.token]);
 
 
@@ -31,9 +38,14 @@ export default function ProductoListar() {
     if (!auth.token) return;
     if (!auth.user?.rol || !["ADMINISTRADOR", "GERENTE"].includes(auth.user?.rol)) return window.alert("Acceso no permitido");
     if (!window.confirm("Seguro que quieres eliminar este producto?")) return;
-    ProductoService.eliminar(auth.token, id).then(() => {
-      setProductos((productos) => productos.filter((producto) => producto._id !== id));
-    });
+    ProductoService.eliminar(auth.token, id)
+      .then(() => {
+        setProductos((productos) => productos.filter((producto) => producto._id !== id));
+      })
+      .catch(e => {
+        if (e instanceof Error) alert(e.message);
+        else alert("Ocurrion un error al eliminar el producto");
+      });
   }
 
 

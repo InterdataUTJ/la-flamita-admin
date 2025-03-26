@@ -15,7 +15,7 @@ export default function SensorCrear() {
 
   if (!auth.token) return auth.goLogin;
   if (!auth.user?.rol || !["ADMINISTRADOR", "GERENTE"].includes(auth.user?.rol))
-    return <p>Acceso no permitido</p>;
+    return auth.goNotAllowed;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,16 +33,17 @@ export default function SensorCrear() {
       await SensorService.crear(auth.token, objData);
       navigate("/sensor/listar", { replace: true });
     } catch (e: Error | unknown) {
-      console.error(e);
+      if (e instanceof Error) alert(e.message);
+      else alert("Ocurrio un error al crear el dispositivo");
     }
     setLoading(false);
   };
 
 
   return (
-    <Template title="Crear sensores">
+    <Template title="Crear dispositivo IoT">
       <h2 className="text-center font-extrabold text-3xl mb-8 mt-4">
-        Crear sensor
+        Crear dispositivo IoT
       </h2>
       <div className="mt-4">
         <form onSubmit={handleSubmit}>
@@ -76,7 +77,7 @@ export default function SensorCrear() {
 
           <Button type="submit" loading={loading}>
             <IconPencilPlus />
-            Crear sensor
+            Crear dispositivo IoT
           </Button>
         </form>
       </div>

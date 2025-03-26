@@ -18,9 +18,15 @@ export default function CategoriaListar() {
   
   useEffect(() => {
     if (!auth.token) return;
-    CategoriaService.listar(auth.token).then((categorias) =>
-      setCategorias(categorias)
-    );
+    CategoriaService.listar(auth.token)
+      .then((categorias) =>
+        setCategorias(categorias)
+      )
+      .catch((e) => {
+        if (e instanceof Error) window.alert(e.message);
+        else window.alert("Error al cargar las categorias");
+      });
+      
   }, [auth.token]);
 
 
@@ -31,9 +37,14 @@ export default function CategoriaListar() {
     if (!auth.user?.rol || !["ADMINISTRADOR", "GERENTE"].includes(auth.user?.rol)) return window.alert("Acceso no permitido");
     if (!window.confirm("Seguro que quieres eliminar esta categoría?")) return;
 
-    CategoriaService.eliminar(auth.token, id).then(() => {
-      setCategorias((categorias) => categorias.filter((categorias) => categorias._id !== id));
-    });
+    CategoriaService.eliminar(auth.token, id)
+      .then(() => {
+        setCategorias((categorias) => categorias.filter((categorias) => categorias._id !== id));
+      })
+      .catch((e) => {
+        if (e instanceof Error) window.alert(e.message);
+        else window.alert("Error al eliminar la categoria");
+      });
   }
 
 
@@ -79,7 +90,7 @@ export default function CategoriaListar() {
                 >
                   {categoria.nombre}
                 </th>
-                <td className="text-center px-6 py-4">{typeof categoria.datos === "number" ? categoria.datos : categoria.datos.length}</td>
+                <td className="text-center px-6 py-4">{categoria.datos.length}</td>
                 <td className="text-center px-6 py-4 flex gap-4 justify-center items-center">
                   
                   { auth.user?.rol && ["ADMINISTRADOR", "GERENTE"].includes(auth.user?.rol) && (

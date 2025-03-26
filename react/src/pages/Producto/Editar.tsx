@@ -22,17 +22,22 @@ export default function ProductoEditar() {
 
   useEffect(() => {
     if (!auth.token || !id) return;
-    CategoriaService.listar(auth.token)
-      .then(categorias => setCategorias(categorias))
-      .catch(console.error);
+    Promise.all([
+      CategoriaService.listar(auth.token)
+      .then(categorias => setCategorias(categorias)),
     
-    ProductoService.mostrar(auth.token, id)
-      .then(producto => setProducto(producto))
-      .catch(console.error);
+      ProductoService.mostrar(auth.token, id)
+        .then(producto => setProducto(producto))
+    ]).catch(e => {
+      if (e instanceof Error) alert(e.message);
+      else alert("Ocurrion un error al cargar el producto");
+      navigate("/producto/listar", { replace: true });
+    });
+
   }, [auth.token, id]);
 
   if (!auth.token) return auth.goLogin;
-  if (!auth.user?.rol || !["ADMINISTRADOR", "GERENTE"].includes(auth.user?.rol)) return <p>Acceso no permitido</p>;
+  if (!auth.user?.rol || !["ADMINISTRADOR", "GERENTE"].includes(auth.user?.rol)) return auth.goNotAllowed;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -44,6 +49,9 @@ export default function ProductoEditar() {
       const oldForm = new FormData(e.currentTarget);
       const toSend: ProductoRequest = {} as ProductoRequest;
 
+      // Espero que esto nunca se rompa....
+      // Porque ahora no hay quien entienda esta mierda >:O
+      
       if (oldForm.get("nombre") && oldForm.get("nombre") !== producto.nombre) toSend.nombre = oldForm.get("nombre") as string;
       if (oldForm.get("descripcion") && oldForm.get("descripcion") !== producto.descripcion) toSend.descripcion = oldForm.get("descripcion") as string;
       if (oldForm.get("precio") && parseFloat(oldForm.get("precio") as string) !== producto.precio) toSend.precio = parseFloat(oldForm.get("precio") as string);
@@ -57,9 +65,14 @@ export default function ProductoEditar() {
         toSend.categorias?.push(value as string);
       });
 
+      if (!toSend.categorias?.length) throw new Error("Selecciona al menos una categoría");
+
       await ProductoService.editar(auth.token, id, toSend);
       navigate("/producto/listar", { replace: true });
-    } catch (e: Error | unknown) { console.error(e); }
+    } catch (e: Error | unknown) { 
+      if (e instanceof Error) alert(e.message);
+      else alert("Ocurrion un error al editar el producto");
+    }
     setLoading(false);
   };
 

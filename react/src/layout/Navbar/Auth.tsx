@@ -71,7 +71,7 @@ export default function AuthNavbar({ auth }: { auth: AuthContextData }) {
         <Navbar.Link as={Link} to="/panel" active={location.pathname === "/panel"}>Panel</Navbar.Link>
         <Dropdown inline label="Modulos" theme={{...dropdownTheme, inlineWrapper: "block py-2 pl-3 pr-4 rounded flex items-center hover:bg-gray-100 md:hover:bg-transparent" }}>
           <Dropdown.Item as={Link} to="/empleado/listar">Empleados</Dropdown.Item>
-          <Dropdown.Item as={Link} to="/empleado/listar">Clientes</Dropdown.Item>
+          <Dropdown.Item as={Link} to="/cliente/listar">Clientes</Dropdown.Item>
           <Dropdown.Item as={Link} to="/categoria/listar">Categorias</Dropdown.Item>
           <Dropdown.Item as={Link} to="/producto/listar">Productos</Dropdown.Item>
           <Dropdown.Item as={Link} to="/venta/listar">Ventas</Dropdown.Item>

@@ -14,7 +14,7 @@ export default function EmpleadoCrear() {
   const [loading, setLoading] = useState(false);
 
   if (!auth.token) return auth.goLogin;
-  if (!auth.user?.rol || !["ADMINISTRADOR", "GERENTE"].includes(auth.user?.rol)) return <p>Acceso no permitido</p>;
+  if (!auth.user?.rol || !["ADMINISTRADOR", "GERENTE"].includes(auth.user?.rol)) return auth.goNotAllowed;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,7 +31,10 @@ export default function EmpleadoCrear() {
 
       await EmpleadoService.crear(auth.token, formData);
       navigate("/empleado/listar", { replace: true });
-    } catch (e: Error | unknown) { console.error(e); }
+    } catch (e: Error | unknown) { 
+      if (e instanceof Error) alert(e.message);
+      else alert("Ocurrió un error al crear el empleado");
+    }
     setLoading(false);
   };
 
@@ -76,6 +79,7 @@ export default function EmpleadoCrear() {
             placeholder="Contraseña"
             minLength={8}
             maxLength={50}
+            required
           />
 
           <Input
@@ -85,6 +89,7 @@ export default function EmpleadoCrear() {
             placeholder="Contraseña"
             minLength={8}
             maxLength={50}
+            required
           />
 
           <div className="mb-5">

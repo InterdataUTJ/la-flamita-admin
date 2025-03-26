@@ -12,6 +12,7 @@ interface ModuloProps {
   module: string;
   link: string;
   rol?: string;
+  same?: boolean;
   permisos?: {
     base?: string[];
     listar?: string[];
@@ -32,11 +33,11 @@ const defaultPermisos = {
   borrar: fullPermiso,
 };
 
-export default function Modulo({ module, link, rol = "EMPLEADO", permisos = defaultPermisos }: ModuloProps) {
+export default function Modulo({ module, link, rol = "EMPLEADO", permisos = defaultPermisos, same = false }: ModuloProps) {
   const currPer = { ...defaultPermisos, ...permisos };
   if (!currPer.base.includes(rol)) return null;
-  const title = module.charAt(0).toUpperCase() + module.slice(1).toLowerCase();
-  const name = module.toLowerCase();
+  const title = same ? module : module.charAt(0).toUpperCase() + module.slice(1).toLowerCase();
+  const name = same ? module : module.toLowerCase();
   
   return (
     <div className="bg-white grow rounded shadow p-4 min-w-64 flex flex-col">

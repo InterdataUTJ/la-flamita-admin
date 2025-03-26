@@ -33,15 +33,16 @@ export default function PerfilEditarPage() {
       await auth.update(toSend);
       navigate("/perfil", { replace: true });
     } catch (e: Error | unknown) {
-      console.error(e);
+      if (e instanceof Error) alert(e.message);
+      else alert('Error al actualizar los datos.');
     }
 
     setLoading(false);
   }
   
   return (
-    <Template title="Panel">
-      <h2 className="text-center font-extrabold text-3xl mb-8">Mi perfil</h2>
+    <Template title="Editar perfil">
+      <h2 className="text-center font-extrabold text-3xl mb-8">Editar perfil</h2>
       <div className="flex flex-col md:flex-row gap-4 justify-center items-center p-5 bg-quinary-300 rounded-lg shadow">
         <img className="w-20 h-20 rounded-full object-cover select-none bg-quinary-100" src={auth.user?.avatar} alt="avatar" />
         <div className="flex flex-col gap-2">

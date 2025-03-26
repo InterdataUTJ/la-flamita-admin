@@ -18,16 +18,21 @@ export default function CategoriaEditar() {
 
   useEffect(() => {
     if (!auth.token || !id) return;
-    CategoriaService.mostrar(auth.token, id).then((categoria) => {
-      setCategoria(categoria);
-      if (typeof categoria.datos === "number") return;
-      setValores(categoria.datos.map((v: { nombre: string, _id: string }) => v.nombre));
-    });
+    CategoriaService.mostrar(auth.token, id)
+      .then((categoria) => {
+        setCategoria(categoria);
+        setValores(categoria.datos.map((v: { nombre: string, _id: string }) => v.nombre));
+      })
+      .catch((e: Error | unknown) => {
+        if (e instanceof Error) alert(e.message);
+        else alert("Error al cargar la categoría");
+        navigate("/categoria/listar", { replace: true });
+      });
   }, [auth.token, id]);
 
 
   if (!auth.token) return auth.goLogin;
-  if (!auth.user?.rol || !["ADMINISTRADOR", "GERENTE"].includes(auth.user?.rol)) return <p>Acceso no permitido</p>;
+  if (!auth.user?.rol || !["ADMINISTRADOR", "GERENTE"].includes(auth.user?.rol)) return auth.goNotAllowed;
   
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -47,7 +52,11 @@ export default function CategoriaEditar() {
 
       await CategoriaService.editar(auth.token, categoria._id, objData);
       navigate("/categoria/listar", { replace: true });
-    } catch (e: Error | unknown) { console.error(e); }
+    } catch (e: Error | unknown) { 
+      if (e instanceof Error) alert(e.message);
+      else alert("Error al editar la categoría");
+    }
+    
     setLoading(false);
   };
 
@@ -66,7 +75,7 @@ export default function CategoriaEditar() {
 
 
   return (
-    <Template title="Crear empleados">
+    <Template title="Editar categoría">
       <h2 className="text-center font-extrabold text-3xl mb-8 mt-4">
         Editar categoría
       </h2>
