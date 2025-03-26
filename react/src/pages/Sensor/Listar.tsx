@@ -7,43 +7,57 @@ import {
 import Template from "@/layout";
 import useAuthContext from "@/hooks/AuthContext/hook";
 import Button from "@/components/Button";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import SensorService from "@/services/Sensores";
 import { SensorResponse } from "@/services/Sensores/types";
 
 
 export default function SensorListar() {
+  const navigate = useNavigate();
   const auth = useAuthContext();
   const [sensores, setSensores] = useState<SensorResponse[]>([]);
   
   useEffect(() => {
     if (!auth.token) return;
-    SensorService.listar(auth.token).then((sensores) =>
-      setSensores(sensores)
-    );
+    SensorService.listar(auth.token)
+      .then((sensores) =>
+        setSensores(sensores)
+      )
+      .catch(e => {
+        if (e instanceof Error) alert(e.message);
+        else alert("Ocurrio un error al listar los dispositivos");
+        navigate("/panel", { replace: true });
+      });
   }, [auth.token]);
 
 
   if (!auth.token) return auth.goLogin;
-  if (!auth.user?.rol || !["ADMINISTRADOR", "GERENTE"].includes(auth.user.rol)) return auth.goLogin;
+  if (!auth.user?.rol || !["ADMINISTRADOR", "GERENTE"].includes(auth.user.rol)) return auth.goNotAllowed;
 
   const handleDelete = (id: string) => {
     if (!auth.token) return;
     if (!window.confirm("Seguro que quieres eliminar este sensor?")) return;
+    if (!auth.user?.rol || !["ADMINISTRADOR", "GERENTE"].includes(auth.user.rol)) 
+      return alert("No tienes permisos para eliminar sensores");
     
-    SensorService.eliminar(auth.token, id).then(() => {
-      setSensores((sensores) => sensores.filter((sensor) => sensor._id !== id));
-    });
+    SensorService.eliminar(auth.token, id)
+      .then(() => {
+        setSensores((sensores) => sensores.filter((sensor) => sensor._id !== id));
+      })
+      .catch(e => {
+        if (e instanceof Error) alert(e.message);
+        else alert("Ocurrio un error al eliminar el sensor");
+      });
   }
 
 
   return (
-    <Template title="Listar sensores">
+    <Template title="Listar dispositivos IoT">
       { auth.user?.rol && ["ADMINISTRADOR", "GERENTE"].includes(auth.user?.rol) && (
         <Button as={Link} to="/sensor/crear">
           <IconPencilPlus />
-          Crear
+          Crear dispositivo IoT
         </Button>
       )}
 

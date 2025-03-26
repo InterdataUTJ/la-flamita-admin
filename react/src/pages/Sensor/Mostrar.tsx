@@ -9,6 +9,19 @@ import SensorService from "@/services/Sensores";
 import Button from "@/components/Button";
 import LineChart from "@/components/Charts/Line";
 
+const formatTimestamp = (timestamp?: string) => {
+  if (!timestamp) return "";
+  const date = new Date(timestamp);
+  return date.toLocaleString("es-ES", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  });
+};
 
 export default function SensorMostrar() {
   const auth = useAuthContext();
@@ -18,21 +31,7 @@ export default function SensorMostrar() {
 
   if (!auth.token) return auth.goLogin;
   if (!auth.user?.rol || !["ADMINISTRADOR", "GERENTE"].includes(auth.user?.rol))
-    return <p>Acceso no permitido</p>;
-
-  const formatTimestamp = (timestamp?: string) => {
-    if (!timestamp) return "";
-    const date = new Date(timestamp);
-    return date.toLocaleString("es-ES", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: true,
-    });
-  };
+    return auth.goNotAllowed;
 
   const handleToggleState = async () => {
     if (!auth.token || !id) return;
@@ -40,23 +39,27 @@ export default function SensorMostrar() {
     const dato = sensor.datos[0]?.dato === "1" ? "0" : "1";
     
     try {
-      await SensorService.enviar(sensor.token, id, dato);
-      await SensorService.mostrar(auth.token, id).then((sensor) =>
-        setSensor(sensor)
-      );
+      await Promise.all([
+        SensorService.enviar(sensor.token, id, dato),
+        SensorService.mostrar(auth.token, id).then(sensor => setSensor(sensor)),
+      ]);
 
       setLoading(false);
-    } catch (error) {
-      console.error(error);
+    } catch (e: Error | unknown) {
+      if (e instanceof Error) alert(e.message);
+      else alert("Ocurrio un error al actualizar el estado del dispositivo");
       setLoading(false);
     }
   }
 
   const updateData = () => {
     if (!auth.token || !id) return;
-    SensorService.mostrar(auth.token, id).then((sensor) =>
-      setSensor(sensor)
-    );
+    SensorService.mostrar(auth.token, id)
+      .then(sensor => setSensor(sensor))
+      .catch(e => {
+        if (e instanceof Error) console.error(e.message);
+        else console.error("Ocurrio un error al cargar el dispositivo");
+      });
   }
 
   useEffect(() => {
@@ -68,9 +71,9 @@ export default function SensorMostrar() {
 
 
   return (
-    <Template title="Mostrar sensores">
+    <Template title="Mostrar dispositivo IoT">
       <h2 className="text-center font-extrabold text-3xl mb-8 mt-4">
-        Mostrar sensor
+        Mostrar dispositivo IoT
       </h2>
       <div className="mt-4">
         <form>

@@ -17,7 +17,7 @@ export default function SensorEditar() {
 
   if (!auth.token) return auth.goLogin;
   if (!auth.user?.rol || !["ADMINISTRADOR", "GERENTE"].includes(auth.user?.rol))
-    return <p>Acceso no permitido</p>;
+    return auth.goNotAllowed;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,20 +34,27 @@ export default function SensorEditar() {
       await SensorService.editar(auth.token, id, objData);
       navigate("/sensor/listar", { replace: true });
     } catch (e: Error | unknown) {
-      console.error(e);
+      if (e instanceof Error) alert(e.message);
+      else alert("Ocurrio un error al editar el dispositivo");
     }
     setLoading(false);
   };
 
   useEffect(() => {
     if (!auth.token || !id) return;
-    SensorService.mostrar(auth.token, id).then((sensor) => setSensor(sensor));
+    SensorService.mostrar(auth.token, id)
+      .then((sensor) => setSensor(sensor))
+      .catch(e => {
+        if (e instanceof Error) alert(e.message);
+        else alert("Ocurrio un error al cargar el dispositivo");
+        navigate("/sensor/listar", { replace: true });
+      });
   }, [auth.token, id]);
 
   return (
-    <Template title="Editar sensores">
+    <Template title="Editar dispositivo IoT">
       <h2 className="text-center font-extrabold text-3xl mb-8 mt-4">
-        Editar sensor
+        Editar dispositivo IoT
       </h2>
       <div className="mt-4">
         <form onSubmit={handleSubmit}>
@@ -90,7 +97,7 @@ export default function SensorEditar() {
 
           <Button type="submit" loading={loading}>
             <IconDeviceFloppy />
-            Editar sensor
+            Editar dispositivo IoT
           </Button>
         </form>
       </div>
