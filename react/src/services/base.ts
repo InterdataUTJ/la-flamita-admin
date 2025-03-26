@@ -8,9 +8,11 @@ interface HttpOptions {
   asForm?: boolean;
 }
 
-const ApiServiceError = {
-  name: "ApiServiceError",
-  message: "Error al realizar la petición al servidor.",
+function ApiServiceError({ name, message }: ErrorResponse = { name: "ApiServiceError", message: "Error al realizar la petición al servidor." }): Error {
+  return new class extends Error {
+    name = name;
+    message = message;
+  }
 }
 
 export default class Http {
@@ -42,12 +44,12 @@ export default class Http {
       // Send request
       fetch(`${this.baseUrl}${url}`, { method, headers })
         .then(res => {
-          if (!res.ok) return res.json().then(reject);
+          if (!res.ok) return res.json().then((data) => reject(ApiServiceError(data)));
           if (res.headers.get("Content-Type")?.includes("application/json")) return res.json().then(resolve);
           resolve(undefined);
 
         })
-        .catch(() => reject(ApiServiceError));
+        .catch(() => reject(ApiServiceError()));
     });
   }
 
@@ -69,11 +71,11 @@ export default class Http {
         body: options.asForm ? formBody : JSON.stringify(body),
 
       }).then(res => {
-        if (!res.ok) return res.json().then(reject);
+        if (!res.ok) return res.json().then((data) => reject(ApiServiceError(data)));
         if (res.headers.get("Content-Type")?.includes("application/json")) return res.json().then(resolve);
         resolve(undefined);
 
-      }).catch(() => reject(ApiServiceError));
+      }).catch(() => reject(ApiServiceError()));
     });
   }
   

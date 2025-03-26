@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate } from "react-router";
 import { PerfilEdit } from "@/services/Perfil/types";
 import PerfilService from "@/services/Perfil";
@@ -14,11 +14,34 @@ export default function AuthContextProvider({ children }: AuthContextProviderPro
   const [state, setState] = useState<AuthContextState>(storage.load() as AuthContextState);
 
 
+  useEffect(() => {
+    if (!state.token) return;
+    getPerfil(state.token);
+  }, [state.token]);
+
+  const getPerfil = async (token: string) => {
+    try {
+      const user = await PerfilService.perfil(token);
+      setState(prev => storage.save({ ...prev, token, user }));
+    } catch(e: Error | unknown) {
+      if (e instanceof Error && e.name === "JwtInvalidError") alert("La sesión ha expirado.");
+      else alert('Error al recuperar la sesión.');
+
+      setState({} as AuthContextState);
+      storage.remove();
+    }
+  }
+
   // Login function
   const handleLogin = async (correo: string, clave: string) => {
-    const { token } = await PerfilService.login(correo, clave);
-    const user = await PerfilService.perfil(token);
-    setState(prev => storage.save({ ...prev, token, user }));
+    try {
+      const { token } = await PerfilService.login(correo, clave);
+      const user = await PerfilService.perfil(token);
+      setState(prev => storage.save({ ...prev, token, user }));
+    } catch(e: Error | unknown) {
+      if (e instanceof Error) alert(e.message);
+      else alert('Error al iniciar sesión');
+    }
   }
 
 
@@ -30,7 +53,8 @@ export default function AuthContextProvider({ children }: AuthContextProviderPro
       setState({} as AuthContextState);
       storage.remove();
     } catch(e: Error | unknown) { 
-      console.error(e) 
+      if (e instanceof Error) alert(e.message);
+      else alert('Error al cerrar sesión.');
     }
   }
 
@@ -41,7 +65,8 @@ export default function AuthContextProvider({ children }: AuthContextProviderPro
       const user = await PerfilService.perfil(state.token);
       setState(prev => storage.save({ ...prev, user }));
     } catch(e: Error | unknown) {
-      console.error(e);
+      if (e instanceof Error) alert(e.message);
+      else alert('Error al actualizar los datos.');
     }
   }
 
