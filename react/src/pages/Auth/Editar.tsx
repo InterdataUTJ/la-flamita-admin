@@ -33,7 +33,8 @@ export default function PerfilEditarPage() {
       await auth.update(toSend);
       navigate("/perfil", { replace: true });
     } catch (e: Error | unknown) {
-      console.error(e);
+      if (e instanceof Error) alert(e.message);
+      else alert('Error al actualizar los datos.');
     }
 
     setLoading(false);

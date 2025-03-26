@@ -43,27 +43,28 @@ export default function AuthContextProvider({ children }: AuthContextProviderPro
 
   // Logout function
   const handleLogout = async () => {
-    if (!state.token) return;
     try {
+      if (!state.token) throw new Error("No hay token de sesión.");
       await PerfilService.logout(state.token);
       setState({} as AuthContextState);
       storage.remove();
     } catch(e: Error | unknown) { 
       if (e instanceof Error) alert(e.message);
       else alert('Error al cerrar sesión.');
+
+      if (e instanceof Error && e.name === "JwtInvalidError") {
+        setState({} as AuthContextState);
+        storage.remove();
+      }
     }
   }
 
   const handleUpdate = async (props: PerfilEdit) => {
-    if (!state.token) return;
-    try {
-      await PerfilService.editar(state.token, props);
-      const user = await PerfilService.perfil(state.token);
-      setState(prev => storage.save({ ...prev, user }));
-    } catch(e: Error | unknown) {
-      if (e instanceof Error) alert(e.message);
-      else alert('Error al actualizar los datos.');
-    }
+    if (!state.token) throw new Error("No hay token de sesión.");
+
+    await PerfilService.editar(state.token, props);
+    const user = await PerfilService.perfil(state.token);
+    setState(prev => storage.save({ ...prev, user }));
   }
 
   
