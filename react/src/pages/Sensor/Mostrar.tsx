@@ -8,20 +8,8 @@ import { SensorResponse } from "@/services/Sensores/types";
 import SensorService from "@/services/Sensores";
 import Button from "@/components/Button";
 import LineChart from "@/components/Charts/Line";
+import timestamp from '@/utils/timestamp';
 
-const formatTimestamp = (timestamp?: string) => {
-  if (!timestamp) return "";
-  const date = new Date(timestamp);
-  return date.toLocaleString("es-ES", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: true,
-  });
-};
 
 export default function SensorMostrar() {
   const auth = useAuthContext();
@@ -120,7 +108,7 @@ export default function SensorMostrar() {
 
               <div className="bg-white p-4 rounded-lg shadow-md border-gray-200 border-2 flex flex-col items-center gap-2">
                 <span className="block text-center font-bold">{sensor.datos[0]?.dato === "1" ? "Encendido" : "Apagado"}</span>
-                <span className="block text-center">{formatTimestamp(sensor.datos[0]?.timestamp)}</span>
+                <span className="block text-center">{timestamp.format(sensor.datos[0]?.timestamp)}</span>
                 <Button
                   loading={loading}
                   onClick={handleToggleState}
@@ -144,7 +132,7 @@ export default function SensorMostrar() {
                       <div className="shadow border rounded p-3 w-60 aspect-square gap-2 flex flex-col justify-center items-center bg-white">
                         <span className="font-bold text-xl">{key}</span>
                         <span className="font-bold text-6xl mb-4">{val}</span>
-                        <span className="italic">{formatTimestamp(sensor.datos[sensor.datos.length - 1].timestamp)}</span>
+                        <span className="italic">{timestamp.format(sensor.datos[sensor.datos.length - 1].timestamp)}</span>
                       </div>
                   ))
                 )}
