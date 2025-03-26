@@ -27,6 +27,7 @@ export default function AuthContextProvider({ children }: AuthContextProviderPro
       if (e instanceof Error && e.name === "JwtInvalidError") alert("La sesión ha expirado.");
       else alert('Error al recuperar la sesión.');
 
+      // El JWT es inválido, se limpia el estado y el local storage
       setState({} as AuthContextState);
       storage.remove();
     }
@@ -34,14 +35,9 @@ export default function AuthContextProvider({ children }: AuthContextProviderPro
 
   // Login function
   const handleLogin = async (correo: string, clave: string) => {
-    try {
-      const { token } = await PerfilService.login(correo, clave);
-      const user = await PerfilService.perfil(token);
-      setState(prev => storage.save({ ...prev, token, user }));
-    } catch(e: Error | unknown) {
-      if (e instanceof Error) alert(e.message);
-      else alert('Error al iniciar sesión');
-    }
+    const { token } = await PerfilService.login(correo, clave);
+    const user = await PerfilService.perfil(token);
+    setState(prev => storage.save({ ...prev, token, user }));
   }
 
 

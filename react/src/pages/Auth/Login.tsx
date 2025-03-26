@@ -1,28 +1,33 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import useAuthContext from "@/hooks/AuthContext/hook";
 import Template from "@/layout";
 import Input from "@/components/Input";
 import { User } from "@/components/Icon";
+import Button from "@/components/Button";
 
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const auth = useAuthContext();
+  const [loading, setLoading] = useState(false);
   const correoRef = useRef<HTMLInputElement>(null);
   const claveRef = useRef<HTMLInputElement>(null);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!correoRef.current || !claveRef.current) return;
+    setLoading(true);
 
     try {
       await auth.login(correoRef.current.value, claveRef.current.value);
       navigate("/panel", { replace: true });
     } catch (e) {
       if (e instanceof Error) alert(e.message);
-      else alert('Ocurrió un error inesperado');
+      else alert('Error al iniciar sesión');
     }
+
+    setLoading(false);
   };
 
   return (
@@ -35,6 +40,7 @@ export default function LoginPage() {
       <form onSubmit={handleLogin}>
         <Input
           label="Correo electrónico"
+          placeholder="example@laflamita.live"
           name="correo"
           type="email"
           ref={correoRef}
@@ -43,6 +49,7 @@ export default function LoginPage() {
 
         <Input 
           type="password"
+          placeholder="********"
           label="Contraseña" 
           name="password" 
           ref={claveRef}
@@ -51,12 +58,12 @@ export default function LoginPage() {
           required
         />
 
-        <button
+        <Button
           type="submit"
-          className="w-full font-bold rounded-lg text-sm px-5 py-2.5 text-center flex items-center justify-center gap-2 hover:bg-gray-100 active:bg-gray-200 text-white bg-primary-600 hover:bg-primary-500 active:bg-primary-700"
+          loading={loading}
         >
           <User /> Iniciar sesión
-        </button>
+        </Button>
       </form>
     </Template>
   );
