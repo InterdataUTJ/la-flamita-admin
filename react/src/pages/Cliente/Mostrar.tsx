@@ -29,8 +29,6 @@ export default function ClienteEditar() {
 
     //Validamos que el usuario tenga el toke.
     if (!auth.token) return auth.goLogin;
-    //Validamos si el usuario es administrador que lo deje crear un usuario
-    if (!auth.user?.rol || auth.user?.rol !== "ADMINISTRADOR") return auth.goNotAllowed;
 
 
     return (
