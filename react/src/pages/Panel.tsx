@@ -62,9 +62,10 @@ export default function PanelPage() {
           />
 
           <Modulo 
-            module="Sensores" 
+            module="Dispositivos IoT" 
             link="/sensor/listar"
             rol={auth.user?.rol}
+            same
             permisos={{
               base: [Permiso.Administrador, Permiso.Gerente],
             }}
