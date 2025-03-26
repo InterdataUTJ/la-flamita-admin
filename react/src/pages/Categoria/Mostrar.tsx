@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import Template from "@/layout";
 import useAuthContext from "@/hooks/AuthContext/hook";
 import Input from "@/components/Input";
@@ -7,6 +7,7 @@ import { CategoriaResponse } from "@/services/Categorias/types";
 import CategoriaService from "@/services/Categorias";
 
 export default function CategoriaMostrar() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const auth = useAuthContext();
   const [categoria, setCategoria] = useState<CategoriaResponse>({} as CategoriaResponse);
@@ -14,11 +15,16 @@ export default function CategoriaMostrar() {
 
   useEffect(() => {
     if (!auth.token || !id) return;
-    CategoriaService.mostrar(auth.token, id).then((categoria) => {
-      setCategoria(categoria);
-      if (typeof categoria.datos === "number") return;
-      setValores(categoria.datos.map((v: { nombre: string, _id: string }) => v.nombre));
-    });
+    CategoriaService.mostrar(auth.token, id)
+      .then((categoria) => {
+        setCategoria(categoria);
+        setValores(categoria.datos.map((v: { nombre: string, _id: string }) => v.nombre));
+      })
+      .catch((err) => {
+        if (err instanceof Error) alert(err.message);
+        else alert("Ocurrió un error al cargar la categoría");
+        navigate("/categoria/listar", { replace: true });
+      });
   }, [auth.token, id]);
 
 
