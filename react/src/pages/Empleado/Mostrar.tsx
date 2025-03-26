@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import Template from "@/layout";
 import useAuthContext from "@/hooks/AuthContext/hook";
 import Input from "@/components/Input";
@@ -8,18 +8,25 @@ import { EmpleadoResponse } from "@/services/Empleados/types";
 
 export default function EmpleadoMostrar() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const auth = useAuthContext();
   const [empleado, setEmpleado] = useState<EmpleadoResponse>({} as EmpleadoResponse);
 
   useEffect(() => {
     if (!auth.token || !id) return;
-    EmpleadoService.mostrar(auth.token, id).then((empleado) =>
-      setEmpleado(empleado)
-    );
+    EmpleadoService.mostrar(auth.token, id)
+      .then((empleado) =>
+        setEmpleado(empleado)
+      )
+      .catch(e => {
+        if (e instanceof Error) alert(e.message);
+        else alert("Ocurrió un error al cargar el empleado");
+        navigate("/empleado/listar", { replace: true });
+      });
   }, [auth.token, id]);
 
   if (!auth.token) return auth.goLogin;
-  if (!auth.user?.rol || !["ADMINISTRADOR", "GERENTE"].includes(auth.user?.rol)) return <p>Acceso no permitido</p>;
+  if (!auth.user?.rol || !["ADMINISTRADOR", "GERENTE"].includes(auth.user?.rol)) return auth.goNotAllowed;
 
 
   return (

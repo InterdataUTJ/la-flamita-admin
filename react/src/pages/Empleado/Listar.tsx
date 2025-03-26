@@ -7,35 +7,47 @@ import {
 import Template from "@/layout";
 import useAuthContext from "@/hooks/AuthContext/hook";
 import Button from "@/components/Button";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import EmpleadoService from "@/services/Empleados";
 import { EmpleadoResponse } from "@/services/Empleados/types";
 
 export default function EmpleadoListar() {
   const auth = useAuthContext();
+  const navigate = useNavigate();
   const [empleados, setEmpleados] = useState<EmpleadoResponse[]>([]);
   
   useEffect(() => {
     if (!auth.token) return;
-    EmpleadoService.listar(auth.token).then((empleados) =>
-      setEmpleados(empleados)
-    );
+    EmpleadoService.listar(auth.token)
+      .then((empleados) =>
+        setEmpleados(empleados)
+      )
+      .catch((err) => {
+        if (err instanceof Error) alert(err.message);
+        else alert("Ocurrió un error al listar los empleados");
+        navigate("/panel", { replace: true });
+      });
   }, [auth.token]);
 
 
   if (!auth.token) return auth.goLogin;
   if (!auth.user?.rol || !["ADMINISTRADOR", "GERENTE"].includes(auth.user?.rol))
-    return <p>Acceso no permitido</p>;
+    return auth.goNotAllowed;
 
 
   const handleDelete = (id: string) => {
     if (!auth.token) return;
     if (!auth.user?.rol || auth.user?.rol !== "ADMINISTRADOR") return window.alert("Acceso no permitido");
     if (!window.confirm("Seguro que quieres eliminar este empleado?")) return;
-    EmpleadoService.eliminar(auth.token, id).then(() => {
-      setEmpleados((empleados) => empleados.filter((empleado) => empleado._id !== id));
-    });
+    EmpleadoService.eliminar(auth.token, id)
+      .then(() => {
+        setEmpleados((empleados) => empleados.filter((empleado) => empleado._id !== id));
+      })
+      .catch(e => {
+        if (e instanceof Error) alert(e.message);
+        else alert("Ocurrió un error al eliminar el empleado");
+      });
   }
 
 
