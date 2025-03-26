@@ -75,7 +75,7 @@ export default function CategoriaEditar() {
 
 
   return (
-    <Template title="Crear empleados">
+    <Template title="Editar categoría">
       <h2 className="text-center font-extrabold text-3xl mb-8 mt-4">
         Editar categoría
       </h2>

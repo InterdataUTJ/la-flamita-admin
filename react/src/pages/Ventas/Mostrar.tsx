@@ -33,7 +33,7 @@ export default function VentaListar() {
 
     //Listamos los datos de la venta
     return (
-        <Template>
+        <Template title="Mostrar venta">
             <h2 className="text-center font-extrabold text-3xl mb-8 mt-4">Venta #{Venta._id}</h2>
 
             <div className="space-y-4 p-4 border rounded shadow bg-white my-5">

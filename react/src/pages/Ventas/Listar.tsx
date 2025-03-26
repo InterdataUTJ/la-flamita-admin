@@ -49,7 +49,7 @@ export default function VentaListar() {
 
 
     return (
-        <Template>
+        <Template title="Listar ventas">
             <Button as={Link} to="/venta/crear">
                 <IconPencilPlus />
                 Crear Venta

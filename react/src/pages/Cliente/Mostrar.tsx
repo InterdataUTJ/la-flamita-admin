@@ -34,7 +34,7 @@ export default function ClienteEditar() {
 
 
     return (
-        <Template title="Editar cliente">
+        <Template title="Mostrar cliente">
             <h2 className="text-center font-extrabold text-3xl mb-8 mt-4">Mostrar cliente</h2>
             <div className="mt-4">
                 <form>

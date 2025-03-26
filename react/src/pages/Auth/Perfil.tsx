@@ -10,7 +10,7 @@ export default function PerfilPage() {
   if (!auth.token) return auth.goLogin;
   
   return (
-    <Template title="Panel">
+    <Template title="Mi perfil">
       <h2 className="text-center font-extrabold text-3xl mb-8">Mi perfil</h2>
       <div className="flex flex-col md:flex-row gap-4 justify-center items-center p-5 bg-quinary-300 rounded-lg shadow">
         <img className="w-20 h-20 rounded-full object-cover select-none bg-quinary-100" src={auth.user?.avatar} alt="avatar" />

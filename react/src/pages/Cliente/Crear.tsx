@@ -48,7 +48,7 @@ export default function ClienteCrear(){
     }
 
     return (
-        <Template title="crear cliente">
+        <Template title="Crear cliente">
             <h2 className="text-center font-extrabold text-3xl mb-8 mt-4">Crear cliente</h2>
             <div className="mt-4">
                 <form onSubmit={handleSubmit}>

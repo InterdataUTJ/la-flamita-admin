@@ -66,7 +66,7 @@ export default function EmpleadoEditar() {
 
 
   return (
-    <Template title="Crear empleados">
+    <Template title="Editar empleados">
       <h2 className="text-center font-extrabold text-3xl mb-8 mt-4">
         Editar empleado
       </h2>
