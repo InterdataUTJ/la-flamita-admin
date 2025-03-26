@@ -22,12 +22,15 @@ export default function ProductoCrear() {
     if (!auth.token) return;
     CategoriaService.listar(auth.token)
       .then(categorias => setCategorias(categorias))
-      .then(console.log)
-      .catch(console.error);
+      .catch(e => {
+        if (e instanceof Error) alert(e.message);
+        else alert("Ocurrion un error al listar las categorías");
+        navigate("/panel", { replace: true });
+      });
   }, [auth.token]);
 
   if (!auth.token) return auth.goLogin;
-  if (!auth.user?.rol || !["ADMINISTRADOR", "GERENTE"].includes(auth.user?.rol)) return <p>Acceso no permitido</p>;
+  if (!auth.user?.rol || !["ADMINISTRADOR", "GERENTE"].includes(auth.user?.rol)) return auth.goNotAllowed;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -52,9 +55,15 @@ export default function ProductoCrear() {
         if (key.startsWith("categorias")) return toSend.categorias?.push(value as string);
       });
 
+      if (!toSend.categorias?.length) throw new Error("Selecciona al menos una categoría");
+
       await ProductoService.crear(auth.token, toSend);
       navigate("/producto/listar", { replace: true });
-    } catch (e: Error | unknown) { console.error(e); }
+    } catch (e: Error | unknown) { 
+      if (e instanceof Error) alert(e.message);
+      else alert("Ocurrion un error al crear el producto");
+    }
+
     setLoading(false);
   };
 

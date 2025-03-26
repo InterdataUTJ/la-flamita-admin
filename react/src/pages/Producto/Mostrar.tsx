@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import Template from "@/layout";
 import useAuthContext from "@/hooks/AuthContext/hook";
 import Input from "@/components/Input";
@@ -9,6 +9,7 @@ import { CategoriaResponse } from "@/services/Categorias/types";
 import CategoriaService from "@/services/Categorias";
 
 export default function ProductoMostrar() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const auth = useAuthContext();
   const [categorias, setCategorias] = useState<CategoriaResponse[]>([]);
@@ -17,15 +18,20 @@ export default function ProductoMostrar() {
 
   useEffect(() => {
     if (!auth.token || !id) return;
-    CategoriaService.listar(auth.token)
-      .then(categorias => setCategorias(categorias))
-      .catch(console.error);
-    
-    ProductoService.mostrar(auth.token, id)
-      .then(producto => setProducto(producto))
-      .catch(console.error);
+    Promise.all([
+      CategoriaService.listar(auth.token)
+        .then(categorias => setCategorias(categorias)),
+      
+      ProductoService.mostrar(auth.token, id)
+        .then(producto => setProducto(producto)),
+    ]).catch(e => {
+      if (e instanceof Error) alert(e.message);
+      else alert("Ocurrion un error al mostrar el producto");
+      navigate("/panel", { replace: true });
+    });
   }, [auth.token, id]);
 
+  
   if (!auth.token) return auth.goLogin;
 
 
