@@ -75,7 +75,7 @@ export default function AuthNavbar({ auth }: { auth: AuthContextData }) {
           <Dropdown.Item as={Link} to="/categoria/listar">Categorias</Dropdown.Item>
           <Dropdown.Item as={Link} to="/producto/listar">Productos</Dropdown.Item>
           <Dropdown.Item as={Link} to="/venta/listar">Ventas</Dropdown.Item>
-          <Dropdown.Item as={Link} to="/sensor/listar">Sensores</Dropdown.Item>
+          <Dropdown.Item as={Link} to="/sensor/listar">Dispositivos IoT</Dropdown.Item>
         </Dropdown>
       </Navbar.Collapse>
     </Navbar>

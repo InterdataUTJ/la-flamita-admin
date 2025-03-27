@@ -103,7 +103,6 @@ export default function ClienteCrear(){
                         name="avatar"
                         label="Avatar"
                         description="Selecciona tu avatar"
-                        required
                     />
 
                     <Button type='submit'loading ={loading}>

@@ -14,6 +14,8 @@ export default function LoginPage() {
   const correoRef = useRef<HTMLInputElement>(null);
   const claveRef = useRef<HTMLInputElement>(null);
 
+  if (!!auth.token) return auth.goAlreadyLogged;
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!correoRef.current || !claveRef.current) return;

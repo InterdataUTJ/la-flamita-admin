@@ -49,6 +49,7 @@ import VentaListar from './pages/Ventas/Listar';
 import VentaEditar from './pages/Ventas/Editar';
 import VentaMostrar from './pages/Ventas/Mostrar';
 import Error403Page from './pages/Errors/403';
+import VentaEntregar from './pages/Ventas/Entregar';
 export default function App() {
   const { token } = useAuthContext();
 
@@ -95,6 +96,7 @@ export default function App() {
             <Route path="/cliente/mostrar/:id" element={<ClienteMostrar />} />
 
             {/* Rutas de ventas */}
+            <Route path="/venta/entregar" element={<VentaEntregar />} />
             <Route path="/venta/crear" element={<VentaCrear />} />
             <Route path="/venta/listar" element={<VentaListar />} />
             <Route path="/venta/editar/:id" element={<VentaEditar />} />

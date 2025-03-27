@@ -30,11 +30,13 @@ export default function VentaListar() {
                 navigate("/venta/listar", { replace: true });
             });
     }, [auth.token, id]);
+    
+    if (!auth.token) return auth.goLogin;
 
     //Listamos los datos de la venta
     return (
         <Template title="Mostrar venta">
-            <h2 className="text-center font-extrabold text-3xl mb-8 mt-4">Venta #{Venta._id}</h2>
+            <h2 className="text-center font-extrabold text-xl md:text-2xl lg:text-3xl mb-8 mt-4">Venta #{Venta._id}</h2>
 
             <div className="space-y-4 p-4 border rounded shadow bg-white my-5">
                 <h3 className="font-bold text-lg pb-1 border-b-2 border-primary-700">Resumen</h3>
@@ -66,6 +68,11 @@ export default function VentaListar() {
                     <dl className="flex items-center justify-between gap-4">
                         <dt className="text-base font-normal text-gray-500">Método de pago</dt>
                         <dd className="text-base font-medium text-gray-900">{Venta.metodo_pago}</dd>
+                    </dl>
+
+                    <dl className="flex items-center justify-between gap-4">
+                        <dt className="text-base font-normal text-gray-500">Estado de la venta</dt>
+                        <dd className="text-base font-medium text-gray-900">{Venta.estado}</dd>
                     </dl>
                 </div>
             </div>
@@ -111,14 +118,34 @@ export default function VentaListar() {
                 <h3 className="font-bold text-lg pb-1 border-b-2 border-primary-700">Total de la venta</h3>
                 <div className="space-y-2">
                     {(() => {
-                        let total = Venta.productos?.reduce((total, producto) => {
-                            return total + producto.precio * producto.cantidad - producto.descuento;
+
+                        const total = Venta.productos?.reduce((total, producto) => {
+                            return total + (producto.precio - (producto.precio * (producto.descuento / 100))) * producto.cantidad;
                         }, 0) || 0;
+
+                        const subtotal = Venta.productos?.reduce((subtotal, producto) => {
+                            return subtotal + (producto.precio * producto.cantidad);
+                        }, 0) || 0;
+
+                        const descuento = Venta.productos?.reduce((descuento, producto) => {
+                            return descuento + (producto.precio * (producto.descuento / 100)) * producto.cantidad;
+                        }, 0) || 0;
+
                         return (
-                            <dl className="flex items-center justify-between gap-4">
-                                <dt className="text-base font-bold text-gray-900">Total:</dt>
-                                <dd className="text-base font-bold text-gray-900">${total.toFixed(2)}</dd>
-                            </dl>
+                            <>
+                                <dl className="flex items-center justify-between gap-4">
+                                    <dt className="text-base font-semibold text-gray-500">Subtotal:</dt>
+                                    <dd className="text-base font-semibold text-gray-600">${subtotal.toFixed(2)}</dd>
+                                </dl>
+                                <dl className="flex items-center justify-between gap-4">
+                                    <dt className="text-base font-semibold text-gray-500">Descuento:</dt>
+                                    <dd className="text-base font-semibold text-green-700">-${descuento.toFixed(2)}</dd>
+                                </dl>
+                                <dl className="flex items-center justify-between gap-4">
+                                    <dt className="text-lg font-bold text-gray-900">Total:</dt>
+                                    <dd className="text-lg font-bold text-gray-900">${total.toFixed(2)} MXN</dd>
+                                </dl>
+                            </>
                         );
                     })()}
                 </div>

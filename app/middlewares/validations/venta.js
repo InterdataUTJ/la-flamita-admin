@@ -20,5 +20,12 @@ export default function validate(method) {
         checkValidationResult,
       ];
     }
+
+    case "entregar": {
+      return [
+        text("token", { articulo: "el", min: 30, max: 40 }),
+        checkValidationResult,
+      ];
+    }
   }
 }

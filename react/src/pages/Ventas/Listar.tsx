@@ -33,6 +33,8 @@ export default function VentaListar() {
             });
     }, [auth.token]);
 
+    if (!auth.token) return auth.goLogin;
+
     const handleDelete = (id: string) => {
         if (!auth.token) return;
         if (!auth.user?.rol || (auth.user?.rol !== "ADMINISTRADOR" && auth.user?.rol !== "GERENTE")) return window.alert("Acceso no permitido");
@@ -50,10 +52,16 @@ export default function VentaListar() {
 
     return (
         <Template title="Listar ventas">
-            <Button as={Link} to="/venta/crear">
-                <IconPencilPlus />
-                Crear Venta
-            </Button>
+            <div className="flex justify-between items-center gap-4 lg:flex-row flex-col">
+                <Button as={Link} to="/venta/entregar" color="tertiary">
+                    <IconPencilPlus />
+                    Entregar Venta
+                </Button>
+                <Button as={Link} to="/venta/crear">
+                    <IconPencilPlus />
+                    Crear Venta
+                </Button>
+            </div>
             <div className="mt-4 relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-quinary-100 dark:bg-gray-700 dark:text-gray-400">
