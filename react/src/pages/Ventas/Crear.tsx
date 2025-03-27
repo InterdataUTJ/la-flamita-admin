@@ -181,7 +181,7 @@ export default function Ventacrear() {
                                 </div>
 
                                 {/* Mostrar el precio calculado */}
-                                <label>
+                                <label htmlFor="">
                                     {selectedProduct
                                         ? <span><b>Total:</b><br /> ${selectedProduct.precio * cantidad}</span>
                                         : "Selecciona un producto"}

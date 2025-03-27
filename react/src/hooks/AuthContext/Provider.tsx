@@ -76,6 +76,7 @@ export default function AuthContextProvider({ children }: AuthContextProviderPro
       logout: handleLogout,
       update: handleUpdate,
       goLogin: <Navigate to="/login" replace />,
+      goAlreadyLogged: <Navigate to="/panel" replace />,
       goNotAllowed: <Navigate to="/error/403" replace />,
     }}>
       {children}

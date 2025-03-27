@@ -141,3 +141,5 @@ export const VentaUpdateError = errorMaker('VentaUpdateError', 'Error al editar 
 export const VentaDeleteError = errorMaker('VentaDeleteError', 'Error al eliminar el Venta', 500);
 /** Error al mostrar el Venta */
 export const VentaShowError = errorMaker('VentaShowError', 'Error al mostrar el Venta', 500);
+/** Error al entregar el Venta */
+export const VentaDeliverError = errorMaker('VentaDeliverError', 'Error al entregar el Venta', 500);

@@ -23,7 +23,7 @@ ventaSchema.index({ paypal_id: 1 }, { unique: true, sparse: true });
 
 // Methods
 ventaSchema.statics.listar = function() {
-  return this.find().select('-token -productos');
+  return this.find({ estado: { $ne: "PENDIENTE" } }).select('-token -productos');
 }
 
 export default mongoose.model("Venta", ventaSchema);

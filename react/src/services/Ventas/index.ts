@@ -18,6 +18,10 @@ export default class VentaService {
     return Http.get<VentaResponse>(`/venta/mostrar/${id}`, { jwt }) as Promise<VentaResponse>;
   }
 
+  static entregar(jwt: string, token: string) {
+    return Http.post<undefined>(`/venta/entregar`, { token }, { jwt });
+  }
+
   static eliminar(jwt: string, id: string) {
     return Http.delete<undefined>(`/venta/eliminar/${id}`, { jwt });
   }
